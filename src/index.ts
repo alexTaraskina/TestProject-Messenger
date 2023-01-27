@@ -31,6 +31,7 @@ import { Chat } from './pages/chat';
 import { Profile } from './pages/profile';
 import { Modals } from './pages/modals';
 import { Main } from './pages/main';
+import { HashRouter } from 'core/Router/HashRouter';
 
 registerComponent(Link);
 registerComponent(Button);
@@ -70,6 +71,10 @@ declare global {
 
 document.addEventListener('DOMContentLoaded', function() {
     const store = new Store<AppState>(defaultState);
+    const router = new HashRouter();
+
+    window.router = router;
+    window.store = store;
 
     // if (window.location.pathname === '/login') {
     //     renderDOM(new Login());
