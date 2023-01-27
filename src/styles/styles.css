@@ -2,20 +2,3 @@
 @import "common";
 @import "colors";
 @import "forms.css";
-
-@import "../partials/components/button/button.css";
-@import "../partials/components/link/link.css";
-@import "../partials/components/key-value-line/key-value-line.css";
-@import "../partials/components/form-input-group/form-input-group.css";
-@import "../partials/components/file-type-option/file-type-option.css";
-
-@import "../partials/modules/error/error.css";
-@import "../partials/modules/searchbox/searchbox.css";
-@import "../partials/modules/message/message.css";
-@import "../partials/modules/chats/chats.css";
-@import "../partials/modules/chat-area/chat-area.css";
-@import "../partials/modules/chat-preview/chat-preview.css";
-@import "../partials/modules/profile-card/profile-card.css";
-@import "../partials/modules/modal/modal.css";
-
-@import "../pages/profile/profile.css";

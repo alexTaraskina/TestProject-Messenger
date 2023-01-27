@@ -1,9 +1,9 @@
 .button {
     width: 280px;
     height: 37px;
-    background: $blue;
+    background: var(--blue);
     border: transparent;
     border-radius: 8px;
-    color: $white;
+    color: var(--white);
     font-weight: 500;
 }

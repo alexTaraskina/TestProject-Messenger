@@ -1,6 +1,6 @@
 .searchbox {
     width: 100%;
-    background-color: $whisper;
+    background-color: var(--whisper);
     border: none;
     border-radius: 5px;
     height: 32px;

@@ -1,9 +1,9 @@
 .chats {
     width: 310px;
-    background: $alabaster;
+    background: var(--alabaster);
     height: auto;
     min-height: 100vh;
-    border-right: 1px solid $whisper;
+    border-right: 1px solid var(--whisper);
     padding: 21px 10px;
     flex-shrink: 0;
 
@@ -12,7 +12,7 @@
         font-weight: 500;
         font-size: 12px;
         line-height: 12px;
-        color: $gray;
+        color: var(--gray);
         margin-bottom: 23px;
     }
 

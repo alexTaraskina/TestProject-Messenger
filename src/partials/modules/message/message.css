@@ -4,12 +4,12 @@
     font-weight: 500;
     font-size: 12px;
     line-height: 15px;
-    color: $nero;
+    color: var(--nero);
     border-radius: 12px;
 
     &_type_sent {
         align-self: flex-end;
-        background-color: $wizard-white;
+        background-color: var(--wizard-white);
     }
 
     &_content-type_text {
@@ -17,7 +17,7 @@
 
         &.message_type_recieved {
             border-radius: 0 12px 12px;
-            background-color: $guyabano;
+            background-color: var(--guyabano);
         }
 
         &.message_type_sent {

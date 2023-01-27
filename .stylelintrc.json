@@ -1,0 +1,19 @@
+{
+    "plugins": [
+        "stylelint-scss",
+        "stylelint-selector-bem-pattern"
+    ],
+    "rules": {
+        "color-hex-case": "upper",
+        "color-hex-length": "long",
+        "at-rule-no-unknown": null,
+        "scss/at-rule-no-unknown": true,
+        "indentation": 4,
+        "plugin/selector-bem-pattern": {
+            "preset": "bem"
+        }
+    },
+    "ignoreFiles": [
+        "dist/*"
+    ]
+}

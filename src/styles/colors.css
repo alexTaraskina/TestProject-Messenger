@@ -1,13 +1,15 @@
-$white: #FFFFFF;
-$blue: #3369F3;
-$gray: #999999;
-$dark-gray: #1E1E1E;
-$alabaster: #FBFBFB;
-$whisper: #EAEAEA;
-$white-smoke: #EFEFEF;
-$nero: #1E1E1E;
-$guyabano: #F8F8F8;
-$wizard-white: #E4EDFD; 
-$error-red: #FF2F2F;
-$suva-grey: #8D8D8D;
-$black: #000000;
+:root {
+    --white: #FFFFFF;
+    --blue: #3369F3;
+    --gray: #999999;
+    --dark-gray: #1E1E1E;
+    --alabaster: #FBFBFB;
+    --whisper: #EAEAEA;
+    --white-smoke: #EFEFEF;
+    --nero: #1E1E1E;
+    --guyabano: #F8F8F8;
+    --wizard-white: #E4EDFD;
+    --error-red: #FF2F2F;
+    --suva-grey: #8D8D8D;
+    --black: #000000;
+}

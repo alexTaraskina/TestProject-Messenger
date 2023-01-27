@@ -1,6 +1,5 @@
 .file-type-option {
     display: flex;
-    justify-content: center;
     align-items: center;
     justify-content: flex-start;
 
@@ -14,6 +13,6 @@
         font-weight: 500;
         font-size: 12px;
         line-height: 14px;
-        color: $dark-gray;
+        color: var(--dark-gray);
     }
 }

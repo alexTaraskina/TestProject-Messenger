@@ -1,28 +1,26 @@
 body {
-    font-family: 'Inter';
+    font-family: Inter, sans-serif;
     font-style: normal;
     font-weight: 400;
 }
 
 button {
-    font-family: 'Inter';
-}
-
-a, button {
-    cursor: pointer;
-}
-
-button {
+    font-family: Inter, sans-serif;
     padding: 0;
 }
 
-main {
+a,
+button {
+    cursor: pointer;
+}
+
+.page {
     display: flex;
 }
 
-main.login,
-main.signin,
-main.error {
+div.login,
+div.signin,
+div.error {
     display: flex;
     height: 100vh;
     justify-content: center;

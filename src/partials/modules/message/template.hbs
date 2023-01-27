@@ -1,0 +1,9 @@
+<div class="message {{type}} {{contentType}}">
+    {{#if text }}
+    <p>{{{text}}}</p>
+    {{else}}
+    <img class="message__image" 
+        src="~/static/assets/images/camera.jpg" 
+        alt="received image"/>
+    {{/if}}
+</div>

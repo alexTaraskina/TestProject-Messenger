@@ -1,0 +1,8 @@
+.form-error {
+    color: var(--error-red);
+    font-weight: 400;
+    font-size: 8px;
+    line-height: 8px;
+    position: absolute;
+    bottom: -12px;
+}

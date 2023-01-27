@@ -2,20 +2,20 @@
     display: flex;
     justify-content: space-between;
     padding: 10px 0;
-    border-bottom: 1px solid $whisper;
+    border-bottom: 1px solid var(--whisper);
     width: 100%;
 
     &__key {
         font-weight: 500;
         font-size: 13px;
         line-height: 13px;
-        color: $nero;
+        color: var(--nero);
     }
 
     &__value {
         font-weight: 500;
         font-size: 13px;
         line-height: 13px;
-        color: $gray;
+        color: var(--gray);
     }
 }

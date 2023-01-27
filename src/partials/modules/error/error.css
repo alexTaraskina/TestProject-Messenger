@@ -7,7 +7,7 @@
         font-weight: 500;
         font-size: 40px;
         line-height: 40px;
-        color: $dark-gray;
+        color: var(--dark-gray);
         margin-bottom: 20px;
     }
 
@@ -15,7 +15,7 @@
         font-weight: 500;
         font-size: 20px;
         line-height: 20px;
-        color: $dark-gray;
+        color: var(--dark-gray);
         margin-bottom: 69px;
     }
 }

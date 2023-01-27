@@ -4,7 +4,8 @@ https://polite-selkie-cbf8bc.netlify.app/
 
 ## PRs
 
-Sprint 1: https://github.com/alexTaraskina/middle.messenger.praktikum.yandex/pull/1
+Sprint 1: https://github.com/alexTaraskina/middle.messenger.praktikum.yandex/pull/1  
+Sprint 2: https://github.com/alexTaraskina/middle.messenger.praktikum.yandex/pull/2  
 
 ## Установка
 
@@ -17,7 +18,8 @@ Sprint 1: https://github.com/alexTaraskina/middle.messenger.praktikum.yandex/pul
 ```bash
 ├── static - статичный контент (иконки, картинки, шрифты)
 └── src - исходный код, подлежащий постобработке бандлером
-    ├── layouts - лейауты страниц
+				├── core
+				├── helpers - вспомогательные модули
     ├── pages - макеты страниц
     ├── partials - частичные представления
     │   ├── components - компоненты-атомы, которые будут использованы в двух и более модулях
