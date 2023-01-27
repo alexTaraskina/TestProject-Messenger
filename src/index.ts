@@ -1,8 +1,7 @@
 import './styles/styles.css';
 
-import { renderDOM, registerComponent, CoreRouter, Store } from  './core';
+import { registerComponent, CoreRouter, Store } from  './core';
 import { defaultState } from './store';
-import { initRouter } from './router';
 
 import { Link } from './partials/components/link';
 import { Button } from './partials/components/button';

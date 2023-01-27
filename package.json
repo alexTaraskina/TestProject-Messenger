@@ -10,7 +10,8 @@
     "core": "./src/core",
     "pages": "./src/pages",
     "helpers": "./src/helpers",
-    "partials": "./src/partials"
+    "partials": "./src/partials",
+    "store": "./src/store"
   },
   "devDependencies": {
     "@parcel/transformer-inline-string": "2.8.1",
