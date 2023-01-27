@@ -1,6 +1,8 @@
 import './styles/styles.css';
 
-import { renderDOM, registerComponent } from  './core';
+import { renderDOM, registerComponent, CoreRouter, Store } from  './core';
+import { defaultState } from './store';
+import { initRouter } from './router';
 
 import { Link } from './partials/components/link';
 import { Button } from './partials/components/button';
@@ -60,32 +62,41 @@ registerComponent(Profile);
 registerComponent(Modals);
 registerComponent(Main);
 
+declare global {
+    interface Window {
+        store: Store<AppState>;
+        router: CoreRouter;
+    }
+}
+
 document.addEventListener('DOMContentLoaded', function() {
-    if (window.location.pathname === '/login') {
-        renderDOM(new Login());
-    }
-    else if (window.location.pathname === '/404') {
-        renderDOM(new Error404());
-    }
-    else if (window.location.pathname === '/500') {
-        renderDOM(new Error500());
-    }
-    else if (window.location.pathname === '/signin') {
-        renderDOM(new SignIn());
-    }
-    else if (window.location.pathname === '/chose-chat') {
-        renderDOM(new ChoseChat());
-    }
-    else if (window.location.pathname === '/chat') {
-        renderDOM(new Chat());
-    }
-    else if (window.location.pathname === '/profile') {
-        renderDOM(new Profile());
-    }
-    else if (window.location.pathname === '/modals') {
-        renderDOM(new Modals());
-    }
-    else {
-        renderDOM(new Main());
-    }
+    const store = new Store<AppState>(defaultState);
+
+    // if (window.location.pathname === '/login') {
+    //     renderDOM(new Login());
+    // }
+    // else if (window.location.pathname === '/404') {
+    //     renderDOM(new Error404());
+    // }
+    // else if (window.location.pathname === '/500') {
+    //     renderDOM(new Error500());
+    // }
+    // else if (window.location.pathname === '/signin') {
+    //     renderDOM(new SignIn());
+    // }
+    // else if (window.location.pathname === '/chose-chat') {
+    //     renderDOM(new ChoseChat());
+    // }
+    // else if (window.location.pathname === '/chat') {
+    //     renderDOM(new Chat());
+    // }
+    // else if (window.location.pathname === '/profile') {
+    //     renderDOM(new Profile());
+    // }
+    // else if (window.location.pathname === '/modals') {
+    //     renderDOM(new Modals());
+    // }
+    // else {
+    //     renderDOM(new Main());
+    // }
 });
