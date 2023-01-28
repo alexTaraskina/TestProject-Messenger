@@ -1,9 +1,14 @@
 import EventBus from './EventBus';
-import {nanoid} from 'nanoid';
+import { nanoid } from 'nanoid';
 import Handlebars from 'handlebars';
 
 interface BlockMeta<P = any> {
   props: P;
+}
+
+export interface BlockClass<P extends object> extends Function {
+  new(props: P): Block<P>;
+  componentName?: string;
 }
 
 type Events = Values<typeof Block.EVENTS>;
@@ -16,28 +21,25 @@ export default class Block<P extends object = {}> {
     FLOW_RENDER: 'flow:render',
   } as const;
 
-  static componentName: string;
+  public static componentName?: string;
 
   public id = nanoid(6);
-  private readonly _meta: BlockMeta;
 
   protected _element: Nullable<HTMLElement> = null;
   protected readonly props: P;
-  protected children: {[id: string]: Block} = {};
+  protected children: { [id: string]: Block } = {};
 
   eventBus: () => EventBus<Events>;
 
   protected state: any = {};
-  protected refs: {[key: string]: Block} = {};
+  protected refs: { [key: string]: Block } = {};
 
   public constructor(props?: P) {
     const eventBus = new EventBus<Events>();
 
-    this._meta = {
-      props,
-    };
-
-    this.getStateFromProps(props)
+    if (!!props) {
+      this.getStateFromProps(props as P);
+    }
 
     this.props = this._makePropsProxy(props || {} as P);
     this.state = this._makePropsProxy(this.state);
@@ -88,7 +90,7 @@ export default class Block<P extends object = {}> {
     return true;
   }
 
-  setProps = (nextProps: P) => {
+  setProps = (nextProps: Partial<P>) => {
     if (!nextProps) {
       return;
     }
@@ -128,7 +130,7 @@ export default class Block<P extends object = {}> {
     // Хак, чтобы вызвать CDM только после добавления в DOM
     if (this.element?.parentNode?.nodeType === Node.DOCUMENT_FRAGMENT_NODE) {
       setTimeout(() => {
-        if (this.element?.parentNode?.nodeType !==  Node.DOCUMENT_FRAGMENT_NODE ) {
+        if (this.element?.parentNode?.nodeType !== Node.DOCUMENT_FRAGMENT_NODE) {
           this.eventBus().emit(Block.EVENTS.FLOW_CDM);
         }
       }, 100)
@@ -152,7 +154,7 @@ export default class Block<P extends object = {}> {
 
         // Запускаем обновление компоненты
         // Плохой cloneDeep, в след итерации нужно заставлять добавлять cloneDeep им самим
-        self.eventBus().emit(Block.EVENTS.FLOW_CDU, {...target}, target);
+        self.eventBus().emit(Block.EVENTS.FLOW_CDU, { ...target }, target);
         return true;
       },
       deleteProperty() {

@@ -11,7 +11,8 @@
     "pages": "./src/pages",
     "helpers": "./src/helpers",
     "partials": "./src/partials",
-    "store": "./src/store"
+    "store": "./src/store",
+    "utils": "./src/utils"
   },
   "devDependencies": {
     "@parcel/transformer-inline-string": "2.8.1",

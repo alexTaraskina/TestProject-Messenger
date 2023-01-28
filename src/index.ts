@@ -2,6 +2,7 @@ import './styles/styles.css';
 
 import { registerComponent, CoreRouter, Store } from  './core';
 import { defaultState } from './store';
+import { initRouter } from './router';
 
 import { Link } from './partials/components/link';
 import { Button } from './partials/components/button';
@@ -53,14 +54,14 @@ registerComponent(ProfileCard);
 registerComponent(Modal);
 
 registerComponent(Login);
-registerComponent(Error404);
-registerComponent(Error500);
-registerComponent(SignIn);
-registerComponent(ChoseChat);
-registerComponent(Chat);
-registerComponent(Profile);
-registerComponent(Modals);
-registerComponent(Main);
+// registerComponent(Error404);
+// registerComponent(Error500);
+// registerComponent(SignIn);
+// registerComponent(ChoseChat);
+// registerComponent(Chat);
+// registerComponent(Profile);
+// registerComponent(Modals);
+// registerComponent(Main);
 
 declare global {
     interface Window {
@@ -75,6 +76,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
     window.router = router;
     window.store = store;
+
+    initRouter(router, store);
 
     // if (window.location.pathname === '/login') {
     //     renderDOM(new Login());
