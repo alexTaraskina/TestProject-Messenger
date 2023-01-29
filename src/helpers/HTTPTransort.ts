@@ -19,38 +19,37 @@ function queryStringify(data: unknown) {
 }
 
 type Options = {
-  method?: string,
   data?: {},
   headers?: Map<string, string>,
   timeout?: number,
 }
 
-type HTTPMethod = (url: string, options?: Options) => Promise<unknown>
+type HTTPMethod = <TResponse = unknown>(url: string, options?: Options) => Promise<TResponse>
 
 export default class HTTPTransport {
-  get: HTTPMethod = (url, options = {}) => {
-    return this.request(url + queryStringify(options.data), { ...options, method: METHODS.GET }, options.timeout);
+  get: HTTPMethod = (url, options) => {
+    return this.request(url + queryStringify(options?.data), METHODS.GET, options);
   };
 
-  put: HTTPMethod = (url, options = { timeout: 5000 }) => {
-    return this.request(url, { ...options, method: METHODS.PUT }, options.timeout);
+  put: HTTPMethod = (url, options) => {
+    return this.request(url, METHODS.PUT, options);
   };
 
-  post: HTTPMethod = (url, options = {}) => {
-    return this.request(url, { ...options, method: METHODS.POST }, options.timeout);
+  post: HTTPMethod = (url, options) => {
+    return this.request(url, METHODS.POST, options);
   };
 
-  delete: HTTPMethod = (url, options = {}) => {
-    return this.request(url, { ...options, method: METHODS.DELETE }, options.timeout);
-  };
+  delete: HTTPMethod = (url, options) => {
+    return this.request(url, METHODS.DELETE, options);
+  };  
 
-  request = (url: string, options: Options, timeout = 5000) => {
+  request = <TResponse = unknown>(url: string, method: string, options?: Options): Promise<TResponse> => {
     return new Promise((resolve, reject) => {
       const xhr = new XMLHttpRequest();
-      xhr.open(options.method, url, true);
-      xhr.timeout = timeout;
+      xhr.open(method, url, true);
+      xhr.timeout = options?.timeout ?? 5000;
 
-      if (options.headers) {
+      if (options?.headers) {
         for (const [key, value] of options.headers.entries()) {
           xhr.setRequestHeader(key, value);
         }
@@ -58,14 +57,14 @@ export default class HTTPTransport {
 
       xhr.onload = function () {
         console.log(xhr);
-        resolve(xhr);
+        resolve(xhr.response);
       };
 
       xhr.onabort = reject;
       xhr.onerror = reject;
       xhr.ontimeout = reject;
 
-      if (options.method === METHODS.GET || !options.data) {
+      if (method === METHODS.GET || !options?.data) {
         xhr.send();
       } else {
         xhr.send(JSON.stringify(options.data));

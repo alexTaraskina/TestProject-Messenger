@@ -12,10 +12,12 @@
     "helpers": "./src/helpers",
     "partials": "./src/partials",
     "store": "./src/store",
-    "utils": "./src/utils"
+    "utils": "./src/utils",
+    "api": "./src/api"
   },
   "devDependencies": {
     "@parcel/transformer-inline-string": "2.8.1",
+    "@types/node": "18.11.18",
     "@typescript-eslint/eslint-plugin": "5.47.1",
     "@typescript-eslint/parser": "5.47.1",
     "eslint": "8.30.0",

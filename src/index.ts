@@ -1,6 +1,7 @@
 import './styles/styles.css';
 
-import { registerComponent, CoreRouter, Store } from  './core';
+import { registerComponent, CoreRouter, Store, PathRouter } from './core';
+import { initApp } from './services/initApp';
 import { defaultState } from './store';
 import { initRouter } from './router';
 
@@ -24,15 +25,14 @@ import { ProfileCard } from './partials/modules/profile-card';
 import { Modal } from './partials/modules/modal';
 
 import { Login } from './pages/login';
-import { Error404 } from './pages/404';
-import { Error500 } from './pages/500';
-import { SignIn } from './pages/signin';
-import { ChoseChat } from './pages/chose-chat';
-import { Chat } from './pages/chat';
-import { Profile } from './pages/profile';
-import { Modals } from './pages/modals';
-import { Main } from './pages/main';
-import { HashRouter } from 'core/Router/HashRouter';
+// import { Error404 } from './pages/404';
+// import { Error500 } from './pages/500';
+// import { SignIn } from './pages/signin';
+// import { ChoseChat } from './pages/chose-chat';
+// import { Chat } from './pages/chat';
+// import { Profile } from './pages/profile';
+// import { Modals } from './pages/modals';
+// import { Main } from './pages/main';
 
 registerComponent(Link);
 registerComponent(Button);
@@ -70,14 +70,32 @@ declare global {
     }
 }
 
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     const store = new Store<AppState>(defaultState);
-    const router = new HashRouter();
+    const router = new PathRouter();
 
     window.router = router;
     window.store = store;
 
+    store.on('changed', (prevState, nextState) => {
+        if (process.env.DEBUG) {
+            console.log(
+                '%cstore updated',
+                'background: #222; color: #bada55',
+                nextState,
+            );
+        }
+    });
+
+    /**
+     * Инициализируем роутер
+     */
     initRouter(router, store);
+
+    /**
+     * Загружаем данные для приложения
+     */
+    store.dispatch(initApp);
 
     // if (window.location.pathname === '/login') {
     //     renderDOM(new Login());
