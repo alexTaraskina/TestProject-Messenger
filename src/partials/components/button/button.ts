@@ -5,17 +5,17 @@ import './button.css';
 
 interface ButtonProps {
     heading: string;
-    events? : {
-        click?: () => void
+    events: {
+        click: () => void;
     }
 }
 
 export default class Button extends Block<ButtonProps> {
     static componentName: string = 'Button';
 
-    constructor(props: ButtonProps) {
-        super(props);
-    }
+    // constructor({ heading, onClick }: ButtonProps) {
+    //     super({ heading, events: {} });
+    //   }
 
     render() {
         return template;

@@ -1,9 +1,13 @@
-import { Block } from '../../../core';
+import { Block, CoreRouter, Store } from '../../../core';
 import template from 'bundle-text:./template.hbs';
 import { validateForm } from 'helpers/validateForm';
 
 interface RegisterFormProps {
-
+    store: Store<AppState>,
+    router: CoreRouter,
+    events: {
+        submit:(event: MouseEvent) => void,
+    }
 }
 
 export default class RegisterForm extends Block<RegisterFormProps> {
@@ -65,6 +69,10 @@ export default class RegisterForm extends Block<RegisterFormProps> {
 
         const passwordError = validateForm({ type: 'password', value: passwordEl.value });
         this.refs.passwordInputGroup.refs.formError.setProps({ text: passwordError });
+
+        if (!loginError && !emailError && !nameError && !secondNameError && !phoneError && !passwordError) {
+            this.props.store.dispatch(login, loginData);
+        }
     }
     
     render() {

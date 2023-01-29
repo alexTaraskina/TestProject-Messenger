@@ -3,13 +3,38 @@ import { getScreenComponent, Screens } from './utils';
 
 const routes = [
     {
+        path: '/signin',
+        block: Screens.Register,
+        shouldAuthorized: false,
+    },
+    {
         path: '/login',
         block: Screens.Login,
         shouldAuthorized: false,
     },
     {
-        path: '*',
+        path: '/404',
+        block: Screens.Error404,
+        shouldAuthorized: false,
+    },
+    {
+        path: '/500',
+        block: Screens.Error500,
+        shouldAuthorized: false,
+    },
+    {
+        path: '/chose-chat',
         block: Screens.Login,
+        shouldAuthorized: true,
+    },
+    {
+        path: '/profile',
+        block: Screens.Profile,
+        shouldAuthorized: true,
+    },
+    {
+        path: '*',
+        block: Screens.Main,
         shouldAuthorized: false,
     },
 ];

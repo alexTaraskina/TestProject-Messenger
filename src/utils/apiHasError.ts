@@ -1,5 +1,6 @@
 import { APIError } from 'api/types';
 
 export function hasError(response: any): response is APIError {
-    return response && response.reason;
+    let responseParsed = JSON.parse(response);
+    return responseParsed && responseParsed.reason;
 }

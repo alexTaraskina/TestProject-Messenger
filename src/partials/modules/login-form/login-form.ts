@@ -1,11 +1,19 @@
-import { Block } from 'core';
 import template from 'bundle-text:./template.hbs';
+import { Block, Store, CoreRouter } from 'core';
 import { validateForm } from 'helpers/validateForm';
+import { login } from 'services/auth';
+import { withStore, withRouter } from 'utils';
 
 interface LoginFormProps {
+    store: Store<AppState>,
+    router: CoreRouter,
+    onRegisterLinkClick?: (e: Event) => void,
+    events: {
+        submit: (event: MouseEvent) => void
+    }
 }
 
-export default class LoginForm extends Block<LoginFormProps> {
+class LoginForm extends Block<LoginFormProps> {
     static componentName: string = 'LoginForm';
 
     constructor(props: LoginFormProps) {
@@ -14,6 +22,10 @@ export default class LoginForm extends Block<LoginFormProps> {
             events: {
                 submit: (event: MouseEvent) => this.onSubmit(event),
             },
+        });
+
+        this.setProps({
+            onRegisterLinkClick: (e) => this.onRegisterLinkClick(e),
         });
     }
 
@@ -40,9 +52,20 @@ export default class LoginForm extends Block<LoginFormProps> {
 
         const passwordError = validateForm({ type: 'password', value: passwordEl.value });
         this.refs.passwordInputGroup.refs.formError.setProps({ text: passwordError });
+
+        if (!loginError && !passwordError) {
+            this.props.store.dispatch(login, loginData);
+        }
+    }
+
+    onRegisterLinkClick(e: Event) {
+        e.preventDefault();
+        this.props.router.go('/signin');
     }
 
     render() {
         return template;
     }
 }
+
+export default withRouter(withStore(LoginForm));

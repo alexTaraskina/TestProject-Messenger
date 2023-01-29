@@ -8,6 +8,15 @@ type LoginPayload = {
     password: string;
 };
 
+type RegisterPayload = {
+    first_name: string,
+    second_name: string,
+    login: string,
+    email: string,
+    password: string,
+    phone: string
+}
+
 export const login = async (
     dispatch: Dispatch<AppState>,
     state: AppState,
@@ -43,5 +52,23 @@ export const logout = async (dispatch: Dispatch<AppState>) => {
 
     dispatch({ isLoading: false, user: null });
 
-    window.router.go('/onboarding');
+    window.router.go('/login');
 };
+
+export const register = async (
+    dispatch: Dispatch<AppState>,
+    state: AppState,
+    data: RegisterPayload
+) => {
+    dispatch({ isLoading: true });
+
+    const response = await authAPI.register(data);
+
+    if (apiHasError(response)) {
+        dispatch({ isLoading: false, loginFormError: response.reason });
+        return;
+    }
+
+    dispatch({ isLoading: false, user: null });
+    window.router.go('/login');
+}

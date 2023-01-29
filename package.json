@@ -13,7 +13,8 @@
     "partials": "./src/partials",
     "store": "./src/store",
     "utils": "./src/utils",
-    "api": "./src/api"
+    "api": "./src/api",
+    "services": "./src/services"
   },
   "devDependencies": {
     "@parcel/transformer-inline-string": "2.8.1",
