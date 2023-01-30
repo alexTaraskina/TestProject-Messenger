@@ -22,6 +22,7 @@ import { Error } from './partials/modules/error';
 import { Searchbox } from './partials/modules/searchbox';
 import { ChatPreview } from './partials/modules/chat-preview';
 import { ProfileCard } from './partials/modules/profile-card';
+import { ProfileEditForm } from 'partials/modules/profile-edit-form';
 import { Modal } from './partials/modules/modal';
 
 import { Login } from './pages/login';
@@ -43,6 +44,7 @@ registerComponent(Error);
 registerComponent(Searchbox);
 registerComponent(ChatPreview);
 registerComponent(ProfileCard);
+registerComponent(ProfileEditForm);
 registerComponent(Modal);
 
 registerComponent(Login);

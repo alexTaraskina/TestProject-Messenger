@@ -15,6 +15,15 @@ type RegisterRequestData = {
     phone: string
 };
 
+type EditProfileRequestData = {
+    first_name: string,
+    second_name: string,
+    display_name: string,
+    login: string,
+    email: string,
+    phone: string
+};
+
 const baseURL = 'https://ya-praktikum.tech/api/v2';
 
 type ResponseData = {} | APIError;
@@ -30,3 +39,8 @@ export const authAPI = {
     register: (data: RegisterRequestData) => 
         new HTTPTransport().post<ResponseData>(baseURL + '/auth/signup', {data}),
 };
+
+export const profileAPI = {
+    edit: (data: EditProfileRequestData) => 
+        new HTTPTransport().put<ResponseData>(baseURL + '/user/profile', {data}),
+}

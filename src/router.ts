@@ -33,6 +33,11 @@ const routes = [
         shouldAuthorized: true,
     },
     {
+        path: '/profile-edit',
+        block: Screens.ProfileEdit,
+        shouldAuthorized: true,
+    },
+    {
         path: '*',
         block: Screens.Login,
         shouldAuthorized: false,

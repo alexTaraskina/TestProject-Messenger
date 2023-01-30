@@ -63,7 +63,7 @@ export default class HTTPTransport {
       xhr.withCredentials = true;
 
       xhr.onload = function () {
-        resolve(xhr.response);
+        resolve(JSON.parse(xhr.response));
       };
 
       xhr.onabort = reject;

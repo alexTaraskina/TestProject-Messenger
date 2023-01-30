@@ -1,4 +1,4 @@
-import { authAPI } from 'api/auth';
+import { authAPI, profileAPI } from 'api/auth';
 import { UserDTO } from 'api/types';
 import type { Dispatch } from 'core';
 import { transformUser, apiHasError } from 'utils';
@@ -14,6 +14,15 @@ type RegisterPayload = {
     login: string,
     email: string,
     password: string,
+    phone: string
+}
+
+type EditProfilePayload = {
+    first_name: string,
+    second_name: string,
+    display_name: string,
+    login: string,
+    email: string,
     phone: string
 }
 
@@ -82,4 +91,24 @@ export const register = async (
     dispatch({ user: transformUser(responseUser as UserDTO) });
 
     window.router.go('/messenger');
+}
+
+export const editProfile = async (
+    dispatch: Dispatch<AppState>,
+    state: AppState,
+    data: EditProfilePayload
+) => {
+    dispatch({ isLoading: true });
+
+    console.log(data);
+    const response = await profileAPI.edit(data);
+
+    if (apiHasError(response)) {
+        dispatch({ isLoading: false });
+        return;
+    }
+
+    dispatch({ isLoading: false, user: transformUser(response as UserDTO) });
+
+    window.router.go('/profile');
 }

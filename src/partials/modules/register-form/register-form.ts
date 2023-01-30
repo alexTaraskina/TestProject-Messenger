@@ -34,12 +34,6 @@ class RegisterForm extends Block<RegisterFormProps> {
             email: string,
             password: string,
             phone: string
-            // email: string,
-            // login: string,
-            // firstName: string,
-            // secondName: string,
-            // phone: string,
-            // password: string
         };
 
         const emailEl = this.element?.querySelector('#email') as HTMLInputElement;
