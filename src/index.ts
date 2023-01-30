@@ -25,14 +25,6 @@ import { ProfileCard } from './partials/modules/profile-card';
 import { Modal } from './partials/modules/modal';
 
 import { Login } from './pages/login';
-// import { Error404 } from './pages/404';
-// import { Error500 } from './pages/500';
-// import { SignIn } from './pages/signin';
-// import { ChoseChat } from './pages/chose-chat';
-// import { Chat } from './pages/chat';
-// import { Profile } from './pages/profile';
-// import { Modals } from './pages/modals';
-// import { Main } from './pages/main';
 
 registerComponent(Link);
 registerComponent(Button);
@@ -54,14 +46,6 @@ registerComponent(ProfileCard);
 registerComponent(Modal);
 
 registerComponent(Login);
-// registerComponent(Error404);
-// registerComponent(Error500);
-// registerComponent(SignIn);
-// registerComponent(ChoseChat);
-// registerComponent(Chat);
-// registerComponent(Profile);
-// registerComponent(Modals);
-// registerComponent(Main);
 
 declare global {
     interface Window {
@@ -87,41 +71,10 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 
-    /**
-     * Инициализируем роутер
-     */
     initRouter(router, store);
 
     /**
      * Загружаем данные для приложения
      */
     store.dispatch(initApp);
-
-    // if (window.location.pathname === '/login') {
-    //     renderDOM(new Login());
-    // }
-    // else if (window.location.pathname === '/404') {
-    //     renderDOM(new Error404());
-    // }
-    // else if (window.location.pathname === '/500') {
-    //     renderDOM(new Error500());
-    // }
-    // else if (window.location.pathname === '/signin') {
-    //     renderDOM(new SignIn());
-    // }
-    // else if (window.location.pathname === '/chose-chat') {
-    //     renderDOM(new ChoseChat());
-    // }
-    // else if (window.location.pathname === '/chat') {
-    //     renderDOM(new Chat());
-    // }
-    // else if (window.location.pathname === '/profile') {
-    //     renderDOM(new Profile());
-    // }
-    // else if (window.location.pathname === '/modals') {
-    //     renderDOM(new Modals());
-    // }
-    // else {
-    //     renderDOM(new Main());
-    // }
 });

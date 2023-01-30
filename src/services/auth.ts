@@ -42,7 +42,7 @@ export const login = async (
 
     dispatch({ user: transformUser(responseUser as UserDTO) });
 
-    window.router.go('/profile');
+    window.router.go('/messenger');
 };
 
 export const logout = async (dispatch: Dispatch<AppState>) => {
@@ -62,13 +62,24 @@ export const register = async (
 ) => {
     dispatch({ isLoading: true });
 
+    console.log(data);
     const response = await authAPI.register(data);
 
     if (apiHasError(response)) {
-        dispatch({ isLoading: false, loginFormError: response.reason });
+        dispatch({ isLoading: false });
         return;
     }
 
-    dispatch({ isLoading: false, user: null });
-    window.router.go('/login');
+    const responseUser = await authAPI.me();
+
+    dispatch({ isLoading: false });
+
+    if (apiHasError(response)) {
+        dispatch(logout);
+        return;
+    }
+
+    dispatch({ user: transformUser(responseUser as UserDTO) });
+
+    window.router.go('/messenger');
 }

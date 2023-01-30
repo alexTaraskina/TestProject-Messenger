@@ -3,7 +3,7 @@ import { getScreenComponent, Screens } from './utils';
 
 const routes = [
     {
-        path: '/signin',
+        path: '/sign-up',
         block: Screens.Register,
         shouldAuthorized: false,
     },
@@ -23,8 +23,8 @@ const routes = [
         shouldAuthorized: false,
     },
     {
-        path: '/chose-chat',
-        block: Screens.Login,
+        path: '/messenger',
+        block: Screens.Chats,
         shouldAuthorized: true,
     },
     {
@@ -34,7 +34,7 @@ const routes = [
     },
     {
         path: '*',
-        block: Screens.Main,
+        block: Screens.Login,
         shouldAuthorized: false,
     },
 ];

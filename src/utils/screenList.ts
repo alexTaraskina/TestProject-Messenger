@@ -11,9 +11,9 @@ export enum Screens {
     Error404 = '404',
     Error500 = '500',
     Profile = 'profile',
-    Chats = 'chose-chat',
+    Chats = 'messenger',
     Login = 'login',
-    Register = 'signin',
+    Register = 'signup',
     Main = 'main'
 }
 

@@ -54,9 +54,15 @@ export default class HTTPTransport {
           xhr.setRequestHeader(key, value);
         }
       }
+      else {
+        xhr.setRequestHeader('Content-Type', 'application/json');
+        xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest'); 
+        xhr.setRequestHeader('Access-Control-Allow-Origin', '*');
+      }
+
+      xhr.withCredentials = true;
 
       xhr.onload = function () {
-        console.log(xhr);
         resolve(xhr.response);
       };
 

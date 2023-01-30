@@ -45,8 +45,6 @@ class LoginForm extends Block<LoginFormProps> {
             password: passwordEl?.value,
         }
 
-        console.log(loginData);
-
         const loginError = validateForm({ type: 'login', value: loginEl.value });
         this.refs.loginInputGroup.refs.formError.setProps({ text: loginError });
 
@@ -60,7 +58,7 @@ class LoginForm extends Block<LoginFormProps> {
 
     onRegisterLinkClick(e: Event) {
         e.preventDefault();
-        this.props.router.go('/signin');
+        this.props.router.go('/sign-up');
     }
 
     render() {

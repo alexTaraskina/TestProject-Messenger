@@ -1,6 +1,8 @@
 import { Block, CoreRouter, Store } from '../../../core';
 import template from 'bundle-text:./template.hbs';
 import { validateForm } from 'helpers/validateForm';
+import { register } from 'services/auth';
+import { withStore, withRouter } from 'utils';
 
 interface RegisterFormProps {
     store: Store<AppState>,
@@ -10,7 +12,7 @@ interface RegisterFormProps {
     }
 }
 
-export default class RegisterForm extends Block<RegisterFormProps> {
+class RegisterForm extends Block<RegisterFormProps> {
     static componentName: string = 'RegisterForm';
 
     constructor(props: RegisterFormProps) {
@@ -26,12 +28,18 @@ export default class RegisterForm extends Block<RegisterFormProps> {
         event.preventDefault();
 
         interface RegisterData {
-            email: string,
+            first_name: string,
+            second_name: string,
             login: string,
-            firstName: string,
-            secondName: string,
-            phone: string,
-            password: string
+            email: string,
+            password: string,
+            phone: string
+            // email: string,
+            // login: string,
+            // firstName: string,
+            // secondName: string,
+            // phone: string,
+            // password: string
         };
 
         const emailEl = this.element?.querySelector('#email') as HTMLInputElement;
@@ -42,12 +50,12 @@ export default class RegisterForm extends Block<RegisterFormProps> {
         const passwordEl = this.element?.querySelector('#password') as HTMLInputElement;
 
         const registerData: RegisterData = {
-            email: emailEl?.value,
+            first_name: firstNameEl?.value,
+            second_name: secondNameEl?.value,
             login: loginEl?.value,
-            firstName: firstNameEl?.value,
-            secondName: secondNameEl?.value,
-            phone: phoneEl?.value,
+            email: emailEl?.value,
             password: passwordEl?.value,
+            phone: phoneEl?.value,
         }
 
         console.log(registerData);
@@ -71,7 +79,7 @@ export default class RegisterForm extends Block<RegisterFormProps> {
         this.refs.passwordInputGroup.refs.formError.setProps({ text: passwordError });
 
         if (!loginError && !emailError && !nameError && !secondNameError && !phoneError && !passwordError) {
-            this.props.store.dispatch(login, loginData);
+            this.props.store.dispatch(register, registerData);
         }
     }
     
@@ -79,3 +87,5 @@ export default class RegisterForm extends Block<RegisterFormProps> {
         return template;
     }
 }
+
+export default withRouter(withStore(RegisterForm));
