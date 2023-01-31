@@ -12,6 +12,7 @@ import { FormError } from 'partials/components/form-error';
 import { FormInputGroup } from './partials/components/form-input-group';
 import { FileTypeOption } from './partials/components/file-type-option';
 import { KeyValueLine } from './partials/components/key-value-line';
+import { Avatar } from 'partials/components/avatar';
 
 import { LoginForm } from './partials/modules/login-form';
 import { RegisterForm } from './partials/modules/register-form';
@@ -34,6 +35,7 @@ registerComponent(FormError);
 registerComponent(FormInputGroup);
 registerComponent(FileTypeOption);
 registerComponent(KeyValueLine);
+registerComponent(Avatar);
 
 registerComponent(LoginForm);
 registerComponent(RegisterForm);

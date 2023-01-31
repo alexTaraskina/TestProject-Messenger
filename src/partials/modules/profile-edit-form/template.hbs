@@ -1,12 +1,5 @@
 <div class="profile-edit">
-    <div class="profile-card__avatar">
-        {{#if avatar}}
-        <img src="{{{avatar}}}" alt="avatar" />
-        {{else}}
-        <span class="profile-card__avatar-icon"></span>
-        {{/if}}
-        <div class="profile-card__shadow"><span>Поменять аватар</span></div>
-    </div>
+    {{{ Avatar }}}
     <form class="form form_type_profile" id="profile-form" name="profile-form">
         <div class="form__top-content">
             {{{ FormInputGroup

@@ -1,12 +1,5 @@
 <div class="profile-card">
-    <div class="profile-card__avatar">
-        {{#if avatar}}
-        <img src="{{{avatar}}}" alt="avatar" />
-        {{else}}
-        <span class="profile-card__avatar-icon"></span>
-        {{/if}}
-        <div class="profile-card__shadow"><span>Поменять аватар</span></div>
-    </div>
+    {{{ Avatar }}}
     <p class="profile-card__name">{{{name}}}</p>
     {{{ KeyValueLine key="Почта" value="pochta@yandex.ru" }}}
     {{{ KeyValueLine key="Логин" value="ivanivanov" }}}
