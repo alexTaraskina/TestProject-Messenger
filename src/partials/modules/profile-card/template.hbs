@@ -1,12 +1,12 @@
 <div class="profile-card">
     {{{ Avatar }}}
     <p class="profile-card__name">{{{name}}}</p>
-    {{{ KeyValueLine key="Почта" value="pochta@yandex.ru" }}}
-    {{{ KeyValueLine key="Логин" value="ivanivanov" }}}
-    {{{ KeyValueLine key="Имя" value="Иван" }}}
-    {{{ KeyValueLine key="Фамилия" value="Иванов" }}}
-    {{{ KeyValueLine key="Имя в чате" value="Иван" }}}
-    {{{ KeyValueLine key="Телефон" value="+7 (909) 967 30 30" }}}
+    {{{ KeyValueLine key="Почта" value=store.state.user.email }}}
+    {{{ KeyValueLine key="Логин" value=store.state.user.login }}}
+    {{{ KeyValueLine key="Имя" value=store.state.user.firstName }}}
+    {{{ KeyValueLine key="Фамилия" value=store.state.user.secondName }}}
+    {{{ KeyValueLine key="Имя в чате" value=store.state.user.displayName }}}
+    {{{ KeyValueLine key="Телефон" value=store.state.user.phone }}}
     <br />
     <br />
     {{{ Link class="profile-card__edit-link" linkText="Изменить данные" href="#" onClick=onEditProfileClick }}}
