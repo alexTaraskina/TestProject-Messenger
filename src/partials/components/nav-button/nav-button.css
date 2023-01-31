@@ -4,4 +4,7 @@
     background-color: var(--alabaster);
     border-right: 1px solid var(--whisper);
     flex-shrink: 0;
+    outline: none;
+    border-bottom: 0;
+    border-top: none;
 }

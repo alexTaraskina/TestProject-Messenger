@@ -16,6 +16,9 @@
     "api": "./src/api",
     "services": "./src/services"
   },
+  "copyStaticFiles": [
+    { "from": "./static/assets/icons/*", "to": "dist/icons" }
+  ],
   "devDependencies": {
     "@parcel/transformer-inline-string": "2.8.1",
     "@types/node": "18.11.18",
