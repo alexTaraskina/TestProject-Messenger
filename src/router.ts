@@ -38,6 +38,11 @@ const routes = [
         shouldAuthorized: true,
     },
     {
+        path: '/password-edit',
+        block: Screens.PasswordEdit,
+        shouldAuthorized: true,
+    },
+    {
         path: '*',
         block: Screens.Login,
         shouldAuthorized: false,

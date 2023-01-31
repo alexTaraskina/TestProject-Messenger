@@ -26,6 +26,11 @@ type EditProfilePayload = {
     phone: string
 }
 
+type UpdatePasswordPayload = {
+    oldPassword: string,
+    newPassword: string,
+}
+
 export const login = async (
     dispatch: Dispatch<AppState>,
     state: AppState,
@@ -111,4 +116,25 @@ export const editProfile = async (
     dispatch({ isLoading: false, user: transformUser(response as UserDTO) });
 
     window.router.go('/profile');
+}
+
+export const updatePassword = async (
+    dispatch: Dispatch<AppState>,
+    state: AppState,
+    data: UpdatePasswordPayload
+) => {
+    dispatch({ isLoading: true });
+
+    const response = await profileAPI.password(data);
+
+    if (apiHasError(response)) {
+        dispatch({ isLoading: false, changePasswordError: response.reason });
+        return;
+    }
+
+    dispatch({ isLoading: false, changePasswordMessage: 'Пароль был изменен' });
+    setTimeout(() => { 
+        dispatch({ changePasswordMessage: '' }); 
+        window.router.go('/profile');
+    }, 2000);
 }

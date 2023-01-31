@@ -24,6 +24,11 @@ type EditProfileRequestData = {
     phone: string
 };
 
+type UpdatePasswordRequestData = {
+    oldPassword: string,
+    newPassword: string,
+};
+
 const baseURL = 'https://ya-praktikum.tech/api/v2';
 
 type ResponseData = {} | APIError;
@@ -43,4 +48,7 @@ export const authAPI = {
 export const profileAPI = {
     edit: (data: EditProfileRequestData) => 
         new HTTPTransport().put<ResponseData>(baseURL + '/user/profile', {data}),
+
+    password: (data: UpdatePasswordRequestData) => 
+        new HTTPTransport().put<ResponseData>(baseURL + '/user/password', {data}),
 }

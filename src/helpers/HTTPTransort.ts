@@ -63,7 +63,7 @@ export default class HTTPTransport {
       xhr.withCredentials = true;
 
       xhr.onload = function () {
-        resolve(JSON.parse(xhr.response));
+        resolve(isJsonString(xhr.response) ? JSON.parse(xhr.response) : xhr.response);
       };
 
       xhr.onabort = reject;
@@ -77,4 +77,13 @@ export default class HTTPTransport {
       }
     });
   };
+}
+
+function isJsonString(str) {
+  try {
+      JSON.parse(str);
+  } catch (e) {
+      return false;
+  }
+  return true;
 }

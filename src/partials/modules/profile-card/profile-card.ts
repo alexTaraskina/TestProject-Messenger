@@ -25,6 +25,7 @@ class ProfileCard extends Block<ProfileCardProps> {
         this.setProps({
             onLogoutClick: (e: Event) => this.onLogoutClick(e),
             onEditProfileClick: (e: Event) => this.onEditProfileClick(e),
+            onChangePasswordClick: (e: Event) => this.onChangePasswordClick(e),
         });
     }
 
@@ -41,6 +42,7 @@ class ProfileCard extends Block<ProfileCardProps> {
 
     onChangePasswordClick(e: Event) {
         e.preventDefault();
+        this.props.router.go('/password-edit');
     }
     
     render() {

@@ -9,6 +9,8 @@ declare global {
         screen: Screens | null;
         isLoading: boolean;
         loginFormError: string | null;
+        changePasswordError: string | null;
+        changePasswordMessage: string | null;
         user: User | null;
     };
 
