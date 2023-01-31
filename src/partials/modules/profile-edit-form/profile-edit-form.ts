@@ -2,7 +2,7 @@ import { Block, Store, CoreRouter } from '../../../core';
 import template from 'bundle-text:./template.hbs';
 import { withRouter, withStore } from 'utils';
 import { validateForm } from 'helpers/validateForm';
-import { editProfile } from 'services/auth';
+import { editProfile } from 'services/profile';
 
 import './profile-edit-form.css';
 

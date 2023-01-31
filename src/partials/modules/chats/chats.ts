@@ -1,7 +1,6 @@
 import { Block, CoreRouter, Store } from '../../../core';
 import template from 'bundle-text:./template.hbs';
 import { withRouter, withStore } from 'utils';
-import { logout } from 'services/auth';
 
 import './chats.css';
 

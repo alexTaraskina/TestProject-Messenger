@@ -2,7 +2,7 @@ import { Block, Store } from '../../../core';
 import template from 'bundle-text:./template.hbs';
 import { withStore } from 'utils';
 import { validateForm } from 'helpers/validateForm';
-import { updatePassword } from 'services/auth';
+import { updatePassword } from 'services/profile';
 
 import './password-edit-form.css'
 
