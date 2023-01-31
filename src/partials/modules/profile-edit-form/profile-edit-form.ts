@@ -4,6 +4,8 @@ import { withRouter, withStore } from 'utils';
 import { validateForm } from 'helpers/validateForm';
 import { editProfile } from 'services/auth';
 
+import './profile-edit-form.css';
+
 interface ProfileEditFormProps {
     store: Store<AppState>,
     router: CoreRouter,
