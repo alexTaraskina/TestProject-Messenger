@@ -1,4 +1,5 @@
-import { authAPI, profileAPI } from 'api/auth';
+import { authAPI } from 'api/auth';
+import { profileAPI } from 'api/profile';
 import { UserDTO } from 'api/types';
 import type { Dispatch } from 'core';
 import { transformUser, apiHasError } from 'utils';

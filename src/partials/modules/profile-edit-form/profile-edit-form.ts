@@ -24,10 +24,6 @@ class ProfileEditForm extends Block<ProfileEditFormProps> {
                 submit: (event: MouseEvent) => this.onSubmit(event),
             },
         });
-
-        this.setProps({
-            //onLogoutClick: (e: Event) => this.onLogoutClick(e),
-        });
     }
 
     onSubmit(e: Event) {
