@@ -23,11 +23,10 @@ class Avatar extends Block<AvatarProps> {
     }
     
     onAvatarChange(e: Event) {
-        alert('ks');
         const avatarInputEl = e.target as HTMLInputElement;
         if (avatarInputEl && avatarInputEl.files) {
             const formData = new FormData();
-            formData.append('file', avatarInputEl.files[0]);
+            formData.append('avatar', avatarInputEl.files[0]);
             this.props.store.dispatch(changeAvatar, formData);
         }
     }

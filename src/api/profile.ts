@@ -30,6 +30,6 @@ export const profileAPI = {
     password: (data: UpdatePasswordRequestData) => 
         new HTTPTransport().put<ResponseData>(baseURL + '/user/password', {data}),
 
-    changeAvatar: (data: ChangeAvatarRequestData) =>
-        new HTTPTransport().put<UserDTO | APIError>(baseURL + '/user/profile/avatar', { data, noHeaders: true }),
+    changeAvatar: (data: FormData) =>
+        new HTTPTransport().put<UserDTO | APIError>(baseURL + '/user/profile/avatar', { data, noHeaders: true, noConvertion: true }),
 }

@@ -23,6 +23,7 @@ type Options = {
   headers?: Map<string, string>,
   timeout?: number,
   noHeaders?: boolean,
+  noConvertion?: boolean,
 }
 
 type HTTPMethod = <TResponse = unknown>(url: string, options?: Options) => Promise<TResponse>
@@ -76,7 +77,7 @@ export default class HTTPTransport {
       if (method === METHODS.GET || !options?.data) {
         xhr.send();
       } else {
-        xhr.send(JSON.stringify(options.data));
+        xhr.send(options.noConvertion ? options.data : JSON.stringify(options.data));
       }
     });
   };
