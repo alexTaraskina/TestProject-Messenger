@@ -22,6 +22,7 @@ type Options = {
   data?: {},
   headers?: Map<string, string>,
   timeout?: number,
+  noHeaders?: boolean,
 }
 
 type HTTPMethod = <TResponse = unknown>(url: string, options?: Options) => Promise<TResponse>
@@ -41,7 +42,7 @@ export default class HTTPTransport {
 
   delete: HTTPMethod = (url, options) => {
     return this.request(url, METHODS.DELETE, options);
-  };  
+  };
 
   request = <TResponse = unknown>(url: string, method: string, options?: Options): Promise<TResponse> => {
     return new Promise((resolve, reject) => {
@@ -49,15 +50,17 @@ export default class HTTPTransport {
       xhr.open(method, url, true);
       xhr.timeout = options?.timeout ?? 5000;
 
-      if (options?.headers) {
-        for (const [key, value] of options.headers.entries()) {
-          xhr.setRequestHeader(key, value);
+      if (!options?.noHeaders) {
+        if (options?.headers) {
+          for (const [key, value] of options.headers.entries()) {
+            xhr.setRequestHeader(key, value);
+          }
         }
-      }
-      else {
-        xhr.setRequestHeader('Content-Type', 'application/json');
-        xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest'); 
-        xhr.setRequestHeader('Access-Control-Allow-Origin', '*');
+        else {
+          xhr.setRequestHeader('Content-Type', 'application/json');
+          xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+          xhr.setRequestHeader('Access-Control-Allow-Origin', '*');
+        }
       }
 
       xhr.withCredentials = true;
@@ -79,11 +82,11 @@ export default class HTTPTransport {
   };
 }
 
-function isJsonString(str) {
+function isJsonString(str: string) {
   try {
-      JSON.parse(str);
+    JSON.parse(str);
   } catch (e) {
-      return false;
+    return false;
   }
   return true;
 }

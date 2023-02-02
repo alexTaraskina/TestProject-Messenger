@@ -1,5 +1,5 @@
 import { HTTPTransport } from 'helpers';
-import { APIError } from 'api/types';
+import { UserDTO, APIError } from 'api/types';
 
 type EditProfileRequestData = {
     first_name: string,
@@ -31,5 +31,5 @@ export const profileAPI = {
         new HTTPTransport().put<ResponseData>(baseURL + '/user/password', {data}),
 
     changeAvatar: (data: ChangeAvatarRequestData) =>
-        new HTTPTransport().put<ResponseData>(baseURL + '/user/profile/avatar', {data}),
+        new HTTPTransport().put<UserDTO | APIError>(baseURL + '/user/profile/avatar', { data, noHeaders: true }),
 }

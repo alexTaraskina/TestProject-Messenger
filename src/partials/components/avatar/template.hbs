@@ -4,7 +4,8 @@
     {{else}}
     <span class="avatar__icon"></span>
     {{/if}}
-    <div class="avatar__shadow" onClick=onAvatarChangeClick>
+    <form class="avatar__form" id="avatarForm">
+        {{{ Input type="file" id="avatarInput" name="avatarInput" onChange=onAvatarChange }}}
         <span>Поменять аватар</span>
-    </div>
+    </form>
 </div>

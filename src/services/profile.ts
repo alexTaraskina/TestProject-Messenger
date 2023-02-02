@@ -17,6 +17,10 @@ type UpdatePasswordPayload = {
     newPassword: string,
 }
 
+type ChangeAvatarPayload = {
+    file: Blob,
+};
+
 export const editProfile = async (
     dispatch: Dispatch<AppState>,
     state: AppState,
@@ -56,4 +60,22 @@ export const updatePassword = async (
         dispatch({ changePasswordMessage: '' }); 
         window.router.go('/profile');
     }, 2000);
+}
+
+export const changeAvatar = async (
+    dispatch: Dispatch<AppState>,
+    state: AppState,
+    data: ChangeAvatarPayload
+) => {
+    dispatch({ isLoading: true });
+
+    const response = await profileAPI.changeAvatar(data);
+
+    if (apiHasError(response)) {
+        dispatch({ isLoading: false });
+        return;
+    }
+
+    dispatch({ isLoading: false, user: transformUser(response as UserDTO) });
+    window.router.go('/profile');
 }

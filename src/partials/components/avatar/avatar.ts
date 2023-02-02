@@ -1,12 +1,14 @@
 import { Block, Store } from "core";
 import template from 'bundle-text:./template.hbs';
+import { withStore } from "utils";
+import { changeAvatar } from 'services/profile';
 
 import './avatar.css';
-import { withStore } from "utils";
 
 interface AvatarProps {
+    file: string,
     store: Store<AppState>,
-    onAvatarChangeClick: (e: Event) => void,
+    onAvatarChange?: (e: Event) => void,
 }
 
 class Avatar extends Block<AvatarProps> {
@@ -16,21 +18,18 @@ class Avatar extends Block<AvatarProps> {
         super(props);
 
         this.setProps({
-            onAvatarChangeClick:(e: Event) => this.onAvatarChangeClick(e),
+            onAvatarChange:(e) => this.onAvatarChange(e),
         });
     }
     
-    onAvatarChangeClick(e: Event) {
-        e.preventDefault();
-
-        interface ChangeAvatarData {
-            file: Blob,
-        };
-
-        const changeAvatarData = {
-        };
-
-        this.props.store.dispatch(login, changeAvatarData);
+    onAvatarChange(e: Event) {
+        alert('ks');
+        const avatarInputEl = e.target as HTMLInputElement;
+        if (avatarInputEl && avatarInputEl.files) {
+            const formData = new FormData();
+            formData.append('file', avatarInputEl.files[0]);
+            this.props.store.dispatch(changeAvatar, formData);
+        }
     }
 
     render() {
