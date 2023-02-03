@@ -19,7 +19,7 @@ export const transformChat = (data: ChatDTO): Chat => {
     title: data.title,
     avatar: data.avatar,
     unreadCount: data.unread_count,
-    lastMessage: {
+    lastMessage: data.last_message ? {
       user: {
         firstName: data.last_message.user.first_name,
         secondName: data.last_message.user.second_name,
@@ -30,6 +30,6 @@ export const transformChat = (data: ChatDTO): Chat => {
       },
       time: data.last_message.time,
       content: data.last_message.content
-    }
+    } : null,
   };
 }

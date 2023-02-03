@@ -33,7 +33,7 @@ declare global {
         title: string,
         avatar: string,
         unreadCount: number,
-        lastMessage: LastMessage
+        lastMessage: LastMessage | null
     }
 
     type LastMessage = {

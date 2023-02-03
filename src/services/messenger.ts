@@ -1,4 +1,5 @@
 import { messengerAPI } from 'api/messenger';
+import { ChatDTO } from 'api/types';
 import type { Dispatch } from 'core';
 import { apiHasError, transformChat } from 'utils';
 
@@ -20,6 +21,14 @@ export const createChat = async (
         return;
     }
 
+    const responseChats = await messengerAPI.chats();
+    if (apiHasError(responseChats)) {
+        dispatch({ isLoading: false });
+        return;
+    }
+    else {
+        dispatch({ isLoading: false, chats: responseChats.map(item => transformChat(item as ChatDTO)) });
+    }
+
     // ToDo route to created chat page
-    dispatch({ isLoading: false });
 }
