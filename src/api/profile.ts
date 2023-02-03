@@ -1,5 +1,6 @@
 import { HTTPTransport } from 'helpers';
-import { UserDTO, APIError } from 'api/types';
+import { UserDTO, APIError, ResponseData } from 'api/types';
+import { baseURL } from './variables';
 
 type EditProfileRequestData = {
     first_name: string,
@@ -14,14 +15,6 @@ type UpdatePasswordRequestData = {
     oldPassword: string,
     newPassword: string,
 };
-
-type ChangeAvatarRequestData = {
-    file: Blob,
-}
-
-const baseURL = 'https://ya-praktikum.tech/api/v2';
-
-type ResponseData = {} | APIError;
 
 export const profileAPI = {
     edit: (data: EditProfileRequestData) => 

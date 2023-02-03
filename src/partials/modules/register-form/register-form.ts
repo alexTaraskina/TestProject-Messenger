@@ -52,8 +52,6 @@ class RegisterForm extends Block<RegisterFormProps> {
             phone: phoneEl?.value,
         }
 
-        console.log(registerData);
-
         const loginError = validateForm({ type: 'login', value: loginEl.value });
         this.refs.loginInputGroup.refs.formError.setProps({ text: loginError });
 

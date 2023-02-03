@@ -1,7 +1,11 @@
 <div class="chats">
     <div class="chats__navigation">
         {{{ Link class="chats__link" linkText="Профиль >" href="#" onClick=onProfileLinkClick }}}
-        {{{ Searchbox }}}
+        {{!-- {{{ Searchbox }}} --}}
+        <div class="chats__create-chat">
+            {{{ Input type="text" id="newChatTitle" name="newChatTitle" placeholder="Новый чат" }}}
+            {{{ Button heading="Создать" onClick=onCreateChatClick }}}
+        </div>
     </div>
     <div class="chats__list">
         {{{ ChatPreview name="Андрей" lastMessage="Изображение" time="10:49" }}}

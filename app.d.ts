@@ -12,6 +12,8 @@ declare global {
         changePasswordError: string | null;
         changePasswordMessage: string | null;
         user: User | null;
+        chats: Chat[] | null;
+        currentChat: number | null;
     };
 
     export type User = {
@@ -24,6 +26,13 @@ declare global {
         phone: string;
         email: string;
     };
+
+    export type Chat = {
+        id: number,
+        title: string,
+        avatar: string,
+        unread_count: number,
+    }
 }
 
 export { }

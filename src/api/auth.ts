@@ -1,5 +1,6 @@
 import { HTTPTransport } from 'helpers';
-import { UserDTO, APIError } from 'api/types';
+import { UserDTO, APIError, ResponseData } from 'api/types';
+import { baseURL } from './variables';
 
 type LoginRequestData = {
     login: string;
@@ -14,10 +15,6 @@ type RegisterRequestData = {
     password: string,
     phone: string
 };
-
-const baseURL = 'https://ya-praktikum.tech/api/v2';
-
-type ResponseData = {} | APIError;
 
 export const authAPI = {
     login: (data: LoginRequestData) =>
