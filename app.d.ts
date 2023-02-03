@@ -14,6 +14,7 @@ declare global {
         user: User | null;
         chats: Chat[] | null;
         currentChat: number | null;
+        createChatError: string | null;
     };
 
     export type User = {
@@ -31,7 +32,21 @@ declare global {
         id: number,
         title: string,
         avatar: string,
-        unread_count: number,
+        unreadCount: number,
+        lastMessage: LastMessage
+    }
+
+    type LastMessage = {
+        user: {
+            firstName: string,
+            secondName: string,
+            avatar: string,
+            email: string,
+            login: string,
+            phone: string
+        },
+        time: string,
+        content: string
     }
 }
 

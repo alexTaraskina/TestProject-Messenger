@@ -1,6 +1,6 @@
 import { messengerAPI } from 'api/messenger';
 import type { Dispatch } from 'core';
-import { apiHasError } from 'utils';
+import { apiHasError, transformChat } from 'utils';
 
 type CreateChatPayload = {
     title: string,
@@ -16,9 +16,10 @@ export const createChat = async (
     const response = await messengerAPI.createChat(data);
 
     if (apiHasError(response)) {
-        dispatch({ isLoading: false });
+        dispatch({ isLoading: false, createChatError: response.reason });
         return;
     }
 
-    dispatch({ isLoading: false, changePasswordMessage: 'Пароль был изменен' });
+    // ToDo route to created chat page
+    dispatch({ isLoading: false });
 }

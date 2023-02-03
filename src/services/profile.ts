@@ -17,10 +17,6 @@ type UpdatePasswordPayload = {
     newPassword: string,
 }
 
-type ChangeAvatarPayload = {
-    file: Blob,
-};
-
 export const editProfile = async (
     dispatch: Dispatch<AppState>,
     state: AppState,
