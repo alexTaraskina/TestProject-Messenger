@@ -3,6 +3,7 @@ import template from 'bundle-text:./template.hbs';
 import { withRouter, withStore } from 'utils';
 
 import './chats.css';
+import { createChat } from 'services/messenger';
 
 interface ChatsProps {
     router: CoreRouter,
@@ -34,6 +35,10 @@ class Chats extends Block<ChatsProps> {
     onCreateChatClick() {
         const chatTitleEl = this.element?.querySelector('#newChatTitle') as HTMLInputElement;
 
+        if (chatTitleEl.value .length === 0) {
+            this.refs.newChatError.setProps({ text: 'Title can not be empty' }); 
+        }
+
         interface NewChatData {
             title: string,
         };
@@ -42,7 +47,7 @@ class Chats extends Block<ChatsProps> {
             title: chatTitleEl?.value,
         }
 
-        this.props.store.dispatch(register, newChatData);
+        this.props.store.dispatch(createChat, newChatData);
     }
     
     render() {
