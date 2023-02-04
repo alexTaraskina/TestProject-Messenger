@@ -6,7 +6,11 @@
             <p class="chat-area__recipient-name">{{{recipientName}}}</p>
         </div>
         <button class="chat-area__actions-button">
-            <span class="chat-area__actions-icon"></span>
+            <span class="chat-area__actions-icon" id="actionsButton"></span>
+            <div class="chat-area__actions-type-options jsOptions">
+                {{{ Option optionText="Добавить пользователя" optionType="addUser" }}}
+                {{{ Option optionText="Удалить пользователя" optionType="removeUser" }}}
+            </div>
         </button>
     </div>
     <div class="chat-area__main">
@@ -18,8 +22,8 @@
         </div>
         <div class="chat-area__new-message-area">
             <button class="chat-area__attach-file-button">
-                <span class="chat-area__attach-file-icon"></span>
-                <div class="chat-area__file-type-options">
+                <span class="chat-area__attach-file-icon" id="attachFileButton"></span>
+                <div class="chat-area__file-type-options jsOptions">
                     {{{ Option optionText="Фото или Видео" optionType="photo" }}}
                     {{{ Option optionText="Файл" optionType="video" }}}
                     {{{ Option optionText="Локация" optionType="location" }}}
