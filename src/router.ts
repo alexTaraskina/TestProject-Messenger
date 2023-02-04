@@ -28,6 +28,11 @@ const routes = [
         shouldAuthorized: true,
     },
     {
+        path: '/messenger/:id',
+        block: Screens.Chat,
+        shouldAuthorized: true,
+    },
+    {
         path: '/profile',
         block: Screens.Profile,
         shouldAuthorized: true,
@@ -51,17 +56,17 @@ const routes = [
 
 export function initRouter(router: CoreRouter, store: Store<AppState>) {
     routes.forEach(route => {
-        router.use(route.path, () => {
+        router.use(route.path, (params) => {
             const isAuthorized = Boolean(store.getState().user);
             const currentScreen = Boolean(store.getState().screen);
 
             if (isAuthorized || !route.shouldAuthorized) {
-                store.dispatch({ screen: route.block });
+                store.dispatch({ screen: route.block, params });
                 return;
             }
 
             if (!currentScreen) {
-                store.dispatch({ screen: Screens.Login });
+                store.dispatch({ screen: Screens.Login, params });
             }
         });
     });
@@ -73,7 +78,7 @@ export function initRouter(router: CoreRouter, store: Store<AppState>) {
 
         if (prevState.screen !== nextState.screen) {
             const Page = getScreenComponent(nextState.screen);
-            renderDOM(new Page({}));
+            renderDOM(new Page({ params: nextState.params }));
             document.title = `App / ${Page.componentName}`;
         }
     });

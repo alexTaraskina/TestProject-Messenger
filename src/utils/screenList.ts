@@ -8,6 +8,7 @@ import { Profile } from 'pages/profile';
 import { SignIn } from 'pages/signin';
 import { ProfileEdit } from 'pages/profile-edit';
 import { PasswordEdit } from 'pages/password-edit';
+import { Chat } from 'pages/chat';
 
 export enum Screens {
     Error404 = '404',
@@ -16,6 +17,7 @@ export enum Screens {
     ProfileEdit = 'profile-edit',
     PasswordEdit = 'password-edit',
     Chats = 'messenger',
+    Chat = "chat",
     Login = 'login',
     Register = 'signup',
     Main = 'main'
@@ -25,6 +27,7 @@ const map: Record<Screens, BlockClass<any>> = {
     [Screens.Error404]: Error404,
     [Screens.Error500]: Error500,
     [Screens.Chats]: ChoseChat,
+    [Screens.Chat]: Chat,
     [Screens.Profile]: Profile,
     [Screens.ProfileEdit]: ProfileEdit,
     [Screens.PasswordEdit]: PasswordEdit,
