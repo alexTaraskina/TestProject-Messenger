@@ -10,7 +10,7 @@
     </div>
     <div class="chats__list">
         {{#each store.state.chats}}
-            {{{ ChatPreview name=this.title lastMessage="Изображение" time="10:49" }}}
+            {{{ ChatPreview id=this.id title=this.title lastMessage="Изображение" time="10:49" }}}
         {{/each}}
     </div>
 </div>
