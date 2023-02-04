@@ -1,10 +1,10 @@
 import { Block } from '../../../core';
 import template from 'bundle-text:./template.hbs';
 
-import './file-type-option.css';
+import './option.css';
 
-export default class FileTypeOption extends Block {
-    static componentName: string = 'FileTypeOption';
+export default class Option extends Block {
+    static componentName: string = 'Option';
     
     render() {
         return template;
