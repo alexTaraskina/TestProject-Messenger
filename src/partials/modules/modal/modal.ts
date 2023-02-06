@@ -5,6 +5,7 @@ import './modal.css';
 
 interface ModalProps {
     onBackdropClick?: (e: Event) => void,
+    onButtonClick?: (e: Event) => void,
 };
 
 export default class Modal extends Block<ModalProps> {

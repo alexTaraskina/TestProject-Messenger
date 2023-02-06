@@ -1,10 +1,15 @@
 import { messengerAPI } from 'api/messenger';
-import { ChatDTO } from 'api/types';
+import { ChatDTO, UserDTO } from 'api/types';
 import type { Dispatch } from 'core';
-import { apiHasError, transformChat } from 'utils';
+import { apiHasError, transformChat, transformUser } from 'utils';
 
 type CreateChatPayload = {
     title: string,
+};
+
+type AddUserPayload = {
+    users: number[],
+    chatId: number,
 };
 
 export const createChat = async (
@@ -31,4 +36,29 @@ export const createChat = async (
     }
 
     // ToDo route to created chat page
+}
+
+export const addUser = async (
+    dispatch: Dispatch<AppState>,
+    state: AppState,
+    data: AddUserPayload
+) => {
+    dispatch({ isLoading: true });
+
+    const response = await messengerAPI.addUser(data);
+
+    if (apiHasError(response)) {
+        dispatch({ isLoading: false });
+        return;
+    }
+
+    const chatUsers = await messengerAPI.getChatUsers({ id: data.chatId });
+
+    if (apiHasError(chatUsers)) {
+        dispatch({ isLoading: false });
+        return;
+    }
+    else {
+        dispatch({ isLoading: false, currentChatUsers: chatUsers.map(item => transformUser(item as UserDTO)) });
+    }
 }

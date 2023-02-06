@@ -4,6 +4,9 @@
         <div class="chat-area__recipient-info">
             <div class="chat-area__recipient-avatar"></div>
             <p class="chat-area__recipient-name">{{{recipientName}}}</p>
+            {{#each store.state.currentChatUsers}}
+                <p>{{{this.firstName}}}</p>
+            {{/each}}
         </div>
         <button class="chat-area__actions-button">
             <span class="chat-area__actions-icon" id="actionsButton"></span>

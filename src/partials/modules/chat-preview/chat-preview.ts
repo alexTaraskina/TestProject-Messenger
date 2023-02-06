@@ -24,7 +24,7 @@ class ChatPreview extends Block<ChatPreviewProps> {
 
     onChatTitleClick(e: Event) {
         e.preventDefault();
-        this.props.router.go(`/messenger/${this.id}`);
+        this.props.router.go(`/messenger/${this.props.id}`);
     }
 
     render() {
