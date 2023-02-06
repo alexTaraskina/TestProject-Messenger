@@ -5,12 +5,14 @@ import './chat-area.css';
 
 interface ChatAreaProps {
     onChoseOptionClick?: (e: Event) => void,
+    onAddUserClick?: (e: Event) => void,
+    onRemoveUserClick?: (e: Event) => void,
 }
 
 export default class ChatArea extends Block<ChatAreaProps> {
     static componentName: string = 'ChatArea';
 
-    constructor(props: ChatPreviewProps) {
+    constructor(props: ChatAreaProps) {
         super(props);
 
         this.setProps({

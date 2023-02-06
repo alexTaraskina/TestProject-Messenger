@@ -1,4 +1,9 @@
 <div class="page chat-page">
     {{{ Chats }}}
-    {{{ ChatArea selected="chat-area_selected" recipientName="Вадим" }}}
+    {{{ ChatArea selected="chat-area_selected" 
+        recipientName="Вадим" 
+        onAddUserClick=showAddUserModal
+        onRemoveUserClick=showRemoveUserModal }}}
+    {{{ Modal state="hidden" heading="Добавить пользователя" buttonText="Добавить" ref="addUserModal" }}}
+    {{{ Modal state="hidden" heading="Удалить пользователя" buttonText="Удалить" ref="removeUserModal" }}}
 </div>
