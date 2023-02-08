@@ -62,3 +62,21 @@ export const addUser = async (
         dispatch({ isLoading: false, currentChatUsers: chatUsers.map(item => transformUser(item as UserDTO)) });
     }
 }
+
+export const getChatUsers= async (
+    dispatch: Dispatch<AppState>,
+    state: AppState,
+    id: number
+) => {
+    dispatch({ isLoading: true });
+
+    const chatUsers = await messengerAPI.getChatUsers({ id });
+
+    if (apiHasError(chatUsers)) {
+        dispatch({ isLoading: false });
+        return;
+    }
+    else {
+        dispatch({ isLoading: false, currentChatUsers: chatUsers.map(item => transformUser(item as UserDTO)) });
+    }
+}
