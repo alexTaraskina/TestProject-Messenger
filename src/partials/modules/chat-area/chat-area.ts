@@ -10,8 +10,8 @@ interface ChatAreaProps {
     onChoseOptionClick?: (e: Event) => void,
     onAddUserClick?: (e: Event) => void,
     onRemoveUserClick?: (e: Event) => void,
-    chatUsers: () => User[] | null,
     id: () => number,
+    chatUsers?: () => User[] | null,
 }
 
 class ChatArea extends Block<ChatAreaProps> {
@@ -24,16 +24,9 @@ class ChatArea extends Block<ChatAreaProps> {
 
         this.setProps({
             onChoseOptionClick: (e: Event) => this.onChoseOptionClick(e),
-            id: () => Number(this.props.store.getState().params.id),
-            chatUsers: () => this.props.store.getState().currentChatUsers,
+            id: () => Number(props.store.getState().params.id),
+            chatUsers: () => props.store.getState().currentChatUsers,
         });
-
-        this.props.store.dispatch(getChatUsers, this.props.id());
-
-        console.log(this.props.id());
-        console.log(this.props.chatUsers());
-
-        this.props.store.dispatch(getChatUsers, this.props.id);
 
         let actionButton = this.element?.querySelector('#actionsButton');
         if (actionButton) {
@@ -56,7 +49,7 @@ class ChatArea extends Block<ChatAreaProps> {
     }
 
     render() {
-        console.log(this.props.store.getState());
+        console.log(this.props.chatUsers ? this.props.chatUsers() : null);
         return template;
     }
 }

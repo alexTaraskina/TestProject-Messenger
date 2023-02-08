@@ -3,10 +3,13 @@
     <div class="chat-area__header">
         <div class="chat-area__recipient-info">
             <div class="chat-area__recipient-avatar"></div>
-            <p class="chat-area__recipient-name">{{{recipientName}}}</p>
-            {{#each store.state.currentChatUsers}}
-                <p>user </p>
-            {{/each}}
+            <div style="display: flex; flex-direction: column;">
+                <p class="chat-area__recipient-name">{{{recipientName}}}</p>
+                <p>{{{chatUsers}}}</p>
+                {{#each chatUsers}}
+                    <p>{{{this.firstName}}} {{{this.secondName}}}</p>
+                {{/each}}
+            </div>
         </div>
         <button class="chat-area__actions-button">
             <span class="chat-area__actions-icon" id="actionsButton"></span>
