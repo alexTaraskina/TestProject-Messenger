@@ -1,4 +1,4 @@
-import { Block, Store } from '../../core';
+import { Block, Store } from 'core';
 import template from 'bundle-text:./template.hbs';
 import { addUser } from 'services/messenger';
 
@@ -8,15 +8,20 @@ interface ChatProps {
     showRemoveUserModal?: () => void,
     onAddUserClick?: (e: Event) => void,
     onRemoveUserClick?: (e: Event) => void,
+    getChat: () => Chat | undefined,
 }
 
-export default class Chat extends Block<ChatProps> {
+export default class ChatPage extends Block<ChatProps> {
     static componentName: string = 'Chat';
     
 
     constructor(props: ChatProps)
     {
-        super(props);
+        super({ 
+            ...props, 
+            getChat: () => window.store.getState().chats?.find(chat => chat.id === Number(window.store.getState().params.id)) 
+        });
+
         this.setProps({
             showAddUserModal: () => this.showAddUserModal(),
             showRemoveUserModal: () => this.showRemoveUserModal(),
@@ -41,7 +46,7 @@ export default class Chat extends Block<ChatProps> {
 
         let el = e.target as HTMLElement;
         let userId = el && el.parentNode ? Number(el.parentNode.querySelector('input')?.value) : null;
-        let chatId = window.store.getState().params.id; 
+        let chatId = Number(window.store.getState().params.id); 
 
         if (userId && chatId) {
             const newChatUserData: NewChatUserData = {
@@ -58,6 +63,26 @@ export default class Chat extends Block<ChatProps> {
     }
 
     render() {
-        return template;
+        return `
+        <div class="page chat-page">
+            {{{ Chats }}}
+            {{{ ChatArea selected="chat-area_selected" chat=${this.props.getChat()}
+                recipientName="Вадим" 
+                onAddUserClick=showAddUserModal
+                onRemoveUserClick=showRemoveUserModal }}}
+            {{{ Modal state="hidden" 
+                heading="Добавить пользователя" 
+                buttonText="Добавить" 
+                type="input"
+                ref="addUserModal"
+                onButtonClick=onAddUserClick }}}
+            {{{ Modal state="hidden" 
+                heading="Удалить пользователя" 
+                buttonText="Удалить" 
+                type="input"
+                ref="removeUserModal"
+                onButtonClick=onRemoveUserClick }}}
+        </div>
+        `;
     }
 }

@@ -13,7 +13,8 @@ export const transformUser = (data: UserDTO): User => {
   };
 };
 
-export const transformChat = (data: ChatDTO, users?: UserDTO[]): Chat => {
+export const transformChat = (data: ChatDTO): Chat => {
+  console.log(data);
   return {
     id: data.id,
     title: data.title,
@@ -31,8 +32,8 @@ export const transformChat = (data: ChatDTO, users?: UserDTO[]): Chat => {
       time: data.last_message.time,
       content: data.last_message.content
     } : null,
-    users: users 
-      ? users.map(transformUser) 
+    users: data.users 
+      ? data.users.map(transformUser) 
       : null,
   };
 }

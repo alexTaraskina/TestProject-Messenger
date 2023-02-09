@@ -5,10 +5,8 @@
             <div class="chat-area__recipient-avatar"></div>
             <div style="display: flex; flex-direction: column;">
                 <p class="chat-area__recipient-name">{{{recipientName}}}</p>
-                <p>{{{chatUsers}}}</p>
-                {{#each chatUsers}}
-                    <p>{{{this.firstName}}} {{{this.secondName}}}</p>
-                {{/each}}
+                {{!-- {{{ ChatUsers getUsers=chatUsers }}} --}}
+                ${this.props.chatUsers().map(u => `<p>j</p>`)}
             </div>
         </div>
         <button class="chat-area__actions-button">

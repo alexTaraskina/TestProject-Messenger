@@ -18,7 +18,22 @@ export async function initApp(dispatch: Dispatch<AppState>) {
             return;
         }
 
-        dispatch({ user: transformUser(response as UserDTO), chats: responseChats.map(item => transformChat(item as ChatDTO)) });
+        for (let i = 0; i < responseChats.length; i++) {
+            let chatId = Number(responseChats[i].id);
+            let users = await messengerAPI.getChatUsers({ id: chatId });
+
+            if (apiHasError(users)) {
+                return;
+            }
+
+            responseChats[i].users = users;
+            console.log(responseChats);
+        }
+
+        dispatch({ 
+            user: transformUser(response as UserDTO), 
+            chats: responseChats.map(item => transformChat(item as ChatDTO)) 
+        });
     } catch (err) {
         console.error(err);
     } finally {

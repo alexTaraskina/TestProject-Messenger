@@ -1,6 +1,7 @@
 import EventBus from './EventBus';
 import { nanoid } from 'nanoid';
 import Handlebars from 'handlebars';
+import { isEqual } from 'utils';
 
 interface BlockMeta<P = any> {
   props: P;
@@ -31,6 +32,9 @@ export default class Block<P extends object = {}> {
 
   eventBus: () => EventBus<Events>;
 
+  /**
+   * @deprecated Не использовать - использовать this.props
+   */
   protected state: any = {};
   protected refs: { [key: string]: Block } = {};
 
@@ -62,6 +66,9 @@ export default class Block<P extends object = {}> {
     this._element = this._createDocumentElement('div');
   }
 
+  /**
+   * @deprecated Не использовать - использовать this.props
+   */
   protected getStateFromProps(props: P): void {
     this.state = {};
   }
@@ -150,8 +157,16 @@ export default class Block<P extends object = {}> {
         return typeof value === 'function' ? value.bind(target) : value;
       },
       set(target: Record<string, unknown>, prop: string, value: unknown) {
-        target[prop] = value;
+        // const oldTarget = { ...target };
+        // target[prop] = value;
 
+        // if (isEqual(oldTarget[prop], value)) {
+        //   self.eventBus().emit(Block.EVENTS.FLOW_CDU, oldTarget, target);
+        // }
+
+        // return true;
+
+        target[prop] = value;
         // Запускаем обновление компоненты
         // Плохой cloneDeep, в след итерации нужно заставлять добавлять cloneDeep им самим
         self.eventBus().emit(Block.EVENTS.FLOW_CDU, { ...target }, target);
