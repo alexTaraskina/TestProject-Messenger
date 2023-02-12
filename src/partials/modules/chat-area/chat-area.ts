@@ -74,7 +74,7 @@ class ChatArea extends Block<ChatAreaProps> {
                     </div>
                 </div>
                 <button class="chat-area__actions-button">
-                    <span class="chat-area__actions-icon" id="actionsButton" onclick=${this.props.onChoseOptionClick}></span>
+                    {{{ ActionsButton onClick=onChoseOptionClick }}}
                     <div class="chat-area__actions-type-options jsOptions">
                         {{{ Option optionText="Добавить пользователя" optionType="addUser" onClick=onAddUserClick }}}
                         {{{ Option optionText="Удалить пользователя" optionType="removeUser" onClick=onRemoveUserClick }}}
