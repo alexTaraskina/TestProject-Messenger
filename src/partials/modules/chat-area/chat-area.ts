@@ -1,13 +1,14 @@
 import { Block, Store, } from 'core';
 // import template from 'bundle-text:./template.hbs';
 import { withStore } from 'utils';
-import { getChatUsers, initRealTimeMessagesConnection } from 'services/messenger';
+import { getChatUsers, sendMessage, initRealTimeMessagesConnection } from 'services/messenger';
 
 import './chat-area.css';
 
 interface ChatAreaProps {
     store: Store<AppState>,
     onChoseOptionClick?: (e: Event) => void,
+    onSendMessageClick?: (e: Event) => void,
     onAddUserClick?: (e: Event) => void,
     onRemoveUserClick?: (e: Event) => void,
     id: () => number,
@@ -15,6 +16,7 @@ interface ChatAreaProps {
     users?: User[] | null,
     getChat: () => Chat | undefined,
     chat: () => Chat | undefined,
+    messages: () => Message[], 
 }
 
 class ChatArea extends Block<ChatAreaProps> {
@@ -24,7 +26,8 @@ class ChatArea extends Block<ChatAreaProps> {
         super({
             ...props,
             chatUsers: () => { return window.store.getState().currentChatUsers },
-            chat: () => window.store.getState().chats?.find(chat => chat.id === Number(window.store.getState().params.id))
+            chat: () => window.store.getState().chats?.find(chat => chat.id === Number(window.store.getState().params.id)),
+            messages: () => window.store.getState().messages ?? [],
         });
 
         let chatId = this.props.store.getState().params.id;
@@ -33,6 +36,7 @@ class ChatArea extends Block<ChatAreaProps> {
 
         this.setProps({
             onChoseOptionClick: (e: Event) => this.onChoseOptionClick(e),
+            onSendMessageClick: (e: Event) => this.onSendMessageClick(e),
             id: () => Number(props.store.getState().params.id),
             chatUsers: () => { return window.store.getState().currentChatUsers },
         });
@@ -46,6 +50,11 @@ class ChatArea extends Block<ChatAreaProps> {
         if (attachFileButton) {
             attachFileButton.addEventListener('click', this.onChoseOptionClick);
         }
+
+        const sendMessageButton = this.element?.querySelector('#sendMessageButton');
+        if (sendMessageButton) {
+            sendMessageButton.addEventListener('click', this.onSendMessageClick);
+        }
     }
 
     onChoseOptionClick(e: Event) {
@@ -55,6 +64,15 @@ class ChatArea extends Block<ChatAreaProps> {
             let options = el.parentNode.querySelector('.jsOptions');
             options?.classList.toggle('active');
         }
+    }
+
+    onSendMessageClick(e: Event) {
+        e.preventDefault();
+        const el = e.target as HTMLElement;
+        const message = el && el.parentNode ? el.parentNode.querySelector('input')?.value : null;
+        window.store.dispatch(sendMessage, message);
+        console.log(message);
+        console.log(this.props.messages());
     }
 
     render() {
@@ -79,12 +97,9 @@ class ChatArea extends Block<ChatAreaProps> {
             </div>
             <div class="chat-area__main">
                 <div class="chat-area__dialog-area">
-                    <p class="chat-area__messages-date">19 июня</p>
-                    {{{ Message type="message_type_recieved" contentType="message_content-type_text" text="Привет! Смотри, тут всплыл интересный кусок лунной космической истории — НАСА в какой-то момент попросила Хассельблад адаптировать модель SWC для полетов на Луну. Сейчас мы все знаем что астронавты летали с моделью 500 EL — и к слову говоря, все тушки этих камер все еще находятся на поверхности Луны, так как астронавты с собой забрали только кассеты с пленкой. Хассельблад в итоге адаптировал SWC для космоса, но что-то пошло не так и на ракету они так никогда и не попали. Всего их было произведено 25 штук, одну из них недавно продали на аукционе за 45000 евро." }}}
-                    {{{ Message  type="message_type_recieved" contentType="message_content-type_image" }}}
-                    {{{ Message  type="message_type_sent" contentType="message_content-type_text" text="Круто!" }}}
+                    ${this.props.messages()?.map(m => `${m.content}`)}
                 </div>
-                <div class="chat-area__new-message-area">
+                <div class="chat-area__new-message-area jsMessageArea">
                     <button class="chat-area__attach-file-button">
                         <span class="chat-area__attach-file-icon" id="attachFileButton"></span>
                         <div class="chat-area__file-type-options jsOptions">
@@ -94,7 +109,7 @@ class ChatArea extends Block<ChatAreaProps> {
                         </div>
                     </button>
                     <input type="text" id="message" name="message" class="chat-area__new-message" placeholder="Сообщение"/>
-                    <button class="chat-area__send-button">
+                    <button id="sendMessageButton" class="chat-area__send-button">
                         <span class="chat-area__send-icon"></span>
                     </button>
                 </div>

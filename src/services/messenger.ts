@@ -96,12 +96,13 @@ export const initRealTimeMessagesConnection = async (
     else {
         dispatch({ isLoading: false, token: connection.token });
         const socket = new WebSocket(`wss://ya-praktikum.tech/ws/chats/${data.userId}/${data.chatId}/${connection.token}`);
+        dispatch({ webSocket: socket });
         socket.addEventListener('open', () => {
             console.log('Соединение установлено');
 
             socket.send(JSON.stringify({
-                content: 'Моё первое сообщение миру!',
-                type: 'message',
+                content: '0',
+                type: 'get old',
             }));
         });
 
@@ -116,6 +117,8 @@ export const initRealTimeMessagesConnection = async (
         });
 
         socket.addEventListener('message', event => {
+            let data = JSON.parse(event.data);
+
             console.log('Получены данные', event.data);
         });
 
@@ -123,4 +126,18 @@ export const initRealTimeMessagesConnection = async (
             console.log('Ошибка', event.message);
         });
     }
+}
+
+export const sendMessage = async (
+    dispatch: Dispatch<AppState>,
+    state: AppState,
+    data: string) => {
+        console.log(JSON.stringify({
+            content: data,
+            type: 'message'
+        }));
+        state.webSocket?.send(JSON.stringify({
+            content: data,
+            type: 'message'
+        }));
 }

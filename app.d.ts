@@ -20,6 +20,14 @@ declare global {
         createChatError: string | null;
         currentChatUsers: User[] | null,
         token: string,  
+        messages: Message[] | null,
+        webSocket: WebSocket | null,
+    };
+
+    export type Message = {
+        user: User,
+        time: Date,
+        content: string,
     };
 
     export type User = {
