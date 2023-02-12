@@ -15,6 +15,7 @@ import { KeyValueLine } from './partials/components/key-value-line';
 import { Avatar } from 'partials/components/avatar';
 import { NavButton } from 'partials/components/nav-button';
 import { Backdrop } from 'partials/components/backdrop';
+import { SendMessageButton } from 'partials/components/send-message-button';
 
 import { LoginForm } from './partials/modules/login-form';
 import { RegisterForm } from './partials/modules/register-form';
@@ -41,6 +42,7 @@ registerComponent(KeyValueLine);
 registerComponent(Avatar);
 registerComponent(NavButton);
 registerComponent(Backdrop);
+registerComponent(SendMessageButton);
 
 registerComponent(LoginForm);
 registerComponent(RegisterForm);
@@ -72,6 +74,11 @@ document.addEventListener('DOMContentLoaded', function () {
     window.store = store;
 
     store.on('changed', (prevState, nextState) => {
+        console.log(
+            '%cstore updated',
+            'background: #222; color: #bada55',
+            nextState,
+        );
         if (process.env.DEBUG) {
             console.log(
                 '%cstore updated',

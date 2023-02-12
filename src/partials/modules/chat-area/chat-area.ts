@@ -17,6 +17,7 @@ interface ChatAreaProps {
     getChat: () => Chat | undefined,
     chat: () => Chat | undefined,
     messages: () => Message[], 
+    userId: () => number,
 }
 
 class ChatArea extends Block<ChatAreaProps> {
@@ -28,6 +29,7 @@ class ChatArea extends Block<ChatAreaProps> {
             chatUsers: () => { return window.store.getState().currentChatUsers },
             chat: () => window.store.getState().chats?.find(chat => chat.id === Number(window.store.getState().params.id)),
             messages: () => window.store.getState().messages ?? [],
+            userId: () => window.store.getState().user?.id ?? 0, 
         });
 
         let chatId = this.props.store.getState().params.id;
@@ -40,21 +42,6 @@ class ChatArea extends Block<ChatAreaProps> {
             id: () => Number(props.store.getState().params.id),
             chatUsers: () => { return window.store.getState().currentChatUsers },
         });
-
-        let actionButton = this.element?.querySelector('#actionsButton');
-        if (actionButton) {
-            actionButton.addEventListener('click', this.onChoseOptionClick);
-        }
-
-        let attachFileButton = this.element?.querySelector('#attachFileButton');
-        if (attachFileButton) {
-            attachFileButton.addEventListener('click', this.onChoseOptionClick);
-        }
-
-        const sendMessageButton = this.element?.querySelector('#sendMessageButton');
-        if (sendMessageButton) {
-            sendMessageButton.addEventListener('click', this.onSendMessageClick);
-        }
     }
 
     onChoseOptionClick(e: Event) {
@@ -71,11 +58,10 @@ class ChatArea extends Block<ChatAreaProps> {
         const el = e.target as HTMLElement;
         const message = el && el.parentNode ? el.parentNode.querySelector('input')?.value : null;
         window.store.dispatch(sendMessage, message);
-        console.log(message);
-        console.log(this.props.messages());
     }
 
     render() {
+        console.log(this.props.messages());
         return `
         <div class="chat-area {{selected}}">
             {{#if selected }}
@@ -88,7 +74,7 @@ class ChatArea extends Block<ChatAreaProps> {
                     </div>
                 </div>
                 <button class="chat-area__actions-button">
-                    <span class="chat-area__actions-icon" id="actionsButton"></span>
+                    <span class="chat-area__actions-icon" id="actionsButton" onclick=${this.props.onChoseOptionClick}></span>
                     <div class="chat-area__actions-type-options jsOptions">
                         {{{ Option optionText="Добавить пользователя" optionType="addUser" onClick=onAddUserClick }}}
                         {{{ Option optionText="Удалить пользователя" optionType="removeUser" onClick=onRemoveUserClick }}}
@@ -97,21 +83,17 @@ class ChatArea extends Block<ChatAreaProps> {
             </div>
             <div class="chat-area__main">
                 <div class="chat-area__dialog-area">
-                    ${this.props.messages()?.map(m => `${m.content}`)}
+                    ${this.props.messages()?.map(m => 
+                        { 
+                            return `
+                                <div class="message message_content-type_text ${Number(m.user_id) !== this.props.userId() ? 'message_type_recieved' : 'message_type_sent'}">
+                                    <p>${m.content}</p>
+                                </div>`;
+                        }).join('')}
                 </div>
                 <div class="chat-area__new-message-area jsMessageArea">
-                    <button class="chat-area__attach-file-button">
-                        <span class="chat-area__attach-file-icon" id="attachFileButton"></span>
-                        <div class="chat-area__file-type-options jsOptions">
-                            {{{ Option optionText="Фото или Видео" optionType="photo" }}}
-                            {{{ Option optionText="Файл" optionType="video" }}}
-                            {{{ Option optionText="Локация" optionType="location" }}}
-                        </div>
-                    </button>
                     <input type="text" id="message" name="message" class="chat-area__new-message" placeholder="Сообщение"/>
-                    <button id="sendMessageButton" class="chat-area__send-button">
-                        <span class="chat-area__send-icon"></span>
-                    </button>
+                    {{{ SendMessageButton onClick=onSendMessageClick }}}
                 </div>
             </div>
             {{else}}

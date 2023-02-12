@@ -94,8 +94,16 @@ export const initRealTimeMessagesConnection = async (
         return;
     }
     else {
-        dispatch({ isLoading: false, token: connection.token });
+        dispatch({ 
+            isLoading: false, 
+            token: connection.token,
+        });
         const socket = new WebSocket(`wss://ya-praktikum.tech/ws/chats/${data.userId}/${data.chatId}/${connection.token}`);
+        // prolong connection
+        setInterval(() => {
+            socket.send(JSON.stringify({ type: 'ping' }));
+        }, 60000);
+
         dispatch({ webSocket: socket });
         socket.addEventListener('open', () => {
             console.log('Соединение установлено');
@@ -118,8 +126,15 @@ export const initRealTimeMessagesConnection = async (
 
         socket.addEventListener('message', event => {
             let data = JSON.parse(event.data);
-
-            console.log('Получены данные', event.data);
+            // if we get old messages - there will be array
+            if (Array.isArray(data) && data.length > 0) {
+                dispatch({ messages: data });
+            }
+            //let oldMessages = window.store.getState()?.messages ? [...window.store.getState()?.messages] : [];
+            //debugger;
+            else {
+                dispatch({ messages: [...window.store.getState().messages, data] });
+            }
         });
 
         socket.addEventListener('error', event => {

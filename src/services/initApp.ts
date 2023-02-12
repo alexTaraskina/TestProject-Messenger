@@ -31,7 +31,8 @@ export async function initApp(dispatch: Dispatch<AppState>) {
 
         dispatch({ 
             user: transformUser(response as UserDTO), 
-            chats: responseChats.map(item => transformChat(item as ChatDTO)) 
+            chats: responseChats.map(item => transformChat(item as ChatDTO)),
+            messages: [],
         });
     } catch (err) {
         console.error(err);

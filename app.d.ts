@@ -20,14 +20,27 @@ declare global {
         createChatError: string | null;
         currentChatUsers: User[] | null,
         token: string,  
-        messages: Message[] | null,
+        messages: Message[],
         webSocket: WebSocket | null,
     };
 
     export type Message = {
-        user: User,
-        time: Date,
+        chat_id: number,
+        time: string,
+        type: string,
+        user_id: string,
         content: string,
+        file?: Nullable<File>,        
+    };
+
+    export type File = {
+        id: number,
+        user_id: number,
+        path: string,
+        filename: string,
+        content_type: string,
+        content_size: number,
+        upload_date: string,
     };
 
     export type User = {
