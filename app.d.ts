@@ -18,7 +18,8 @@ declare global {
         chats: Chat[] | null;
         currentChat: number | null;
         createChatError: string | null;
-        currentChatUsers: User[] | null, 
+        currentChatUsers: User[] | null,
+        token: string,  
     };
 
     export type User = {

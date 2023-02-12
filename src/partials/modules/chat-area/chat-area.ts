@@ -1,7 +1,7 @@
 import { Block, Store, } from 'core';
-import template from 'bundle-text:./template.hbs';
+// import template from 'bundle-text:./template.hbs';
 import { withStore } from 'utils';
-import { getChatUsers } from 'services/messenger';
+import { getChatUsers, initRealTimeMessagesConnection } from 'services/messenger';
 
 import './chat-area.css';
 
@@ -21,13 +21,15 @@ class ChatArea extends Block<ChatAreaProps> {
     static componentName: string = 'ChatArea';
 
     constructor(props: ChatAreaProps) {
-        super({ 
-            ...props, 
+        super({
+            ...props,
             chatUsers: () => { return window.store.getState().currentChatUsers },
-            chat: () => window.store.getState().chats?.find(chat => chat.id === Number(window.store.getState().params.id)) 
+            chat: () => window.store.getState().chats?.find(chat => chat.id === Number(window.store.getState().params.id))
         });
 
-        this.props.store.dispatch(getChatUsers, this.props.store.getState().params.id);
+        let chatId = this.props.store.getState().params.id;
+        this.props.store.dispatch(getChatUsers, chatId);
+        this.props.store.dispatch(initRealTimeMessagesConnection, { chatId, userId: window.store.getState().user?.id });
 
         this.setProps({
             onChoseOptionClick: (e: Event) => this.onChoseOptionClick(e),
@@ -56,7 +58,6 @@ class ChatArea extends Block<ChatAreaProps> {
     }
 
     render() {
-        console.log(this.props.chat);
         return `
         <div class="chat-area {{selected}}">
             {{#if selected }}

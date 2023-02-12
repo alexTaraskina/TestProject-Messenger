@@ -24,6 +24,10 @@ export type ChatDTO = {
     users: UserDTO[] | null,
 };
 
+export type RealTimeMessagesConnectionDTO = {
+    token: string
+};
+
 type LastMessageDTO = {
     user: {
         first_name: string,

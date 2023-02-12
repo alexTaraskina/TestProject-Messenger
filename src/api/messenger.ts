@@ -1,5 +1,5 @@
 import { HTTPTransport } from 'helpers';
-import { APIError, ChatDTO, ResponseData, UserDTO } from 'api/types';
+import { APIError, ChatDTO, ResponseData, UserDTO, RealTimeMessagesConnectionDTO } from 'api/types';
 import { baseURL } from './variables';
 
 type CreateChatRequestData = {
@@ -25,6 +25,10 @@ type ChatUsersRequestData = {
     email?: string,
 };
 
+type InitRealTimeMessagesConnectionRequestData = {
+    id: number,
+};
+
 export const messengerAPI = {
     createChat: (data: CreateChatRequestData) => 
         new HTTPTransport().post<ResponseData>(baseURL + '/chats', {data}),
@@ -40,4 +44,7 @@ export const messengerAPI = {
 
     getChatUsers: (data: ChatUsersRequestData) => 
         new HTTPTransport().get<UserDTO[] | APIError>(baseURL + `/chats/${data.id}/users`, {data}),
+        
+    initRealTimeMessagesConnection: (data: InitRealTimeMessagesConnectionRequestData) => 
+        new HTTPTransport().post<RealTimeMessagesConnectionDTO | APIError>(baseURL + `/chats/token/${data.id}`, {data}),
 }

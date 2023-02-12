@@ -14,7 +14,6 @@ export const transformUser = (data: UserDTO): User => {
 };
 
 export const transformChat = (data: ChatDTO): Chat => {
-  console.log(data);
   return {
     id: data.id,
     title: data.title,

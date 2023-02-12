@@ -27,7 +27,6 @@ export async function initApp(dispatch: Dispatch<AppState>) {
             }
 
             responseChats[i].users = users;
-            console.log(responseChats);
         }
 
         dispatch({ 

@@ -63,7 +63,7 @@ export const addUser = async (
     }
 }
 
-export const getChatUsers= async (
+export const getChatUsers = async (
     dispatch: Dispatch<AppState>,
     state: AppState,
     id: number
@@ -78,5 +78,49 @@ export const getChatUsers= async (
     }
     else {
         dispatch({ isLoading: false, currentChatUsers: chatUsers.map(item => transformUser(item as UserDTO)) });
+    }
+}
+
+export const initRealTimeMessagesConnection = async (
+    dispatch: Dispatch<AppState>,
+    state: AppState,
+    data: { chatId: number, userId: number }) => {
+    dispatch({ isLoading: true });
+
+    const connection = await messengerAPI.initRealTimeMessagesConnection({ id: data.chatId });
+
+    if (apiHasError(connection)) {
+        dispatch({ isLoading: false });
+        return;
+    }
+    else {
+        dispatch({ isLoading: false, token: connection.token });
+        const socket = new WebSocket(`wss://ya-praktikum.tech/ws/chats/${data.userId}/${data.chatId}/${connection.token}`);
+        socket.addEventListener('open', () => {
+            console.log('Соединение установлено');
+
+            socket.send(JSON.stringify({
+                content: 'Моё первое сообщение миру!',
+                type: 'message',
+            }));
+        });
+
+        socket.addEventListener('close', event => {
+            if (event.wasClean) {
+                console.log('Соединение закрыто чисто');
+            } else {
+                console.log('Обрыв соединения');
+            }
+
+            console.log(`Код: ${event.code} | Причина: ${event.reason}`);
+        });
+
+        socket.addEventListener('message', event => {
+            console.log('Получены данные', event.data);
+        });
+
+        socket.addEventListener('error', event => {
+            console.log('Ошибка', event.message);
+        });
     }
 }
