@@ -5,13 +5,19 @@ type WithStoreProps = { store: Store<AppState> };
 
 type MapStateToProps<MappedProps> = (state: AppState) => MappedProps;
 
-export function withStore<P extends WithStoreProps, MappedProps = any>(WrappedBlock: BlockClass<P>, mapStateToProps?: MapStateToProps<MappedProps>) {
+export function withStore<
+    BlockProps extends WithStoreProps, 
+    MappedProps = Partial<BlockProps>
+>(
+    WrappedBlock: BlockClass<BlockProps>, 
+    mapStateToProps?: MapStateToProps<MappedProps>
+) {
     // @ts-expect-error No base constructor has the specified
-    return class extends WrappedBlock<P> {
+    return class extends WrappedBlock<BlockProps> {
         public static componentName = WrappedBlock.componentName || WrappedBlock.name;
 
-        constructor(props: P) {
-            super({ ...props, ...(mapStateToProps ? mapStateToProps(window.store.getState()) : {store: window.store}) });
+        constructor(props: BlockProps) {
+            super({ ...props, ...(mapStateToProps ? mapStateToProps(window.store.getState()) : { store: window.store }) });
         }
 
         __onChangeStoreCallback = (prevState: AppState, nextState: AppState) => {
@@ -19,19 +25,19 @@ export function withStore<P extends WithStoreProps, MappedProps = any>(WrappedBl
                 const prevPropsFromState = mapStateToProps(prevState);
                 const nextPropsFromState = mapStateToProps(nextState);
 
-                if (isEqual(prevPropsFromState, nextPropsFromState)) {
+                if (!isEqual(prevPropsFromState, nextPropsFromState)) {
                     // @ts-expect-error this is not typed
                     this.setProps(nextPropsFromState);
                 }
-                
+
                 return;
             }
-            
+
             // @ts-expect-error this is not typed
             this.setProps({ ...this.props, store: window.store });
         }
 
-        componentDidMount(props: P) {
+        componentDidMount(props: BlockProps) {
             super.componentDidMount(props);
             window.store.on('changed', this.__onChangeStoreCallback);
         }
@@ -41,5 +47,5 @@ export function withStore<P extends WithStoreProps, MappedProps = any>(WrappedBl
             window.store.off('changed', this.__onChangeStoreCallback);
         }
 
-    } as BlockClass<Omit<P, 'store'>>;
+    } as BlockClass<Omit<BlockProps, 'store'>>;
 }

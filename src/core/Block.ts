@@ -1,7 +1,7 @@
 import EventBus from './EventBus';
 import { nanoid } from 'nanoid';
 import Handlebars from 'handlebars';
-import { isEqual } from 'utils';
+import { isEqual } from 'utils/isEqual';
 
 interface BlockMeta<P = any> {
   props: P;
@@ -157,14 +157,14 @@ export default class Block<P extends object = {}> {
         return typeof value === 'function' ? value.bind(target) : value;
       },
       set(target: Record<string, unknown>, prop: string, value: unknown) {
-        // const oldTarget = { ...target };
-        // target[prop] = value;
+        const oldTarget = { ...target };
+        target[prop] = value;
 
-        // if (isEqual(oldTarget[prop], value)) {
-        //   self.eventBus().emit(Block.EVENTS.FLOW_CDU, oldTarget, target);
-        // }
+        if (!oldTarget[prop] || isEqual(oldTarget[prop], value) || typeof oldTarget[prop] === 'function') {
+          self.eventBus().emit(Block.EVENTS.FLOW_CDU, oldTarget, target);
+        }
 
-        // return true;
+        return true;
 
         target[prop] = value;
         // Запускаем обновление компоненты
