@@ -6,6 +6,7 @@ https://polite-selkie-cbf8bc.netlify.app/
 
 Sprint 1: https://github.com/alexTaraskina/middle.messenger.praktikum.yandex/pull/1  
 Sprint 2: https://github.com/alexTaraskina/middle.messenger.praktikum.yandex/pull/2  
+Sprint 3: https://github.com/alexTaraskina/middle.messenger.praktikum.yandex/pull/4
 
 ## Установка
 
