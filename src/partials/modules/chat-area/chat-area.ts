@@ -1,7 +1,7 @@
 import { Block, Store, } from 'core';
 // import template from 'bundle-text:./template.hbs';
 import { withStore } from 'utils';
-import { getChatUsers, sendMessage, initRealTimeMessagesConnection } from 'services/messenger';
+import { sendMessage } from 'services/messenger';
 
 import './chat-area.css';
 
@@ -11,13 +11,11 @@ interface ChatAreaProps {
     onSendMessageClick?: (e: Event) => void,
     onAddUserClick?: (e: Event) => void,
     onRemoveUserClick?: (e: Event) => void,
-    id: () => number,
-    chatUsers: () => User[] | null,
-    users?: User[] | null,
-    getChat: () => Chat | undefined,
-    chat: () => Chat | undefined,
-    messages: () => Message[], 
-    userId: () => number,
+    id: number,
+    chatUsers: User[],
+    chat: Chat | undefined,
+    messages: Message[], 
+    userId: number,
 }
 
 class ChatArea extends Block<ChatAreaProps> {
@@ -26,21 +24,11 @@ class ChatArea extends Block<ChatAreaProps> {
     constructor(props: ChatAreaProps) {
         super({
             ...props,
-            chatUsers: () => { return window.store.getState().currentChatUsers },
-            chat: () => window.store.getState().chats?.find(chat => chat.id === Number(window.store.getState().params.id)),
-            messages: () => window.store.getState().messages ?? [],
-            userId: () => window.store.getState().user?.id ?? 0, 
         });
-
-        let chatId = this.props.store.getState().params.id;
-        this.props.store.dispatch(getChatUsers, chatId);
-        this.props.store.dispatch(initRealTimeMessagesConnection, { chatId, userId: window.store.getState().user?.id });
 
         this.setProps({
             onChoseOptionClick: (e: Event) => this.onChoseOptionClick(e),
             onSendMessageClick: (e: Event) => this.onSendMessageClick(e),
-            id: () => Number(props.store.getState().params.id),
-            chatUsers: () => { return window.store.getState().currentChatUsers },
         });
     }
 
@@ -61,7 +49,6 @@ class ChatArea extends Block<ChatAreaProps> {
     }
 
     render() {
-        console.log(this.props.messages());
         return `
         <div class="chat-area {{selected}}">
             {{#if selected }}
@@ -69,8 +56,8 @@ class ChatArea extends Block<ChatAreaProps> {
                 <div class="chat-area__recipient-info">
                     <div class="chat-area__recipient-avatar"></div>
                     <div style="display: flex; flex-direction: column;">
-                        <p class="chat-area__recipient-name">${this.props.chat()?.title}</p>
-                        ${this.props.chat()?.users?.map(u => `${u.firstName} ${u.secondName}`)}
+                        <p class="chat-area__recipient-name">${this.props.chat?.title}</p>
+                        ${this.props.chatUsers.map(u => `${u.firstName} ${u.secondName}`)}
                     </div>
                 </div>
                 <button class="chat-area__actions-button">
@@ -83,10 +70,10 @@ class ChatArea extends Block<ChatAreaProps> {
             </div>
             <div class="chat-area__main">
                 <div class="chat-area__dialog-area">
-                    ${this.props.messages()?.map(m => 
+                    ${this.props.messages?.map(m => 
                         { 
                             return `
-                                <div class="message message_content-type_text ${Number(m.user_id) !== this.props.userId() ? 'message_type_recieved' : 'message_type_sent'}">
+                                <div class="message message_content-type_text ${Number(m.user_id) !== this.props.userId ? 'message_type_recieved' : 'message_type_sent'}">
                                     <p>${m.content}</p>
                                 </div>`;
                         }).join('')}
@@ -104,8 +91,10 @@ class ChatArea extends Block<ChatAreaProps> {
     }
 }
 
-export default withStore(ChatArea);
-
-// export default withStore(ChatArea<ChatAreaProps, {chatUsers: User[]|null}>, (state: AppState) => {
-//     chatUsers: store.currentChatUsers
-// });
+export default withStore(ChatArea, (state: AppState) => ({
+    id: state.params.id,
+    chatUsers: state.currentChatUsers ?? [],
+    messages: state.messages,
+    chat: state.chats?.find(chat => chat.id === Number(state.params.id)),
+    userId: state.user?.id ?? 0
+}));

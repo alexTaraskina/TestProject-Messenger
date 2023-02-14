@@ -8,6 +8,7 @@ import './avatar.css';
 interface AvatarProps {
     file: string,
     store: Store<AppState>,
+    avatar: string,
     onAvatarChange?: (e: Event) => void,
 }
 
@@ -36,4 +37,4 @@ class Avatar extends Block<AvatarProps> {
     }
 }
 
-export default withStore(Avatar);
+export default withStore(Avatar, (state) => ({avatar: state.user?.avatar}));

@@ -1,14 +1,16 @@
-import { Block, CoreRouter } from 'core';
+import { Block, CoreRouter, Store } from 'core';
 import template from 'bundle-text:./template.hbs';
 
 import './chat-preview.css';
-import { withRouter } from 'utils';
+import { withRouter, withStore } from 'utils';
+import { closeSocket, getChatUsers, initRealTimeMessagesConnection } from 'services/messenger';
 
 interface ChatPreviewProps {
     id: number,
     title: string,
     router: CoreRouter,
     onChatTitleClick?: (e: Event) => void,
+    store: Store<AppState>,
 }
 
 class ChatPreview extends Block<ChatPreviewProps> {
@@ -24,6 +26,10 @@ class ChatPreview extends Block<ChatPreviewProps> {
 
     onChatTitleClick(e: Event) {
         e.preventDefault();
+
+        this.props.store.dispatch(closeSocket);
+        this.props.store.dispatch(getChatUsers, this.props.id);
+        this.props.store.dispatch(initRealTimeMessagesConnection, { chatId: this.props.id, userId: window.store.getState().user?.id });
         this.props.router.go(`/messenger/${this.props.id}`);
     }
 
@@ -32,4 +38,4 @@ class ChatPreview extends Block<ChatPreviewProps> {
     }
 }
 
-export default withRouter(ChatPreview);
+export default withStore(withRouter(ChatPreview));

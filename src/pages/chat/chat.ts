@@ -1,6 +1,7 @@
 import { Block, Store } from 'core';
 import template from 'bundle-text:./template.hbs';
 import { addUser } from 'services/messenger';
+import { Screens } from 'utils';
 
 interface ChatProps {
     store: Store<AppState>;
@@ -28,6 +29,10 @@ export default class ChatPage extends Block<ChatProps> {
             onAddUserClick: (e: Event) => this.onAddUserClick(e),
             onRemoveUserClick: (e: Event) => this.onRemoveUserClick(e),
         });
+    }
+
+    componentDidUpdate(oldProps: ChatProps, newProps: ChatProps): boolean {
+        return window.store.getState().screen !== Screens.Chat;
     }
 
     showAddUserModal() {

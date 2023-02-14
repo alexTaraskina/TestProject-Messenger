@@ -81,6 +81,7 @@ export const getChatUsers = async (
     }
 }
 
+let socket: WebSocket;
 export const initRealTimeMessagesConnection = async (
     dispatch: Dispatch<AppState>,
     state: AppState,
@@ -98,13 +99,13 @@ export const initRealTimeMessagesConnection = async (
             isLoading: false, 
             token: connection.token,
         });
-        const socket = new WebSocket(`wss://ya-praktikum.tech/ws/chats/${data.userId}/${data.chatId}/${connection.token}`);
+        socket?.close();
+        socket = new WebSocket(`wss://ya-praktikum.tech/ws/chats/${data.userId}/${data.chatId}/${connection.token}`);
         // prolong connection
         setInterval(() => {
             socket.send(JSON.stringify({ type: 'ping' }));
-        }, 60000);
+        }, 30000);
 
-        dispatch({ webSocket: socket });
         socket.addEventListener('open', () => {
             console.log('Соединение установлено');
 
@@ -127,7 +128,7 @@ export const initRealTimeMessagesConnection = async (
         socket.addEventListener('message', event => {
             let data = JSON.parse(event.data);
             // if we get old messages - there will be array
-            if (Array.isArray(data) && data.length > 0) {
+            if (Array.isArray(data)) {
                 dispatch({ messages: data });
             }
             //let oldMessages = window.store.getState()?.messages ? [...window.store.getState()?.messages] : [];
@@ -151,8 +152,14 @@ export const sendMessage = async (
             content: data,
             type: 'message'
         }));
-        state.webSocket?.send(JSON.stringify({
+        socket?.send(JSON.stringify({
             content: data,
             type: 'message'
         }));
+}
+
+export const closeSocket = async (
+    dispatch: Dispatch<AppState>,
+    state: AppState) => {
+        socket?.close();
 }
