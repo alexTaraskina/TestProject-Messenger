@@ -1,9 +1,15 @@
-<div class="modal {{{cssModificator}}}">
-    <h1 class="modal__heading">{{{heading}}}</h1>
-    {{#if buttonText}}
-    <button class="modal__chose-image-button">{{{buttonText}}}</button>
-    {{else}}
-    <p class="modal__message">{{{message}}}</p>
-    {{/if}}
-    {{{ Button heading="Поменять" }}}
+<div>
+    <div class="modal {{{state}}} {{{cssModificator}}}">
+        <h1 class="modal__heading">{{{heading}}}</h1>
+        {{#if type}}
+            {{{ Input type="text" id="newChatUser" name="newChatUser" placeholder="Введите id пользователя" }}}
+        {{/if}}
+
+        {{#if buttonText}}
+            {{{ Button heading=buttonText onClick=onButtonClick }}}
+        {{else}}
+            <p class="modal__message">{{{message}}}</p>
+        {{/if}}
+    </div>
+    {{{ Backdrop onClick=onBackdropClick }}}
 </div>

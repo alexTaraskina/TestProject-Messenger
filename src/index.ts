@@ -1,14 +1,22 @@
 import './styles/styles.css';
 
-import { renderDOM, registerComponent } from  './core';
+import { registerComponent, CoreRouter, Store, PathRouter } from './core';
+import { initApp } from './services/initApp';
+import { defaultState } from './store';
+import { initRouter } from './router';
 
 import { Link } from './partials/components/link';
 import { Button } from './partials/components/button';
 import { Input } from 'partials/components/input';
 import { FormError } from 'partials/components/form-error';
 import { FormInputGroup } from './partials/components/form-input-group';
-import { FileTypeOption } from './partials/components/file-type-option';
+import { Option } from './partials/components/option';
 import { KeyValueLine } from './partials/components/key-value-line';
+import { Avatar } from 'partials/components/avatar';
+import { NavButton } from 'partials/components/nav-button';
+import { Backdrop } from 'partials/components/backdrop';
+import { SendMessageButton } from 'partials/components/send-message-button';
+import { ActionsButton } from 'partials/modules/action-button';
 
 import { LoginForm } from './partials/modules/login-form';
 import { RegisterForm } from './partials/modules/register-form';
@@ -19,25 +27,24 @@ import { Error } from './partials/modules/error';
 import { Searchbox } from './partials/modules/searchbox';
 import { ChatPreview } from './partials/modules/chat-preview';
 import { ProfileCard } from './partials/modules/profile-card';
+import { ProfileEditForm } from 'partials/modules/profile-edit-form';
+import { PasswordEditForm } from 'partials/modules/password-edit-form';
 import { Modal } from './partials/modules/modal';
 
 import { Login } from './pages/login';
-import { Error404 } from './pages/404';
-import { Error500 } from './pages/500';
-import { SignIn } from './pages/signin';
-import { ChoseChat } from './pages/chose-chat';
-import { Chat } from './pages/chat';
-import { Profile } from './pages/profile';
-import { Modals } from './pages/modals';
-import { Main } from './pages/main';
 
 registerComponent(Link);
 registerComponent(Button);
 registerComponent(Input);
 registerComponent(FormError);
 registerComponent(FormInputGroup);
-registerComponent(FileTypeOption);
+registerComponent(Option);
 registerComponent(KeyValueLine);
+registerComponent(Avatar);
+registerComponent(NavButton);
+registerComponent(Backdrop);
+registerComponent(SendMessageButton);
+registerComponent(ActionsButton);
 
 registerComponent(LoginForm);
 registerComponent(RegisterForm);
@@ -48,44 +55,45 @@ registerComponent(Error);
 registerComponent(Searchbox);
 registerComponent(ChatPreview);
 registerComponent(ProfileCard);
+registerComponent(ProfileEditForm);
+registerComponent(PasswordEditForm);
 registerComponent(Modal);
 
 registerComponent(Login);
-registerComponent(Error404);
-registerComponent(Error500);
-registerComponent(SignIn);
-registerComponent(ChoseChat);
-registerComponent(Chat);
-registerComponent(Profile);
-registerComponent(Modals);
-registerComponent(Main);
 
-document.addEventListener('DOMContentLoaded', function() {
-    if (window.location.pathname === '/login') {
-        renderDOM(new Login());
+declare global {
+    interface Window {
+        store: Store<AppState>;
+        router: CoreRouter;
     }
-    else if (window.location.pathname === '/404') {
-        renderDOM(new Error404());
-    }
-    else if (window.location.pathname === '/500') {
-        renderDOM(new Error500());
-    }
-    else if (window.location.pathname === '/signin') {
-        renderDOM(new SignIn());
-    }
-    else if (window.location.pathname === '/chose-chat') {
-        renderDOM(new ChoseChat());
-    }
-    else if (window.location.pathname === '/chat') {
-        renderDOM(new Chat());
-    }
-    else if (window.location.pathname === '/profile') {
-        renderDOM(new Profile());
-    }
-    else if (window.location.pathname === '/modals') {
-        renderDOM(new Modals());
-    }
-    else {
-        renderDOM(new Main());
-    }
+}
+
+document.addEventListener('DOMContentLoaded', function () {
+    const store = new Store<AppState>(defaultState);
+    const router = new PathRouter();
+
+    window.router = router;
+    window.store = store;
+
+    store.on('changed', (prevState, nextState) => {
+        console.log(
+            '%cstore updated',
+            'background: #222; color: #bada55',
+            nextState,
+        );
+        if (process.env.DEBUG) {
+            console.log(
+                '%cstore updated',
+                'background: #222; color: #bada55',
+                nextState,
+            );
+        }
+    });
+
+    initRouter(router, store);
+
+    /**
+     * Загружаем данные для приложения
+     */
+    store.dispatch(initApp);
 });

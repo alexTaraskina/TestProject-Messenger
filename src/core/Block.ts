@@ -1,9 +1,11 @@
 import EventBus from './EventBus';
-import {nanoid} from 'nanoid';
+import { nanoid } from 'nanoid';
 import Handlebars from 'handlebars';
+import { isEqual } from 'utils/isEqual';
 
-interface BlockMeta<P = any> {
-  props: P;
+export interface BlockClass<P extends object> extends Function {
+  new(props: P): Block<P>;
+  componentName?: string;
 }
 
 type Events = Values<typeof Block.EVENTS>;
@@ -13,33 +15,34 @@ export default class Block<P extends object = {}> {
     INIT: 'init',
     FLOW_CDM: 'flow:component-did-mount',
     FLOW_CDU: 'flow:component-did-update',
+    FLOW_CWU: 'flow:component-will-unmount',
     FLOW_RENDER: 'flow:render',
   } as const;
 
-  static componentName: string;
+  public static componentName?: string;
 
   public id = nanoid(6);
-  private readonly _meta: BlockMeta;
 
   protected _element: Nullable<HTMLElement> = null;
-  protected readonly props: P;
-  protected children: {[id: string]: Block} = {};
+  protected props: Readonly<P>;
+  protected children: { [id: string]: Block } = {};
 
   eventBus: () => EventBus<Events>;
 
+  /**
+   * @deprecated Не использовать - использовать this.props
+   */
   protected state: any = {};
-  protected refs: {[key: string]: Block} = {};
+  protected refs: { [key: string]: Block } = {};
 
   public constructor(props?: P) {
     const eventBus = new EventBus<Events>();
 
-    this._meta = {
-      props,
-    };
+    if (!!props) {
+      this.getStateFromProps(props as P);
+    }
 
-    this.getStateFromProps(props)
-
-    this.props = this._makePropsProxy(props || {} as P);
+    this.props = props || {} as P;
     this.state = this._makePropsProxy(this.state);
 
     this.eventBus = () => eventBus;
@@ -49,10 +52,26 @@ export default class Block<P extends object = {}> {
     eventBus.emit(Block.EVENTS.INIT, this.props);
   }
 
+   /**
+   * Хелпер, который проверяет, находится ли элемент в DOM дереве
+   * И есть нет, триггерит событие COMPONENT_WILL_UNMOUNT
+   */
+   _checkInDom() {
+    const elementInDOM = document.body.contains(this._element);
+
+    if (elementInDOM) {
+      setTimeout(() => this._checkInDom(), 1000);
+      return;
+    }
+
+    this.eventBus().emit(Block.EVENTS.FLOW_CWU, this.props);
+  }
+
   _registerEvents(eventBus: EventBus<Events>) {
     eventBus.on(Block.EVENTS.INIT, this.init.bind(this));
     eventBus.on(Block.EVENTS.FLOW_CDM, this._componentDidMount.bind(this));
     eventBus.on(Block.EVENTS.FLOW_CDU, this._componentDidUpdate.bind(this));
+    eventBus.on(Block.EVENTS.FLOW_CWU, this._componentWillUnmount.bind(this));
     eventBus.on(Block.EVENTS.FLOW_RENDER, this._render.bind(this));
   }
 
@@ -60,6 +79,9 @@ export default class Block<P extends object = {}> {
     this._element = this._createDocumentElement('div');
   }
 
+  /**
+   * @deprecated Не использовать - использовать this.props
+   */
   protected getStateFromProps(props: P): void {
     this.state = {};
   }
@@ -70,11 +92,18 @@ export default class Block<P extends object = {}> {
   }
 
   _componentDidMount(props: P) {
+    this._checkInDom();
     this.componentDidMount(props);
   }
 
-  componentDidMount(props: P) {
+  componentDidMount(props: P) {}
+
+  _componentWillUnmount() {
+    this.eventBus().destroy();
+    this.componentWillUnmount();
   }
+
+  componentWillUnmount() {}
 
   _componentDidUpdate(oldProps: P, newProps: P) {
     const response = this.componentDidUpdate(oldProps, newProps);
@@ -88,10 +117,16 @@ export default class Block<P extends object = {}> {
     return true;
   }
 
-  setProps = (nextProps: P) => {
-    if (!nextProps) {
+  setProps = (nextPartialProps: Partial<P>) => {
+    if (!nextPartialProps) {
       return;
     }
+
+    const prevProps = this.props;
+    const nextProps = { ...prevProps, ...nextPartialProps };
+    this.props = nextProps;
+
+    this.eventBus().emit(Block.EVENTS.FLOW_CDU, prevProps, nextProps);
 
     Object.assign(this.props, nextProps);
   };
@@ -128,7 +163,7 @@ export default class Block<P extends object = {}> {
     // Хак, чтобы вызвать CDM только после добавления в DOM
     if (this.element?.parentNode?.nodeType === Node.DOCUMENT_FRAGMENT_NODE) {
       setTimeout(() => {
-        if (this.element?.parentNode?.nodeType !==  Node.DOCUMENT_FRAGMENT_NODE ) {
+        if (this.element?.parentNode?.nodeType !== Node.DOCUMENT_FRAGMENT_NODE) {
           this.eventBus().emit(Block.EVENTS.FLOW_CDM);
         }
       }, 100)
@@ -148,11 +183,19 @@ export default class Block<P extends object = {}> {
         return typeof value === 'function' ? value.bind(target) : value;
       },
       set(target: Record<string, unknown>, prop: string, value: unknown) {
+        const oldTarget = { ...target };
         target[prop] = value;
 
+        if (!oldTarget[prop] || isEqual(oldTarget[prop], value) || typeof oldTarget[prop] === 'function') {
+          self.eventBus().emit(Block.EVENTS.FLOW_CDU, oldTarget, target);
+        }
+
+        return true;
+
+        target[prop] = value;
         // Запускаем обновление компоненты
         // Плохой cloneDeep, в след итерации нужно заставлять добавлять cloneDeep им самим
-        self.eventBus().emit(Block.EVENTS.FLOW_CDU, {...target}, target);
+        self.eventBus().emit(Block.EVENTS.FLOW_CDU, { ...target }, target);
         return true;
       },
       deleteProperty() {

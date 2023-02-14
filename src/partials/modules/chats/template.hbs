@@ -1,14 +1,16 @@
 <div class="chats">
     <div class="chats__navigation">
-        <a class="chats__link">Профиль ></a>
-        {{{ Searchbox }}}
+        {{{ Link class="chats__link" linkText="Профиль >" href="#" onClick=onProfileLinkClick }}}
+        {{!-- {{{ Searchbox }}} --}}
+        <div class="chats__create-chat">
+            {{{ Input type="text" id="newChatTitle" name="newChatTitle" placeholder="Новый чат" }}}
+            {{{ Button heading="Создать" onClick=onCreateChatClick }}}
+            {{{ FormError text="" ref="newChatError" }}}
+        </div>
     </div>
     <div class="chats__list">
-        {{{ ChatPreview name="Андрей" lastMessage="Изображение" time="10:49" }}}
-        {{{ ChatPreview name="Киноклуб" lastMessage="Вы: стикер" time="10:49" }}}
-        {{{ ChatPreview name="Илья" lastMessage="Изображение" time="10:49" }}}
-        {{{ ChatPreview name="Вадим" lastMessage="Изображение" time="10:49" }}}
-        {{{ ChatPreview name="тет-а-теты" lastMessage="Изображение" time="10:49" }}}
-        {{{ ChatPreview name="1, 2, 3" lastMessage="Изображение" time="10:49" }}}
+        {{#each store.state.chats}}
+            {{{ ChatPreview id=this.id title=this.title lastMessage="Изображение" time="10:49" }}}
+        {{/each}}
     </div>
 </div>

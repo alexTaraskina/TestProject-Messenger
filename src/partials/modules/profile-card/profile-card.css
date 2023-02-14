@@ -4,45 +4,20 @@
     align-items: center;
     width: 100%;
 
-    &__avatar {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        width: 130px;
-        height: 130px;
-        border-radius: 50%;
-        background: var(--white-smoke);
-        margin-bottom: 87px;
-        cursor: pointer;
-
-        &:hover {
-            .profile-card__shadow {
-                display: flex;
-            }
-        }
+    &__edit-link,
+    &__logout-link {
+        padding: 10px 0;
+        border-bottom: 1px solid var(--whisper);
+        width: 100%;
+        font-size: 13px !important;
+        line-height: 13px !important;
     }
 
-    &__shadow {
-        display: none;
-        position: absolute;
-        top: 0;
-        background-color: var(--black);
-        opacity: 0.5;
-        width: 130px;
-        height: 130px;
-        border-radius: 50%;
-        font-weight: 500;
-        font-size: 13px;
-        line-height: 14px;
-        color: var(--white);
-        justify-content: center;
-        align-items: center;
+    &__edit-link {
+        color: var(--blue);
     }
 
-    &__avatar-icon {
-        background: url("~/static/assets/icons/default-image.svg");
-        width: 40px;
-        height: 40px;
-        background-repeat: no-repeat;
+    &__logout-link {
+        color: var(--red) !important;
     }
 }

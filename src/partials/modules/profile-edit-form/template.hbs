@@ -1,0 +1,48 @@
+<div class="profile-edit">
+    {{{ Avatar }}}
+    <form class="form form_type_profile" id="profile-form" name="profile-form">
+        <div class="form__top-content">
+            {{{ FormInputGroup
+                type="email" id="email" name="email"
+                ref="emailInputGroup"
+                placeholder=store.state.user.email
+                cssModificator="form__input-group"
+                validationType="email" }}}
+            {{{ FormInputGroup
+                type="text" id="login" name="login"
+                ref="loginInputGroup"
+                placeholder=store.state.user.login
+                cssModificator="form__input-group"
+                validationType="login" }}}
+            {{{ FormInputGroup
+                type="text" id="firstName" name="first_name"
+                ref="nameInputGroup"
+                placeholder=store.state.user.firstName
+                cssModificator="form__input-group"
+                validationType="name" }}}
+            {{{ FormInputGroup
+                type="text" id="secondName" name="second_name"
+                ref="secondNameInputGroup"
+                placeholder=store.state.user.secondName
+                cssModificator="form__input-group"
+                validationType="name" }}}
+            {{{ FormInputGroup
+                type="text" id="displayName" name="display_name"
+                ref="displayNameInputGroup"
+                placeholder=store.state.user.displayName
+                cssModificator="form__input-group"
+                validationType="name" }}}
+            {{{ FormInputGroup
+                type="tel" id="phone" name="phone"
+                ref="phoneInputGroup"
+                placeholder=store.state.user.phone
+                cssModificator="form__input-group"
+                validationType="phone" }}}
+        </div>
+        <div class="form__bottom-content">
+            <div class="form__button-wrapper">
+                {{{ Button heading="Сохранить" onClick=events.submit }}}
+            </div>
+        </div>
+    </form>
+</div>

@@ -1,0 +1,11 @@
+<div class="avatar">
+    {{#if avatar }}
+    <img src="https://ya-praktikum.tech/api/v2/resources/{{{avatar}}}" alt="avatar" />
+    {{else}}
+    <span class="avatar__icon"></span>
+    {{/if}}
+    <form class="avatar__form" id="avatarForm">
+        {{{ Input type="file" id="avatarInput" name="avatarInput" onChange=onAvatarChange }}}
+        <span>Поменять аватар</span>
+    </form>
+</div>
