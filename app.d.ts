@@ -22,7 +22,13 @@ declare global {
         token: string,  
         messages: Message[],
         webSocket: WebSocket | null,
+        error: Error | null,
     };
+
+    export type Error = {
+        status: string,
+        text: string,
+    }
 
     export type Message = {
         chat_id: number,

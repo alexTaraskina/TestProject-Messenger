@@ -13,13 +13,8 @@ const routes = [
         shouldAuthorized: false,
     },
     {
-        path: '/404',
-        block: Screens.Error404,
-        shouldAuthorized: false,
-    },
-    {
-        path: '/500',
-        block: Screens.Error500,
+        path: '/error',
+        block: Screens.ErrorPage,
         shouldAuthorized: false,
     },
     {
@@ -49,7 +44,7 @@ const routes = [
     },
     {
         path: '*',
-        block: Screens.Login,
+        block: Screens.Error404,
         shouldAuthorized: false,
     },
 ];
