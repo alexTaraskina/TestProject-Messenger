@@ -76,6 +76,11 @@ document.addEventListener('DOMContentLoaded', function () {
     window.store = store;
 
     store.on('changed', (prevState, nextState) => {
+        console.log(
+            '%cstore updated',
+            'background: #222; color: #bada55',
+            nextState,
+        );
         if (process.env.DEBUG) {
             console.log(
                 '%cstore updated',

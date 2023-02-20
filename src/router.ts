@@ -60,11 +60,6 @@ export function initRouter(router: CoreRouter, store: Store<AppState>) {
             const isAuthorized = Boolean(store.getState().user);
             const currentScreen = Boolean(store.getState().screen);
 
-            if (isAuthorized && (route.block === Screens.Login || route.block === Screens.Register)) {
-                router.go('/messenger');
-                return;
-            }
-
             if (isAuthorized || !route.shouldAuthorized) {
                 store.dispatch({ screen: route.block, params });
                 return;
