@@ -22,19 +22,24 @@ export const editProfile = async (
     state: AppState,
     data: EditProfilePayload
 ) => {
-    dispatch({ isLoading: true });
+    try {
+        dispatch({ isLoading: true });
 
-    console.log(data);
-    const response = await profileAPI.edit(data);
+        console.log(data);
+        const response = await profileAPI.edit(data);
 
-    if (apiHasError(response)) {
-        dispatch({ isLoading: false });
-        return;
+        if (apiHasError(response)) {
+            dispatch({ isLoading: false });
+            return;
+        }
+
+        dispatch({ isLoading: false, user: transformUser(response as UserDTO) });
+
+        window.router.go('/settings');
     }
-
-    dispatch({ isLoading: false, user: transformUser(response as UserDTO) });
-
-    window.router.go('/settings');
+    catch (e) {
+        console.log(e);
+    }
 }
 
 export const updatePassword = async (
@@ -42,20 +47,25 @@ export const updatePassword = async (
     state: AppState,
     data: UpdatePasswordPayload
 ) => {
-    dispatch({ isLoading: true });
+    try {
+        dispatch({ isLoading: true });
 
-    const response = await profileAPI.password(data);
+        const response = await profileAPI.password(data);
 
-    if (apiHasError(response)) {
-        dispatch({ isLoading: false, changePasswordError: response.reason });
-        return;
+        if (apiHasError(response)) {
+            dispatch({ isLoading: false, changePasswordError: response.reason });
+            return;
+        }
+
+        dispatch({ isLoading: false, changePasswordMessage: 'Пароль был изменен' });
+        setTimeout(() => {
+            dispatch({ changePasswordMessage: '' });
+            window.router.go('/settings');
+        }, 2000);
     }
-
-    dispatch({ isLoading: false, changePasswordMessage: 'Пароль был изменен' });
-    setTimeout(() => { 
-        dispatch({ changePasswordMessage: '' }); 
-        window.router.go('/settings');
-    }, 2000);
+    catch (e) {
+        console.log(e);
+    }
 }
 
 export const changeAvatar = async (
@@ -63,15 +73,20 @@ export const changeAvatar = async (
     state: AppState,
     data: FormData
 ) => {
-    dispatch({ isLoading: true });
+    try {
+        dispatch({ isLoading: true });
 
-    const response = await profileAPI.changeAvatar(data);
+        const response = await profileAPI.changeAvatar(data);
 
-    if (apiHasError(response)) {
-        dispatch({ isLoading: false });
-        return;
+        if (apiHasError(response)) {
+            dispatch({ isLoading: false });
+            return;
+        }
+
+        dispatch({ isLoading: false, user: transformUser(response as UserDTO) });
+        window.router.go('/settings');
     }
-
-    dispatch({ isLoading: false, user: transformUser(response as UserDTO) });
-    window.router.go('/settings');
+    catch (e) {
+        console.log(e);
+    }
 }

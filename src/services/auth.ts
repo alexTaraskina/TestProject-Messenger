@@ -26,40 +26,43 @@ export const login = async (
         dispatch({ isLoading: true });
 
         const response = await authAPI.login(action);
-    
+
         if (apiHasError(response)) {
             dispatch({ isLoading: false, loginFormError: response.reason });
             return;
         }
-    
+
         const responseUser = await authAPI.me();
-    
+
         dispatch({ isLoading: false, loginFormError: null });
-    
+
         if (apiHasError(response)) {
             dispatch(logout);
             return;
         }
-    
+
         dispatch({ user: transformUser(responseUser as UserDTO) });
-    
+
         window.router.go('/messenger');
     }
-    catch(e) {
-        let error = e as Error;
-        dispatch({ error: { status: error.name, text: error.message } });
-        window.router.go('/error');
+    catch (e) {
+        console.log(e);
     }
 };
 
 export const logout = async (dispatch: Dispatch<AppState>) => {
-    dispatch({ isLoading: true });
+    try {
+        dispatch({ isLoading: true });
 
-    await authAPI.logout();
+        await authAPI.logout();
 
-    dispatch({ isLoading: false, user: null });
+        dispatch({ isLoading: false, user: null });
 
-    window.router.go('/');
+        window.router.go('/');
+    }
+    catch (e) {
+        console.log(e);
+    }
 };
 
 export const register = async (
@@ -67,26 +70,31 @@ export const register = async (
     state: AppState,
     data: RegisterPayload
 ) => {
-    dispatch({ isLoading: true });
+    try {
+        dispatch({ isLoading: true });
 
-    console.log(data);
-    const response = await authAPI.register(data);
+        console.log(data);
+        const response = await authAPI.register(data);
 
-    if (apiHasError(response)) {
+        if (apiHasError(response)) {
+            dispatch({ isLoading: false });
+            return;
+        }
+
+        const responseUser = await authAPI.me();
+
         dispatch({ isLoading: false });
-        return;
+
+        if (apiHasError(response)) {
+            dispatch(logout);
+            return;
+        }
+
+        dispatch({ user: transformUser(responseUser as UserDTO) });
+
+        window.router.go('/messenger');
     }
-
-    const responseUser = await authAPI.me();
-
-    dispatch({ isLoading: false });
-
-    if (apiHasError(response)) {
-        dispatch(logout);
-        return;
+    catch (e) {
+        console.log(e);
     }
-
-    dispatch({ user: transformUser(responseUser as UserDTO) });
-
-    window.router.go('/messenger');
 }
