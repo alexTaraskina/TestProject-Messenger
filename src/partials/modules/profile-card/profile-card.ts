@@ -32,12 +32,12 @@ class ProfileCard extends Block<ProfileCardProps> {
     onLogoutClick(e: Event) {
         e.preventDefault();
         this.props.store.dispatch(logout);
-        this.props.router.go('/login');
+        this.props.router.go('/');
     }
 
     onEditProfileClick(e: Event) {
         e.preventDefault();
-        this.props.router.go('/profile-edit');
+        this.props.router.go('/settings-edit');
     }
 
     onChangePasswordClick(e: Event) {

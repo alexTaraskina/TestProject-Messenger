@@ -34,7 +34,7 @@ export const editProfile = async (
 
     dispatch({ isLoading: false, user: transformUser(response as UserDTO) });
 
-    window.router.go('/profile');
+    window.router.go('/settings');
 }
 
 export const updatePassword = async (
@@ -54,7 +54,7 @@ export const updatePassword = async (
     dispatch({ isLoading: false, changePasswordMessage: 'Пароль был изменен' });
     setTimeout(() => { 
         dispatch({ changePasswordMessage: '' }); 
-        window.router.go('/profile');
+        window.router.go('/settings');
     }, 2000);
 }
 
@@ -73,5 +73,5 @@ export const changeAvatar = async (
     }
 
     dispatch({ isLoading: false, user: transformUser(response as UserDTO) });
-    window.router.go('/profile');
+    window.router.go('/settings');
 }

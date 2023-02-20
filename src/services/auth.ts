@@ -52,7 +52,7 @@ export const logout = async (dispatch: Dispatch<AppState>) => {
 
     dispatch({ isLoading: false, user: null });
 
-    window.router.go('/login');
+    window.router.go('/');
 };
 
 export const register = async (

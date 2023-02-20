@@ -8,7 +8,7 @@ const routes = [
         shouldAuthorized: false,
     },
     {
-        path: '/login',
+        path: '/',
         block: Screens.Login,
         shouldAuthorized: false,
     },
@@ -33,12 +33,12 @@ const routes = [
         shouldAuthorized: true,
     },
     {
-        path: '/profile',
+        path: '/settings',
         block: Screens.Profile,
         shouldAuthorized: true,
     },
     {
-        path: '/profile-edit',
+        path: '/settings-edit',
         block: Screens.ProfileEdit,
         shouldAuthorized: true,
     },

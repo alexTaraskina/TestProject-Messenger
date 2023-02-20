@@ -29,7 +29,7 @@ class Chats extends Block<ChatsProps> {
 
     onProfileLinkClick(e: Event) {
         e.preventDefault();
-        this.props.router.go("/profile");
+        this.props.router.go("/settings");
     }
 
     onCreateChatClick() {
