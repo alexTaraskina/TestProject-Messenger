@@ -13,9 +13,8 @@ class Error extends Block<ErrorProps> {
     static componentName: string = 'Error';
 
     constructor(props: ErrorProps) {
-        super(props);
-
-        this.setProps({
+        super({
+            ...props,
             onBackToChatsClick: (e: Event) => this.onBackToChatsClick(e),
         });
     }

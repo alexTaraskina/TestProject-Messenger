@@ -4,17 +4,17 @@ import template from 'bundle-text:./template.hbs';
 import './option.css';
 
 interface OptionProps {
-    onClick: () => void;
+    onClick?: () => void;
     events: {
-        click: () => void;
+        click?: () => void;
     }
 }
 
 export default class Option extends Block<OptionProps> {
     static componentName: string = 'Option';
 
-    constructor(props: OptionProps) {
-        super({ ...props, events: { click: props.onClick } });
+    constructor({ onClick, ...props }: OptionProps) {
+        super({ ...props, events: { click: onClick } });
     }
     
     render() {

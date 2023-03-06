@@ -16,13 +16,12 @@ class Avatar extends Block<AvatarProps> {
     static componentName: string = 'Avatar';
 
     constructor(props: AvatarProps) {
-        super(props);
-
-        this.setProps({
-            onAvatarChange:(e) => this.onAvatarChange(e),
+        super({
+            ...props,
+            onAvatarChange: (e) => this.onAvatarChange(e),
         });
     }
-    
+
     onAvatarChange(e: Event) {
         const avatarInputEl = e.target as HTMLInputElement;
         if (avatarInputEl && avatarInputEl.files) {
@@ -37,4 +36,4 @@ class Avatar extends Block<AvatarProps> {
     }
 }
 
-export default withStore(Avatar, (state) => ({avatar: state.user?.avatar}));
+export default withStore(Avatar, (state) => ({ avatar: state.user?.avatar }));

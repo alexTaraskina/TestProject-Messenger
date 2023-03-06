@@ -20,14 +20,11 @@ export default class ChatPage extends Block<ChatProps> {
     {
         super({ 
             ...props, 
-            getChat: () => window.store.getState().chats?.find(chat => chat.id === Number(window.store.getState().params.id)) 
-        });
-
-        this.setProps({
+            getChat: () => window.store.getState().chats?.find(chat => chat.id === Number(window.store.getState().params.id)),
             showAddUserModal: () => this.showAddUserModal(),
             showRemoveUserModal: () => this.showRemoveUserModal(),
             onAddUserClick: (e: Event) => this.onAddUserClick(e),
-            onRemoveUserClick: (e: Event) => this.onRemoveUserClick(e),
+            onRemoveUserClick: (e: Event) => this.onRemoveUserClick(e), 
         });
     }
 

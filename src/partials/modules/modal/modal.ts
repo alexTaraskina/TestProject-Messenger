@@ -12,9 +12,8 @@ export default class Modal extends Block<ModalProps> {
     static componentName: string = 'Modal';
 
     constructor(props: ModalProps) {
-        super(props);
-
-        this.setProps({
+        super({
+            ...props,
             onBackdropClick: (e: Event) => this.onBackdropClick(e),
         });
     }

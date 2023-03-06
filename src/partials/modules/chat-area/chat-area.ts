@@ -24,9 +24,6 @@ class ChatArea extends Block<ChatAreaProps> {
     constructor(props: ChatAreaProps) {
         super({
             ...props,
-        });
-
-        this.setProps({
             onChoseOptionClick: (e: Event) => this.onChoseOptionClick(e),
             onSendMessageClick: (e: Event) => this.onSendMessageClick(e),
         });

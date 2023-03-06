@@ -20,9 +20,8 @@ class ProfileCard extends Block<ProfileCardProps> {
     static componentName: string = 'ProfileCard';
 
     constructor(props: ProfileCardProps) {
-        super(props);
-
-        this.setProps({
+        super({
+            ...props,
             onLogoutClick: (e: Event) => this.onLogoutClick(e),
             onEditProfileClick: (e: Event) => this.onEditProfileClick(e),
             onChangePasswordClick: (e: Event) => this.onChangePasswordClick(e),

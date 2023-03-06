@@ -19,9 +19,8 @@ class Chats extends Block<ChatsProps> {
     static componentName: string = 'Chats';
 
     constructor(props: ChatsProps) {
-        super(props);
-
-        this.setProps({
+        super({
+            ...props,
             onProfileLinkClick: (e: Event) => this.onProfileLinkClick(e),
             onCreateChatClick: () => this.onCreateChatClick(),
         });
