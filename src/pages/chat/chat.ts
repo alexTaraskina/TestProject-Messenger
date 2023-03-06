@@ -1,6 +1,6 @@
 import { Block, Store } from 'core';
 import template from 'bundle-text:./template.hbs';
-import { addUser } from 'services/messenger';
+import { addUser, removeUser } from 'services/messenger';
 import { Screens } from 'utils';
 
 interface ChatProps {
@@ -61,7 +61,23 @@ export default class ChatPage extends Block<ChatProps> {
     }
 
     onRemoveUserClick(e: Event) {
-        e.preventDefault();
+        interface ChatUserData {
+            users: number[],
+            chatId: number,
+        };
+
+        let el = e.target as HTMLElement;
+        let userId = el && el.parentNode ? Number(el.parentNode.querySelector('input')?.value) : null;
+        let chatId = Number(window.store.getState().params.id);
+
+        if (userId && chatId) {
+            const userData: ChatUserData = {
+                users: [ userId ], 
+                chatId: chatId, 
+            }
+
+            window.store.dispatch(removeUser, userData);
+        }
     }
 
     render() {

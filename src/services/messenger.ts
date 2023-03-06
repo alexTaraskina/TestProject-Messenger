@@ -7,7 +7,7 @@ type CreateChatPayload = {
     title: string,
 };
 
-type AddUserPayload = {
+type UserPayload = {
     users: number[],
     chatId: number,
 };
@@ -46,7 +46,7 @@ export const createChat = async (
 export const addUser = async (
     dispatch: Dispatch<AppState>,
     state: AppState,
-    data: AddUserPayload
+    data: UserPayload
 ) => {
     try {
         dispatch({ isLoading: true });
@@ -71,6 +71,35 @@ export const addUser = async (
     catch (e) {
         console.log(e);
     }
+}
+
+export const removeUser = async (
+    dispatch: Dispatch<AppState>,
+    state: AppState,
+    data: UserPayload) => {
+        try {
+            dispatch({ isLoading: true });
+    
+            const response = await messengerAPI.removeUser(data);
+    
+            if (apiHasError(response)) {
+                dispatch({ isLoading: false });
+                return;
+            }
+    
+            const chatUsers = await messengerAPI.getChatUsers({ id: data.chatId });
+    
+            if (apiHasError(chatUsers)) {
+                dispatch({ isLoading: false });
+                return;
+            }
+            else {
+                dispatch({ isLoading: false, currentChatUsers: chatUsers.map(item => transformUser(item as UserDTO)) });
+            }
+        }
+        catch (e) {
+            console.log(e);
+        }
 }
 
 export const getChatUsers = async (
