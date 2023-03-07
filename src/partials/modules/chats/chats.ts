@@ -10,6 +10,7 @@ interface ChatsProps {
     store: Store<AppState>,
     onProfileLinkClick?: (e: Event) => void,
     onCreateChatClick?: () => void,
+    handleScroll?: (e: Event) => void,
     events: {
         submit: (event: MouseEvent) => void
     }
@@ -23,6 +24,7 @@ class Chats extends Block<ChatsProps> {
             ...props,
             onProfileLinkClick: (e: Event) => this.onProfileLinkClick(e),
             onCreateChatClick: () => this.onCreateChatClick(),
+            handleScroll: (e: Event) => this.checkPosition(e),
         });
     }
 
@@ -34,8 +36,8 @@ class Chats extends Block<ChatsProps> {
     onCreateChatClick() {
         const chatTitleEl = this.element?.querySelector('#newChatTitle') as HTMLInputElement;
 
-        if (chatTitleEl.value .length === 0) {
-            this.refs.newChatError.setProps({ text: 'Title can not be empty' }); 
+        if (chatTitleEl.value.length === 0) {
+            this.refs.newChatError.setProps({ text: 'Title can not be empty' });
         }
 
         interface NewChatData {
@@ -48,7 +50,22 @@ class Chats extends Block<ChatsProps> {
 
         this.props.store.dispatch(createChat, newChatData);
     }
-    
+
+    checkPosition(e: Event) {
+        // высота документа и высота экрана:
+        console.log(e.target);
+        console.log((e.target as HTMLElement).offsetHeight);
+        const height = document.body.offsetHeight
+        const screenHeight = window.innerHeight
+        const scrolled = window.scrollY
+        const threshold = height - screenHeight / 4
+        const position = scrolled + screenHeight
+
+        if (position >= threshold) {
+            console.log(height);
+        }
+    }
+
     render() {
         return template;
     }

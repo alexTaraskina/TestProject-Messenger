@@ -12,6 +12,37 @@ type UserPayload = {
     chatId: number,
 };
 
+type GetChatsRequestData = {
+    offset: number,
+    limit: number,
+    title: string,
+}
+
+export const uploadChats = async (
+    dispatch: Dispatch<AppState>,
+    state: AppState,
+    data: GetChatsRequestData
+) => {
+    try {
+        dispatch({ isLoading: true });
+
+        const response = await messengerAPI.chats(data);
+
+        if (apiHasError(response)) {
+            dispatch({ isLoading: false });
+            return;
+        }
+        else {
+            let responseChats = response.map(item => transformChat(item as ChatDTO));
+            let allChats = state.chats ? state.chats.concat(responseChats) : responseChats;
+            dispatch({ isLoading: false, chats: allChats });
+        }
+    }
+    catch (e) {
+        console.log(e);
+    }
+}
+
 export const createChat = async (
     dispatch: Dispatch<AppState>,
     state: AppState,
