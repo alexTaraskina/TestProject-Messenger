@@ -1,8 +1,14 @@
 <div class="chat-preview">
-    <div class="chat-preview__image"></div>
+    <div class="chat-preview__image-wrapper">
+        {{#if image }}
+        <img src="https://ya-praktikum.tech/api/v2/resources/{{{image}}}" alt="image" />
+        {{else}}
+        <span class="chat-preview__icon"></span>
+        {{/if}}
+    </div>
     <div class="chat-preview__chat-info">
         {{{ Link class="chat-preview__name" linkText=title href="#" onClick=onChatTitleClick }}}
         <p class="chat-preview__lastMessage">{{{lastMessage}}}</p>
     </div>
-    <div class="chat-preview__time">{{{time}}}</div>
+    {{!-- <div class="chat-preview__time">{{{time}}}</div> --}}
 </div>

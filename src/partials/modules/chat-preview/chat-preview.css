@@ -8,12 +8,31 @@
         border-bottom: 1px solid var(--whisper);
     }
 
-    &__image {
+    &__image-wrapper {
         width: 47px;
         height: 47px;
         background: var(--white-smoke);
         border-radius: 50%;
         margin-right: 10px;
+
+        img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+        }
+    }
+
+    &__icon {
+        background: url("~/static/assets/icons/default-image.svg");
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
+        background-repeat: no-repeat;
+        background-position: center;
+        border: 1px solid lightgray;
+        background-size: cover;
+        position: absolute;
     }
 
     &__chat-info {
