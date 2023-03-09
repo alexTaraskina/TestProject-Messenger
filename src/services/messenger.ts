@@ -239,3 +239,32 @@ export const closeSocket = async (
     state: AppState) => {
     socket?.close();
 }
+
+export const updateChatImage = async (
+    dispatch: Dispatch<AppState>,
+    state: AppState,
+    data: FormData
+) => {
+    try {
+        dispatch({ isLoading: true });
+
+        const response = await messengerAPI.chatImage(data);
+
+        if (apiHasError(response)) {
+            dispatch({ isLoading: false });
+            return;
+        }
+
+        const responseChats = await messengerAPI.chats();
+        if (apiHasError(responseChats)) {
+            dispatch({ isLoading: false });
+            return;
+        }
+        else {
+            dispatch({ isLoading: false, chats: responseChats.map(item => transformChat(item as ChatDTO)) });
+        }
+    }
+    catch (e) {
+        console.log(e);
+    }
+}

@@ -17,6 +17,7 @@ import { NavButton } from 'partials/components/nav-button';
 import { Backdrop } from 'partials/components/backdrop';
 import { SendMessageButton } from 'partials/components/send-message-button';
 import { ActionsButton } from 'partials/modules/action-button';
+import { ChatImage } from 'partials/components/chat-image';
 
 import { LoginForm } from './partials/modules/login-form';
 import { RegisterForm } from './partials/modules/register-form';
@@ -46,6 +47,7 @@ registerComponent(NavButton);
 registerComponent(Backdrop);
 registerComponent(SendMessageButton);
 registerComponent(ActionsButton);
+registerComponent(ChatImage);
 
 registerComponent(LoginForm);
 registerComponent(RegisterForm);

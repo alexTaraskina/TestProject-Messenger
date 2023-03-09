@@ -51,7 +51,7 @@ class ChatArea extends Block<ChatAreaProps> {
             {{#if selected }}
             <div class="chat-area__header">
                 <div class="chat-area__recipient-info">
-                    <div class="chat-area__recipient-avatar"></div>
+                    {{{ ChatImage chatId=${this.props.chat?.id} image="${this.props.chat?.avatar ?? ""}" }}}
                     <div style="display: flex; flex-direction: column;">
                         <p class="chat-area__recipient-name">${this.props.chat?.title}</p>
                         ${this.props.chatUsers.map(u => `${u.firstName} ${u.secondName}`)}

@@ -47,4 +47,7 @@ export const messengerAPI = {
         
     initRealTimeMessagesConnection: (data: InitRealTimeMessagesConnectionRequestData) => 
         new HTTPTransport().post<RealTimeMessagesConnectionDTO | APIError>(baseURL + `/chats/token/${data.id}`, {data}),
+
+    chatImage: (data: FormData) =>
+        new HTTPTransport().put<ChatDTO | APIError>(baseURL + '/chats/avatar', { data, noHeaders: true, noConvertion: true }),
 }
