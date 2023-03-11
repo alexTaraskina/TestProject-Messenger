@@ -1,4 +1,4 @@
-import { UserDTO, ChatDTO } from 'api/types';
+import { UserDTO, ChatDTO, FileDTO } from 'api/types';
 
 export const transformUser = (data: UserDTO): User => {
   return {
@@ -35,4 +35,16 @@ export const transformChat = (data: ChatDTO): Chat => {
       ? data.users.map(transformUser) 
       : null,
   };
+}
+
+export const transformFile = (data: FileDTO): ChatFile => {
+  return {
+    id: data.id,
+    user_id: data.user_id,
+    path: data.path,
+    filename: data.filename,
+    content_type: data.content_type,
+    content_size: data.content_size,
+    upload_date: data.upload_date,
+  }
 }

@@ -2,7 +2,7 @@
     <div class="modal {{{state}}} {{{cssModificator}}}">
         <h1 class="modal__heading">{{{heading}}}</h1>
         {{#if inputType}}
-            {{{ Input type=inputType id="newChatUser" name="newChatUser" placeholder="Введите id пользователя" }}}
+            {{{ Input type=inputType id="newChatUser" name="newChatUser" placeholder="Введите id пользователя" ref="input" }}}
         {{/if}}
 
         {{#if message}}

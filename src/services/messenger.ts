@@ -1,7 +1,7 @@
 import { messengerAPI } from 'api/messenger';
-import { ChatDTO, UserDTO } from 'api/types';
+import { ChatDTO, FileDTO, UserDTO } from 'api/types';
 import type { Dispatch } from 'core';
-import { apiHasError, transformChat, transformUser } from 'utils';
+import { apiHasError, transformChat, transformUser, transformFile } from 'utils';
 
 type CreateChatPayload = {
     title: string,
@@ -320,6 +320,9 @@ export const uploadChatAsset = async (
         if (apiHasError(response)) {
             dispatch({ isLoading: false });
             return;
+        }
+        else {
+            dispatch({ isLoading: false, uploadedFile: transformFile(response as FileDTO) });
         }
     }
     catch (e) {

@@ -13,7 +13,7 @@ interface ChatProps {
     onRemoveChatClick?: () => void,
     onFileChoosen?: () => void,
     getChat: () => Chat | undefined,
-    sendFile?: (e: Event) => void,
+    uploadFile?: (e: Event) => void,
 }
 
 export default class ChatPage extends Block<ChatProps> {
@@ -31,7 +31,7 @@ export default class ChatPage extends Block<ChatProps> {
             onAddUserClick: (e: Event) => this.onAddUserClick(e),
             onRemoveUserClick: (e: Event) => this.onRemoveUserClick(e), 
             onRemoveChatClick: () => this.onRemoveChatClick(),
-            sendFile: (e: Event) => this.sendFile(e),
+            uploadFile: (e: Event) => this.uploadFile(e),
         });
     }
 
@@ -101,12 +101,13 @@ export default class ChatPage extends Block<ChatProps> {
         window.router.go('/messenger');
     }
 
-    sendFile(e: Event) {
-        const imageInputEl = e.target as HTMLInputElement;
+    uploadFile(e: Event) {
+        let el = e.target as HTMLElement;
+        const imageInputEl = el && el.parentNode ? el.parentNode.querySelector('input') : null;
         if (imageInputEl && imageInputEl.files) {
             const formData = new FormData();
             formData.append('resource', imageInputEl.files[0]);
-            this.props.store.dispatch(uploadChatAsset, formData);
+            window.store.dispatch(uploadChatAsset, formData);
         }
 
         // e.preventDefault();
@@ -141,7 +142,8 @@ export default class ChatPage extends Block<ChatProps> {
                 heading="Загрузите файл" 
                 buttonText="Загрузить"
                 inputType="file"
-                ref="uploadFileModal" }}}
+                ref="uploadFileModal"
+                onButtonClick=uploadFile }}}
         </div>
         `;
     }
