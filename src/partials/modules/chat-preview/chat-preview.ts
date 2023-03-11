@@ -17,11 +17,7 @@ class ChatPreview extends Block<ChatPreviewProps> {
     static componentName: string = 'ChatPreview';
 
     constructor(props: ChatPreviewProps) {
-        super(props);
-
-        this.setProps({
-            onChatTitleClick: (e: Event) => this.onChatTitleClick(e),
-        });
+        super({ ...props, onChatTitleClick: (e: Event) => this.onChatTitleClick(e) });
     }
 
     onChatTitleClick(e: Event) {
