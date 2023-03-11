@@ -69,7 +69,7 @@ class ChatArea extends Block<ChatAreaProps> {
             </div>
             <div class="chat-area__main">
                 <div class="chat-area__dialog-area">
-                    ${this.props.messages?.map(m => 
+                    ${this.props.messages?.reverse().map(m => 
                         { 
                             return `
                                 <div class="message message_content-type_text ${Number(m.user_id) !== this.props.userId ? 'message_type_recieved' : 'message_type_sent'}">
