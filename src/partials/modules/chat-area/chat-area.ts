@@ -59,7 +59,7 @@ class ChatArea extends Block<ChatAreaProps> {
                     </div>
                 </div>
                 <button class="chat-area__actions-button">
-                    {{{ ActionsButton onClick=onChoseOptionClick }}}
+                    {{{ ActionsButton cssModificator="chat-area__actions-icon" id="actionsButton" onClick=onChoseOptionClick }}}
                     <div class="chat-area__actions-type-options jsOptions">
                         {{{ Option optionText="Добавить пользователя" optionType="addUser" onClick=onAddUserClick }}}
                         {{{ Option optionText="Удалить пользователя" optionType="removeUser" onClick=onRemoveUserClick }}}
@@ -78,6 +78,14 @@ class ChatArea extends Block<ChatAreaProps> {
                         }).join('')}
                 </div>
                 <div class="chat-area__new-message-area jsMessageArea">
+                    <button class="chat-area__attach-file-button">
+                        {{{ ActionsButton cssModificator="chat-area__attach-file-icon" id="attachFileButton" onClick=onChoseOptionClick }}}
+                        <div class="chat-area__file-type-options jsOptions">
+                            {{{ Option optionText="Фото или Видео" optionType="photo" }}}
+                            {{{ Option optionText="Файл" optionType="video" }}}
+                            {{{ Option optionText="Локация" optionType="location" }}}
+                        </div>
+                    </button>
                     <input type="text" id="message" name="message" class="chat-area__new-message" placeholder="Сообщение"/>
                     {{{ SendMessageButton onClick=onSendMessageClick }}}
                 </div>
