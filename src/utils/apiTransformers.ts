@@ -28,7 +28,7 @@ export const transformChat = (data: ChatDTO): Chat => {
         login: data.last_message.user.login,
         phone: data.last_message.user.phone
       },
-      time: data.last_message.time,
+      time: new Date(Date.parse(data.last_message.time)).toLocaleDateString('ru-RU', { weekday: 'short', month: 'long', day: 'numeric' }),
       content: data.last_message.content
     } : null,
     users: data.users 
