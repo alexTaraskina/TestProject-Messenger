@@ -11,6 +11,7 @@ interface ChatAreaProps {
     onSendMessageClick?: (e: Event) => void,
     onAddUserClick?: (e: Event) => void,
     onRemoveUserClick?: (e: Event) => void,
+    onRemoveChatClick?: () => void,
     id: number,
     chatUsers: User[],
     chat: Chat | undefined,
@@ -62,6 +63,7 @@ class ChatArea extends Block<ChatAreaProps> {
                     <div class="chat-area__actions-type-options jsOptions">
                         {{{ Option optionText="Добавить пользователя" optionType="addUser" onClick=onAddUserClick }}}
                         {{{ Option optionText="Удалить пользователя" optionType="removeUser" onClick=onRemoveUserClick }}}
+                        {{{ Option optionText="Удалить чат" optionType="removeChat" onClick=onRemoveChatClick }}}
                     </div>
                 </button>
             </div>

@@ -18,6 +18,10 @@ type GetChatsRequestData = {
     title: string,
 }
 
+type DeleteChatData = {
+    chatId: number,
+};
+
 export const uploadChats = async (
     dispatch: Dispatch<AppState>,
     state: AppState,
@@ -131,6 +135,35 @@ export const removeUser = async (
         catch (e) {
             console.log(e);
         }
+}
+
+export const removeChat = async (
+    dispatch: Dispatch<AppState>,
+    state: AppState,
+    data: DeleteChatData
+) => {
+    try {
+        dispatch({ isLoading: true });
+
+        const response = await messengerAPI.removeChat(data);
+
+        if (apiHasError(response)) {
+            dispatch({ isLoading: false });
+            return;
+        }
+
+        const responseChats = await messengerAPI.chats();
+        if (apiHasError(responseChats)) {
+            dispatch({ isLoading: false });
+            return;
+        }
+        else {
+            dispatch({ isLoading: false, chats: responseChats.map(item => transformChat(item as ChatDTO)) });
+        }
+    }
+    catch (e) {
+        console.log(e);
+    }
 }
 
 export const getChatUsers = async (

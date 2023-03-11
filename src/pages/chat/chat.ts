@@ -1,6 +1,6 @@
-import { Block, Store } from 'core';
+import { Block, CoreRouter, Store } from 'core';
 import template from 'bundle-text:./template.hbs';
-import { addUser, removeUser } from 'services/messenger';
+import { addUser, removeUser, removeChat } from 'services/messenger';
 import { Screens } from 'utils';
 
 interface ChatProps {
@@ -9,6 +9,7 @@ interface ChatProps {
     showRemoveUserModal?: () => void,
     onAddUserClick?: (e: Event) => void,
     onRemoveUserClick?: (e: Event) => void,
+    onRemoveChatClick?: () => void,
     getChat: () => Chat | undefined,
 }
 
@@ -25,6 +26,7 @@ export default class ChatPage extends Block<ChatProps> {
             showRemoveUserModal: () => this.showRemoveUserModal(),
             onAddUserClick: (e: Event) => this.onAddUserClick(e),
             onRemoveUserClick: (e: Event) => this.onRemoveUserClick(e), 
+            onRemoveChatClick: () => this.onRemoveChatClick(),
         });
     }
 
@@ -80,6 +82,16 @@ export default class ChatPage extends Block<ChatProps> {
         }
     }
 
+    onRemoveChatClick() {
+        let chatId = Number(window.store.getState().params.id);
+
+        if (chatId) {
+            window.store.dispatch(removeChat, { chatId });
+        }
+
+        window.router.go('/messenger');
+    }
+
     render() {
         return `
         <div class="page chat-page">
@@ -87,7 +99,8 @@ export default class ChatPage extends Block<ChatProps> {
             {{{ ChatArea selected="chat-area_selected" chat=${this.props.getChat()}
                 recipientName="Вадим" 
                 onAddUserClick=showAddUserModal
-                onRemoveUserClick=showRemoveUserModal }}}
+                onRemoveUserClick=showRemoveUserModal
+                onRemoveChatClick=onRemoveChatClick }}}
             {{{ Modal state="hidden" 
                 heading="Добавить пользователя" 
                 buttonText="Добавить" 

@@ -29,6 +29,10 @@ type InitRealTimeMessagesConnectionRequestData = {
     id: number,
 };
 
+type DeleteChatRequestData = {
+    chatId: number,
+};
+
 export const messengerAPI = {
     createChat: (data: CreateChatRequestData) => 
         new HTTPTransport().post<ResponseData>(baseURL + '/chats', {data}),
@@ -41,6 +45,9 @@ export const messengerAPI = {
 
     removeUser: (data: ChatUserRequestData) => 
         new HTTPTransport().delete<ResponseData>(baseURL + '/chats/users', {data}),
+
+    removeChat: (data: DeleteChatRequestData) => 
+        new HTTPTransport().delete<ResponseData>(baseURL + '/chats', {data}),
 
     getChatUsers: (data: ChatUsersRequestData) => 
         new HTTPTransport().get<UserDTO[] | APIError>(baseURL + `/chats/${data.id}/users`, {data}),
