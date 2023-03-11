@@ -1,5 +1,5 @@
 import { HTTPTransport } from 'helpers';
-import { APIError, ChatDTO, ResponseData, UserDTO, RealTimeMessagesConnectionDTO } from 'api/types';
+import { APIError, ChatDTO, ResponseData, UserDTO, RealTimeMessagesConnectionDTO, FileDTO } from 'api/types';
 import { baseURL } from './variables';
 
 type CreateChatRequestData = {
@@ -57,4 +57,7 @@ export const messengerAPI = {
 
     chatImage: (data: FormData) =>
         new HTTPTransport().put<ChatDTO | APIError>(baseURL + '/chats/avatar', { data, noHeaders: true, noConvertion: true }),
+
+    uploadChatAsset: (data: FormData) =>
+        new HTTPTransport().post<FileDTO | APIError>(baseURL + '/resources', {data, noHeaders: true, noConvertion: true }),
 }

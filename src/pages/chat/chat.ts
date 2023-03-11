@@ -1,16 +1,19 @@
 import { Block, CoreRouter, Store } from 'core';
 import template from 'bundle-text:./template.hbs';
-import { addUser, removeUser, removeChat } from 'services/messenger';
+import { addUser, removeUser, removeChat, uploadChatAsset } from 'services/messenger';
 import { Screens } from 'utils';
 
 interface ChatProps {
     store: Store<AppState>;
     showAddUserModal?: () => void,
     showRemoveUserModal?: () => void,
+    showFileUploadModal?: () => void,
     onAddUserClick?: (e: Event) => void,
     onRemoveUserClick?: (e: Event) => void,
     onRemoveChatClick?: () => void,
+    onFileChoosen?: () => void,
     getChat: () => Chat | undefined,
+    sendFile?: (e: Event) => void,
 }
 
 export default class ChatPage extends Block<ChatProps> {
@@ -24,9 +27,11 @@ export default class ChatPage extends Block<ChatProps> {
             getChat: () => window.store.getState().chats?.find(chat => chat.id === Number(window.store.getState().params.id)),
             showAddUserModal: () => this.showAddUserModal(),
             showRemoveUserModal: () => this.showRemoveUserModal(),
+            showFileUploadModal: () => this.showFileUploadModal(),
             onAddUserClick: (e: Event) => this.onAddUserClick(e),
             onRemoveUserClick: (e: Event) => this.onRemoveUserClick(e), 
             onRemoveChatClick: () => this.onRemoveChatClick(),
+            sendFile: (e: Event) => this.sendFile(e),
         });
     }
 
@@ -40,6 +45,10 @@ export default class ChatPage extends Block<ChatProps> {
 
     showRemoveUserModal() {
         this.refs.removeUserModal.setProps({ state: "active" });
+    }
+
+    showFileUploadModal() {
+        this.refs.uploadFileModal.setProps({ state: "active" });
     }
 
     onAddUserClick(e: Event) {
@@ -92,6 +101,20 @@ export default class ChatPage extends Block<ChatProps> {
         window.router.go('/messenger');
     }
 
+    sendFile(e: Event) {
+        const imageInputEl = e.target as HTMLInputElement;
+        if (imageInputEl && imageInputEl.files) {
+            const formData = new FormData();
+            formData.append('resource', imageInputEl.files[0]);
+            this.props.store.dispatch(uploadChatAsset, formData);
+        }
+
+        // e.preventDefault();
+        // const el = e.target as HTMLElement;
+        // const message = el && el.parentNode ? el.parentNode.querySelector('input')?.value : null;
+        // window.store.dispatch(sendMessage, message);
+    }
+
     render() {
         return `
         <div class="page chat-page">
@@ -100,19 +123,25 @@ export default class ChatPage extends Block<ChatProps> {
                 recipientName="Вадим" 
                 onAddUserClick=showAddUserModal
                 onRemoveUserClick=showRemoveUserModal
-                onRemoveChatClick=onRemoveChatClick }}}
+                onRemoveChatClick=onRemoveChatClick
+                onUploadAssetFileClick=showFileUploadModal }}}
             {{{ Modal state="hidden" 
                 heading="Добавить пользователя" 
                 buttonText="Добавить" 
-                type="input"
+                inputType="text"
                 ref="addUserModal"
                 onButtonClick=onAddUserClick }}}
             {{{ Modal state="hidden" 
                 heading="Удалить пользователя" 
                 buttonText="Удалить" 
-                type="input"
+                inputType="text"
                 ref="removeUserModal"
                 onButtonClick=onRemoveUserClick }}}
+            {{{ Modal state="hidden" 
+                heading="Загрузите файл" 
+                buttonText="Загрузить"
+                inputType="file"
+                ref="uploadFileModal" }}}
         </div>
         `;
     }

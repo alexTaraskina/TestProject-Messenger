@@ -12,6 +12,7 @@ interface ChatAreaProps {
     onAddUserClick?: (e: Event) => void,
     onRemoveUserClick?: (e: Event) => void,
     onRemoveChatClick?: () => void,
+    onUploadAssetFileClick?: () => void,
     id: number,
     chatUsers: User[],
     chat: Chat | undefined,
@@ -43,7 +44,7 @@ class ChatArea extends Block<ChatAreaProps> {
         e.preventDefault();
         const el = e.target as HTMLElement;
         const message = el && el.parentNode ? el.parentNode.querySelector('input')?.value : null;
-        window.store.dispatch(sendMessage, message);
+        window.store.dispatch(sendMessage, { content: message, type: 'message' });
     }
 
     render() {
@@ -81,9 +82,8 @@ class ChatArea extends Block<ChatAreaProps> {
                     <button class="chat-area__attach-file-button">
                         {{{ ActionsButton cssModificator="chat-area__attach-file-icon" id="attachFileButton" onClick=onChoseOptionClick }}}
                         <div class="chat-area__file-type-options jsOptions">
-                            {{{ Option optionText="Фото или Видео" optionType="photo" }}}
-                            {{{ Option optionText="Файл" optionType="video" }}}
-                            {{{ Option optionText="Локация" optionType="location" }}}
+                            {{{ Option optionText="Фото или Видео" optionType="photo" onClick=onUploadAssetFileClick }}}
+                            {{{ Option optionText="Файл" optionType="video" onClick=onUploadAssetFileClick }}}
                         </div>
                     </button>
                     <input type="text" id="message" name="message" class="chat-area__new-message" placeholder="Сообщение"/>

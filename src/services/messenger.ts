@@ -22,6 +22,11 @@ type DeleteChatData = {
     chatId: number,
 };
 
+type MessageData = {
+    type: string,
+    content: string,
+}
+
 export const uploadChats = async (
     dispatch: Dispatch<AppState>,
     state: AppState,
@@ -260,10 +265,10 @@ export const initRealTimeMessagesConnection = async (
 export const sendMessage = async (
     dispatch: Dispatch<AppState>,
     state: AppState,
-    data: string) => {
+    data: MessageData) => {
     socket?.send(JSON.stringify({
-        content: data,
-        type: 'message'
+        content: data.content,
+        type: data.type
     }));
 }
 
@@ -301,3 +306,24 @@ export const updateChatImage = async (
         console.log(e);
     }
 }
+
+export const uploadChatAsset = async (
+    dispatch: Dispatch<AppState>,
+    state: AppState,
+    data: FormData
+) => {
+    try {
+        dispatch({ isLoading: true });
+
+        const response = await messengerAPI.uploadChatAsset(data);
+
+        if (apiHasError(response)) {
+            dispatch({ isLoading: false });
+            return;
+        }
+    }
+    catch (e) {
+        console.log(e);
+    }
+}
+

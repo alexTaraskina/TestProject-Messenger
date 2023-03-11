@@ -149,11 +149,11 @@
         display: none;
         position: absolute;
         width: 162px;
-        height: 128px;
+        height: 94px;
         background: var(--white);
         box-shadow: 0 0 6px rgba(0 0 0 / 14%);
         border-radius: 12px;
-        top: calc(-128px - 22px);
+        top: calc(-94px - 22px);
         padding: 15px;
 
         &.active {

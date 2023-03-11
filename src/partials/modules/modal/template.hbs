@@ -1,14 +1,16 @@
 <div>
     <div class="modal {{{state}}} {{{cssModificator}}}">
         <h1 class="modal__heading">{{{heading}}}</h1>
-        {{#if type}}
-            {{{ Input type="text" id="newChatUser" name="newChatUser" placeholder="Введите id пользователя" }}}
+        {{#if inputType}}
+            {{{ Input type=inputType id="newChatUser" name="newChatUser" placeholder="Введите id пользователя" }}}
+        {{/if}}
+
+        {{#if message}}
+            <p class="modal__message">{{{message}}}</p>
         {{/if}}
 
         {{#if buttonText}}
             {{{ Button heading=buttonText onClick=onButtonClick }}}
-        {{else}}
-            <p class="modal__message">{{{message}}}</p>
         {{/if}}
     </div>
     {{{ Backdrop onClick=onBackdropClick }}}
