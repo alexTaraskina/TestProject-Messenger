@@ -22,24 +22,24 @@
         overflow-y: auto;
         padding-right: 10px;
 
-                /* width */
+        /* width */
         &::-webkit-scrollbar {
             width: 5px;
         }
         
         /* Track */
         &::-webkit-scrollbar-track {
-            background: #f1f1f1;
+            background: #F1F1F1;
         }
         
         /* Handle */
         &::-webkit-scrollbar-thumb {
-            background: #bcb8b8;
+            background: #BCB8B8;
         }
         
         /* Handle on hover */
         &::-webkit-scrollbar-thumb:hover {
-            background: #a09f9f;
+            background: #A09F9F;
         }
     }
 
