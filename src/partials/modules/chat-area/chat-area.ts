@@ -18,6 +18,7 @@ interface ChatAreaProps {
     chat: Chat | undefined,
     messages: Message[], 
     userId: number,
+    uploadedFile: ChatFile | null,
 }
 
 class ChatArea extends Block<ChatAreaProps> {
@@ -42,9 +43,14 @@ class ChatArea extends Block<ChatAreaProps> {
 
     onSendMessageClick(e: Event) {
         e.preventDefault();
-        const el = e.target as HTMLElement;
-        const message = el && el.parentNode ? el.parentNode.querySelector('input')?.value : null;
-        window.store.dispatch(sendMessage, { content: message, type: 'message' });
+        if (this.props.uploadedFile == null) {
+            const el = e.target as HTMLElement;
+            const message = el && el.parentNode ? el.parentNode.querySelector('input')?.value : null;
+            window.store.dispatch(sendMessage, { content: message, type: 'message' }); 
+        }
+        else {
+            window.store.dispatch(sendMessage, { content: this.props.uploadedFile.id, type: 'file' }); 
+        }
     }
 
     render() {
@@ -72,6 +78,14 @@ class ChatArea extends Block<ChatAreaProps> {
                 <div class="chat-area__dialog-area">
                     ${this.props.messages?.reverse().map(m => 
                         { 
+                            if (m.type === 'file') {
+                                let src = 'https://ya-praktikum.tech/api/v2/resources/' + m.file?.path;
+                                return `
+                                    <div class="message message_content-type_file ${Number(m.user_id) !== this.props.userId ? 'message_type_recieved' : 'message_type_sent'}">
+                                        <img src=${src}>
+                                    </div>`;
+                            }
+                            
                             return `
                                 <div class="message message_content-type_text ${Number(m.user_id) !== this.props.userId ? 'message_type_recieved' : 'message_type_sent'}">
                                     <p>${m.content}</p>
@@ -86,7 +100,10 @@ class ChatArea extends Block<ChatAreaProps> {
                             {{{ Option optionText="Файл" optionType="video" onClick=onUploadAssetFileClick }}}
                         </div>
                     </button>
-                    <input type="text" id="message" name="message" class="chat-area__new-message" placeholder="Сообщение"/>
+                    <input type="text" id="message" 
+                        name="message" class="chat-area__new-message" 
+                        placeholder="Сообщение"
+                        value="${this.props.uploadedFile?.filename ?? ""}" />
                     {{{ SendMessageButton onClick=onSendMessageClick }}}
                 </div>
             </div>
@@ -103,5 +120,6 @@ export default withStore(ChatArea, (state: AppState) => ({
     chatUsers: state.currentChatUsers ?? [],
     messages: state.messages,
     chat: state.chats?.find(chat => chat.id === Number(state.params.id)),
-    userId: state.user?.id ?? 0
+    userId: state.user?.id ?? 0,
+    uploadedFile: state.uploadedFile
 }));

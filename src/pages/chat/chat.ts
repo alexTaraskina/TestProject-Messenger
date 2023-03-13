@@ -110,6 +110,8 @@ export default class ChatPage extends Block<ChatProps> {
             window.store.dispatch(uploadChatAsset, formData);
         }
 
+        this.refs.uploadFileModal.setProps({ state: "" });
+
         // e.preventDefault();
         // const el = e.target as HTMLElement;
         // const message = el && el.parentNode ? el.parentNode.querySelector('input')?.value : null;
