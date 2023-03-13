@@ -248,7 +248,7 @@ export const initRealTimeMessagesConnection = async (
                 //let oldMessages = window.store.getState()?.messages ? [...window.store.getState()?.messages] : [];
                 //debugger;
                 else if (data.type !== 'pong') {
-                    dispatch({ messages: [...window.store.getState().messages, data] });
+                    dispatch({ messages: [data, ...window.store.getState().messages] });
                 }
             });
 

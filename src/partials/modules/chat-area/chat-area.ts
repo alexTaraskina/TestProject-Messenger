@@ -76,7 +76,7 @@ class ChatArea extends Block<ChatAreaProps> {
             </div>
             <div class="chat-area__main">
                 <div class="chat-area__dialog-area">
-                    ${this.props.messages?.reverse().map(m => 
+                    ${this.props.messages?.slice().reverse().map(m => 
                         { 
                             if (m.type === 'file') {
                                 let src = 'https://ya-praktikum.tech/api/v2/resources/' + m.file?.path;
