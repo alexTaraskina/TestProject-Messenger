@@ -22,7 +22,14 @@ declare global {
         token: string,  
         messages: Message[],
         webSocket: WebSocket | null,
+        error: Error | null,
+        uploadedFile: ChatFile | null,
     };
+
+    export type Error = {
+        status: string,
+        text: string,
+    }
 
     export type Message = {
         chat_id: number,
@@ -30,10 +37,10 @@ declare global {
         type: string,
         user_id: string,
         content: string,
-        file?: Nullable<File>,        
+        file?: Nullable<ChatFile>,        
     };
 
-    export type File = {
+    export type ChatFile = {
         id: number,
         user_id: number,
         path: string,

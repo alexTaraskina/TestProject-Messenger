@@ -24,6 +24,20 @@
             border-radius: 12px 12px 0;
         }
     }
+
+    &_content-type_file{
+        width: 50%;
+        max-height: 200px;
+        border: 1px solid #EAEAEA;
+        border-radius: 12px;
+
+        img {
+            width: 100%;
+            object-fit: cover;
+            height: 100%;
+            border-radius: 12px;
+        }
+    }
 }
 
 .message_type_recieved + .message_type_recieved,

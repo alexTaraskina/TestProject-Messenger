@@ -17,6 +17,7 @@ import { NavButton } from 'partials/components/nav-button';
 import { Backdrop } from 'partials/components/backdrop';
 import { SendMessageButton } from 'partials/components/send-message-button';
 import { ActionsButton } from 'partials/modules/action-button';
+import { ChatImage } from 'partials/components/chat-image';
 
 import { LoginForm } from './partials/modules/login-form';
 import { RegisterForm } from './partials/modules/register-form';
@@ -26,6 +27,7 @@ import { ChatArea } from './partials/modules/chat-area';
 import { Error } from './partials/modules/error';
 import { Searchbox } from './partials/modules/searchbox';
 import { ChatPreview } from './partials/modules/chat-preview';
+import { ChatsList } from 'partials/modules/chats-list';
 import { ProfileCard } from './partials/modules/profile-card';
 import { ProfileEditForm } from 'partials/modules/profile-edit-form';
 import { PasswordEditForm } from 'partials/modules/password-edit-form';
@@ -45,6 +47,7 @@ registerComponent(NavButton);
 registerComponent(Backdrop);
 registerComponent(SendMessageButton);
 registerComponent(ActionsButton);
+registerComponent(ChatImage);
 
 registerComponent(LoginForm);
 registerComponent(RegisterForm);
@@ -54,6 +57,7 @@ registerComponent(ChatArea);
 registerComponent(Error);
 registerComponent(Searchbox);
 registerComponent(ChatPreview);
+registerComponent(ChatsList);
 registerComponent(ProfileCard);
 registerComponent(ProfileEditForm);
 registerComponent(PasswordEditForm);
@@ -76,11 +80,6 @@ document.addEventListener('DOMContentLoaded', function () {
     window.store = store;
 
     store.on('changed', (prevState, nextState) => {
-        console.log(
-            '%cstore updated',
-            'background: #222; color: #bada55',
-            nextState,
-        );
         if (process.env.DEBUG) {
             console.log(
                 '%cstore updated',

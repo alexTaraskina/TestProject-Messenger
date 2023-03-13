@@ -20,9 +20,8 @@ class ProfileCard extends Block<ProfileCardProps> {
     static componentName: string = 'ProfileCard';
 
     constructor(props: ProfileCardProps) {
-        super(props);
-
-        this.setProps({
+        super({
+            ...props,
             onLogoutClick: (e: Event) => this.onLogoutClick(e),
             onEditProfileClick: (e: Event) => this.onEditProfileClick(e),
             onChangePasswordClick: (e: Event) => this.onChangePasswordClick(e),
@@ -32,12 +31,12 @@ class ProfileCard extends Block<ProfileCardProps> {
     onLogoutClick(e: Event) {
         e.preventDefault();
         this.props.store.dispatch(logout);
-        this.props.router.go('/login');
+        this.props.router.go('/');
     }
 
     onEditProfileClick(e: Event) {
         e.preventDefault();
-        this.props.router.go('/profile-edit');
+        this.props.router.go('/settings-edit');
     }
 
     onChangePasswordClick(e: Event) {

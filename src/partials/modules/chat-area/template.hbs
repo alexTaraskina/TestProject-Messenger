@@ -2,7 +2,7 @@
     {{#if selected }}
     <div class="chat-area__header">
         <div class="chat-area__recipient-info">
-            <div class="chat-area__recipient-avatar"></div>
+            {{!-- <div class="chat-area__recipient-avatar"></div> --}}
             <div style="display: flex; flex-direction: column;">
                 <p class="chat-area__recipient-name">{{{recipientName}}}</p>
                 {{!-- {{{ ChatUsers getUsers=chatUsers }}} --}}
@@ -14,6 +14,7 @@
             <div class="chat-area__actions-type-options jsOptions">
                 {{{ Option optionText="Добавить пользователя" optionType="addUser" onClick=onAddUserClick }}}
                 {{{ Option optionText="Удалить пользователя" optionType="removeUser" onClick=onRemoveUserClick }}}
+                {{{ Option optionText="Удалить чат" optionType="removeChat" onClick=onRemoveChatClick }}}
             </div>
         </button>
     </div>

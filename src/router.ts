@@ -8,18 +8,13 @@ const routes = [
         shouldAuthorized: false,
     },
     {
-        path: '/login',
+        path: '/',
         block: Screens.Login,
         shouldAuthorized: false,
     },
     {
-        path: '/404',
-        block: Screens.Error404,
-        shouldAuthorized: false,
-    },
-    {
-        path: '/500',
-        block: Screens.Error500,
+        path: '/error',
+        block: Screens.ErrorPage,
         shouldAuthorized: false,
     },
     {
@@ -33,12 +28,12 @@ const routes = [
         shouldAuthorized: true,
     },
     {
-        path: '/profile',
+        path: '/settings',
         block: Screens.Profile,
         shouldAuthorized: true,
     },
     {
-        path: '/profile-edit',
+        path: '/settings-edit',
         block: Screens.ProfileEdit,
         shouldAuthorized: true,
     },
@@ -49,7 +44,7 @@ const routes = [
     },
     {
         path: '*',
-        block: Screens.Login,
+        block: Screens.Error404,
         shouldAuthorized: false,
     },
 ];
@@ -59,6 +54,11 @@ export function initRouter(router: CoreRouter, store: Store<AppState>) {
         router.use(route.path, (params) => {
             const isAuthorized = Boolean(store.getState().user);
             const currentScreen = Boolean(store.getState().screen);
+
+            if (isAuthorized && (route.block === Screens.Login || route.block === Screens.Register)) {
+                router.go('/messenger');
+                return;
+            }
 
             if (isAuthorized || !route.shouldAuthorized) {
                 store.dispatch({ screen: route.block, params });

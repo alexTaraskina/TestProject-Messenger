@@ -1,4 +1,4 @@
-import { UserDTO, ChatDTO } from 'api/types';
+import { UserDTO, ChatDTO, FileDTO } from 'api/types';
 
 export const transformUser = (data: UserDTO): User => {
   return {
@@ -28,11 +28,23 @@ export const transformChat = (data: ChatDTO): Chat => {
         login: data.last_message.user.login,
         phone: data.last_message.user.phone
       },
-      time: data.last_message.time,
+      time: new Date(Date.parse(data.last_message.time)).toLocaleDateString('ru-RU', { weekday: 'short', month: 'long', day: 'numeric' }),
       content: data.last_message.content
     } : null,
     users: data.users 
       ? data.users.map(transformUser) 
       : null,
   };
+}
+
+export const transformFile = (data: FileDTO): ChatFile => {
+  return {
+    id: data.id,
+    user_id: data.user_id,
+    path: data.path,
+    filename: data.filename,
+    content_type: data.content_type,
+    content_size: data.content_size,
+    upload_date: data.upload_date,
+  }
 }
