@@ -5,11 +5,15 @@ import './chat-preview.css';
 import { withRouter, withStore } from 'utils';
 import { closeSocket, getChatUsers, initRealTimeMessagesConnection } from 'services/messenger';
 
+import { baseURL } from 'api/variables';
+
 interface ChatPreviewProps {
     id: number,
     title: string,
     router: CoreRouter,
     onChatTitleClick?: (e: Event) => void,
+    image: string,
+    imagePath: string,
     store: Store<AppState>,
 }
 
@@ -17,7 +21,11 @@ class ChatPreview extends Block<ChatPreviewProps> {
     static componentName: string = 'ChatPreview';
 
     constructor(props: ChatPreviewProps) {
-        super({ ...props, onChatTitleClick: (e: Event) => this.onChatTitleClick(e) });
+        super({ 
+            ...props, 
+            imagePath: `${baseURL}/resources/${props.image}`, 
+            onChatTitleClick: (e: Event) => this.onChatTitleClick(e) 
+        });
     }
 
     onChatTitleClick(e: Event) {

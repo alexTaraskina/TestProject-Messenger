@@ -2,6 +2,7 @@ import { Block, Store } from "core";
 import template from 'bundle-text:./template.hbs';
 import { withStore } from "utils";
 import { updateChatImage } from "services/messenger";
+import { baseURL } from "api/variables";
 
 import './chat-image.css';
 
@@ -10,6 +11,7 @@ interface ChatImageProps {
     store: Store<AppState>,
     chatId: number,
     image: string,
+    imagePath: string,
     onImageChange?: (e: Event) => void,
 }
 
@@ -19,6 +21,7 @@ class ChatImage extends Block<ChatImageProps> {
     constructor(props: ChatImageProps) {
         super({
             ...props,
+            imagePath: `${baseURL}/resources/${props.image}`,
             onImageChange: (e) => this.onImageChange(e),
         });
     }

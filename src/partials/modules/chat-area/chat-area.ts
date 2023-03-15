@@ -2,6 +2,7 @@ import { Block, Store, } from 'core';
 // import template from 'bundle-text:./template.hbs';
 import { withStore } from 'utils';
 import { sendMessage } from 'services/messenger';
+import { baseURL } from 'api/variables';
 
 import './chat-area.css';
 
@@ -45,8 +46,12 @@ class ChatArea extends Block<ChatAreaProps> {
         e.preventDefault();
         if (this.props.uploadedFile == null) {
             const el = e.target as HTMLElement;
-            const message = el && el.parentNode ? el.parentNode.querySelector('input')?.value : null;
-            window.store.dispatch(sendMessage, { content: message, type: 'message' }); 
+            const message = el && el.parentNode 
+                ? el.parentNode.querySelector('input')?.value 
+                : null;
+            if (message) {
+                window.store.dispatch(sendMessage, { content: message, type: 'message' }); 
+            }
         }
         else {
             window.store.dispatch(sendMessage, { content: this.props.uploadedFile.id, type: 'file' }); 
@@ -79,17 +84,20 @@ class ChatArea extends Block<ChatAreaProps> {
                     ${this.props.messages?.slice().reverse().map(m => 
                         { 
                             if (m.type === 'file') {
-                                let src = 'https://ya-praktikum.tech/api/v2/resources/' + m.file?.path;
+                                let src = `${baseURL}/resources/` + m.file?.path;
                                 return `
                                     <div class="message message_content-type_file ${Number(m.user_id) !== this.props.userId ? 'message_type_recieved' : 'message_type_sent'}">
                                         <img src=${src}>
                                     </div>`;
                             }
                             
-                            return `
-                                <div class="message message_content-type_text ${Number(m.user_id) !== this.props.userId ? 'message_type_recieved' : 'message_type_sent'}">
-                                    <p>${m.content}</p>
-                                </div>`;
+                            if (m.content) {
+                                return `
+                                    <div class="message message_content-type_text ${Number(m.user_id) !== this.props.userId ? 'message_type_recieved' : 'message_type_sent'}">
+                                        <p>${m.content}</p>
+                                    </div>`; 
+                            }
+
                         }).join('')}
                 </div>
                 <div class="chat-area__new-message-area jsMessageArea">
