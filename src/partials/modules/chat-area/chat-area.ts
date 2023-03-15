@@ -45,8 +45,12 @@ class ChatArea extends Block<ChatAreaProps> {
         e.preventDefault();
         if (this.props.uploadedFile == null) {
             const el = e.target as HTMLElement;
-            const message = el && el.parentNode ? el.parentNode.querySelector('input')?.value : null;
-            window.store.dispatch(sendMessage, { content: message, type: 'message' }); 
+            const message = el && el.parentNode 
+                ? el.parentNode.querySelector('input')?.value 
+                : null;
+            if (message) {
+                window.store.dispatch(sendMessage, { content: message, type: 'message' }); 
+            }
         }
         else {
             window.store.dispatch(sendMessage, { content: this.props.uploadedFile.id, type: 'file' }); 
