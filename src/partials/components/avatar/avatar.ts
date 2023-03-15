@@ -2,6 +2,7 @@ import { Block, Store } from "core";
 import template from 'bundle-text:./template.hbs';
 import { withStore } from "utils";
 import { changeAvatar } from 'services/profile';
+import { baseURL } from '../../../api/variables';
 
 import './avatar.css';
 
@@ -9,6 +10,7 @@ interface AvatarProps {
     file: string,
     store: Store<AppState>,
     avatar: string,
+    avatarPath: string,
     onAvatarChange?: (e: Event) => void,
 }
 
@@ -18,6 +20,7 @@ class Avatar extends Block<AvatarProps> {
     constructor(props: AvatarProps) {
         super({
             ...props,
+            avatarPath: `${baseURL}/resources/${props.avatar}`,
             onAvatarChange: (e) => this.onAvatarChange(e),
         });
     }
