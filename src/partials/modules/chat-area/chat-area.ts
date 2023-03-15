@@ -90,10 +90,13 @@ class ChatArea extends Block<ChatAreaProps> {
                                     </div>`;
                             }
                             
-                            return `
-                                <div class="message message_content-type_text ${Number(m.user_id) !== this.props.userId ? 'message_type_recieved' : 'message_type_sent'}">
-                                    <p>${m.content}</p>
-                                </div>`;
+                            if (m.content) {
+                                return `
+                                    <div class="message message_content-type_text ${Number(m.user_id) !== this.props.userId ? 'message_type_recieved' : 'message_type_sent'}">
+                                        <p>${m.content}</p>
+                                    </div>`; 
+                            }
+
                         }).join('')}
                 </div>
                 <div class="chat-area__new-message-area jsMessageArea">
