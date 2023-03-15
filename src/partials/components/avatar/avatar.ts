@@ -27,7 +27,7 @@ class Avatar extends Block<AvatarProps> {
         if (avatarInputEl && avatarInputEl.files) {
             const formData = new FormData();
             formData.append('avatar', avatarInputEl.files[0]);
-            this.props.store.dispatch(changeAvatar, formData);
+            window.store.dispatch(changeAvatar, formData);
         }
     }
 
