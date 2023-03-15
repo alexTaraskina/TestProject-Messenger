@@ -2,6 +2,7 @@ import { Block, Store, } from 'core';
 // import template from 'bundle-text:./template.hbs';
 import { withStore } from 'utils';
 import { sendMessage } from 'services/messenger';
+import { baseURL } from 'api/variables';
 
 import './chat-area.css';
 
@@ -83,7 +84,7 @@ class ChatArea extends Block<ChatAreaProps> {
                     ${this.props.messages?.slice().reverse().map(m => 
                         { 
                             if (m.type === 'file') {
-                                let src = 'https://ya-praktikum.tech/api/v2/resources/' + m.file?.path;
+                                let src = `${baseURL}/resources/` + m.file?.path;
                                 return `
                                     <div class="message message_content-type_file ${Number(m.user_id) !== this.props.userId ? 'message_type_recieved' : 'message_type_sent'}">
                                         <img src=${src}>
