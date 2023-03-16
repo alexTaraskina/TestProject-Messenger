@@ -1,12 +1,18 @@
+.chat-preview-wrapper {
+    text-decoration: none;
+
+    &:last-of-type {
+        .chat-preview {
+            border-bottom: 1px solid var(--whisper);
+        }
+    }
+}
+
 .chat-preview {
     display: flex;
     width: 100%;
     border-top: 1px solid var(--whisper);
     padding: 12px 0;
-
-    &:last-of-type {
-        border-bottom: 1px solid var(--whisper);
-    }
 
     &__image-wrapper {
         width: 47px;

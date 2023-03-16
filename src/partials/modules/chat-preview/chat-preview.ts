@@ -11,10 +11,12 @@ interface ChatPreviewProps {
     id: number,
     title: string,
     router: CoreRouter,
-    onChatTitleClick?: (e: Event) => void,
     image: string,
     imagePath: string,
     store: Store<AppState>,
+    events: {
+        click?: (e: Event) => void;
+    }
 }
 
 class ChatPreview extends Block<ChatPreviewProps> {
@@ -24,7 +26,9 @@ class ChatPreview extends Block<ChatPreviewProps> {
         super({ 
             ...props, 
             imagePath: `${baseURL}/resources/${props.image}`, 
-            onChatTitleClick: (e: Event) => this.onChatTitleClick(e) 
+            events: {
+                click: (e: Event) => this.onChatTitleClick(e)
+            }
         });
     }
 
