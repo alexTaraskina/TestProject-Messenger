@@ -3,6 +3,7 @@ import template from 'bundle-text:./template.hbs';
 
 import './form-input-group.css';
 import { validateForm, ValidateRuleType } from 'helpers/validateForm';
+import { REPL_MODE_SLOPPY } from 'repl';
 
 type InputType = 'text' | 'password' | 'email' | 'tel';
 
@@ -25,6 +26,7 @@ export default class FormInputGroup extends Block<FormInputGroupProps> {
     constructor(props: FormInputGroupProps) {
         super({
             ...props,
+            value: props.value ? props.value : "",
             events: {
                 blur: event => {
                     this.validate(event);

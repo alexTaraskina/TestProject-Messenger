@@ -9,6 +9,7 @@ import './profile-edit-form.css';
 interface ProfileEditFormProps {
     store: Store<AppState>,
     router: CoreRouter,
+    displayName: string,
     events: {
         submit: (event: MouseEvent) => void
     }
@@ -20,6 +21,7 @@ class ProfileEditForm extends Block<ProfileEditFormProps> {
     constructor(props: ProfileEditFormProps) {
         super({
             ...props,
+            displayName: props.store.getState().user?.displayName ?? "",
             events: {
                 submit: (event: MouseEvent) => this.onSubmit(event),
             },
