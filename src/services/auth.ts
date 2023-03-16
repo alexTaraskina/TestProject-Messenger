@@ -2,6 +2,7 @@ import { authAPI } from 'api/auth';
 import { UserDTO } from 'api/types';
 import type { Dispatch } from 'core';
 import { transformUser, apiHasError } from 'utils';
+import { DispatchStateHandler } from './types';
 
 type LoginPayload = {
     login: string;
@@ -17,15 +18,11 @@ type RegisterPayload = {
     phone: string
 }
 
-export const login = async (
-    dispatch: Dispatch<AppState>,
-    state: AppState,
-    action: LoginPayload,
-) => {
+export const login: DispatchStateHandler<LoginPayload> = async (dispatch, state, data) => {
     try {
         dispatch({ isLoading: true });
 
-        const response = await authAPI.login(action);
+        const response = await authAPI.login(data);
 
         if (apiHasError(response)) {
             dispatch({ isLoading: false, loginFormError: response.reason });
@@ -65,11 +62,7 @@ export const logout = async (dispatch: Dispatch<AppState>) => {
     }
 };
 
-export const register = async (
-    dispatch: Dispatch<AppState>,
-    state: AppState,
-    data: RegisterPayload
-) => {
+export const register: DispatchStateHandler<RegisterPayload> = async (dispatch, state, data) => {
     try {
         dispatch({ isLoading: true });
 

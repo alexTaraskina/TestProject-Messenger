@@ -2,6 +2,7 @@ import { messengerAPI } from 'api/messenger';
 import { ChatDTO, FileDTO, UserDTO } from 'api/types';
 import type { Dispatch } from 'core';
 import { apiHasError, transformChat, transformUser, transformFile } from 'utils';
+import { DispatchStateHandler } from './types';
 
 type CreateChatPayload = {
     title: string,
@@ -27,11 +28,7 @@ type MessageData = {
     content: string,
 }
 
-export const uploadChats = async (
-    dispatch: Dispatch<AppState>,
-    state: AppState,
-    data: GetChatsRequestData
-) => {
+export const uploadChats: DispatchStateHandler<GetChatsRequestData> = async (dispatch, state, data) => {
     try {
         dispatch({ isLoading: true });
 
@@ -52,11 +49,7 @@ export const uploadChats = async (
     }
 }
 
-export const createChat = async (
-    dispatch: Dispatch<AppState>,
-    state: AppState,
-    data: CreateChatPayload
-) => {
+export const createChat: DispatchStateHandler<CreateChatPayload> = async (dispatch, state, data) => {
     try {
         dispatch({ isLoading: true });
 
@@ -83,11 +76,7 @@ export const createChat = async (
     }
 }
 
-export const addUser = async (
-    dispatch: Dispatch<AppState>,
-    state: AppState,
-    data: UserPayload
-) => {
+export const addUser: DispatchStateHandler<UserPayload> = async (dispatch, state, data) => {
     try {
         dispatch({ isLoading: true });
 
@@ -113,40 +102,33 @@ export const addUser = async (
     }
 }
 
-export const removeUser = async (
-    dispatch: Dispatch<AppState>,
-    state: AppState,
-    data: UserPayload) => {
-        try {
-            dispatch({ isLoading: true });
-    
-            const response = await messengerAPI.removeUser(data);
-    
-            if (apiHasError(response)) {
-                dispatch({ isLoading: false });
-                return;
-            }
-    
-            const chatUsers = await messengerAPI.getChatUsers({ id: data.chatId });
-    
-            if (apiHasError(chatUsers)) {
-                dispatch({ isLoading: false });
-                return;
-            }
-            else {
-                dispatch({ isLoading: false, currentChatUsers: chatUsers.map(item => transformUser(item as UserDTO)) });
-            }
+export const removeUser: DispatchStateHandler<UserPayload> = async (dispatch, state, data) => {
+    try {
+        dispatch({ isLoading: true });
+
+        const response = await messengerAPI.removeUser(data);
+
+        if (apiHasError(response)) {
+            dispatch({ isLoading: false });
+            return;
         }
-        catch (e) {
-            console.log(e);
+
+        const chatUsers = await messengerAPI.getChatUsers({ id: data.chatId });
+
+        if (apiHasError(chatUsers)) {
+            dispatch({ isLoading: false });
+            return;
         }
+        else {
+            dispatch({ isLoading: false, currentChatUsers: chatUsers.map(item => transformUser(item as UserDTO)) });
+        }
+    }
+    catch (e) {
+        console.log(e);
+    }
 }
 
-export const removeChat = async (
-    dispatch: Dispatch<AppState>,
-    state: AppState,
-    data: DeleteChatData
-) => {
+export const removeChat: DispatchStateHandler<DeleteChatData> = async (dispatch, state, data) => {
     try {
         dispatch({ isLoading: true });
 
@@ -262,10 +244,7 @@ export const initRealTimeMessagesConnection = async (
     }
 }
 
-export const sendMessage = async (
-    dispatch: Dispatch<AppState>,
-    state: AppState,
-    data: MessageData) => {
+export const sendMessage: DispatchStateHandler<MessageData> = async (dispatch, state, data) => {
     socket?.send(JSON.stringify({
         content: data.content,
         type: data.type
@@ -278,11 +257,7 @@ export const closeSocket = async (
     socket?.close();
 }
 
-export const updateChatImage = async (
-    dispatch: Dispatch<AppState>,
-    state: AppState,
-    data: FormData
-) => {
+export const updateChatImage: DispatchStateHandler<FormData> = async (dispatch, state, data) => {
     try {
         dispatch({ isLoading: true });
 
@@ -307,11 +282,7 @@ export const updateChatImage = async (
     }
 }
 
-export const uploadChatAsset = async (
-    dispatch: Dispatch<AppState>,
-    state: AppState,
-    data: FormData
-) => {
+export const uploadChatAsset: DispatchStateHandler<FormData> = async (dispatch, state, data) => {
     try {
         dispatch({ isLoading: true });
 
