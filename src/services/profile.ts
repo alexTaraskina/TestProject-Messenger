@@ -2,6 +2,7 @@ import { profileAPI } from 'api/profile';
 import { UserDTO } from 'api/types';
 import type { Dispatch } from 'core';
 import { transformUser, apiHasError } from 'utils';
+import { DispatchStateHandler } from './types';
 
 type EditProfilePayload = {
     first_name: string,
@@ -17,11 +18,7 @@ type UpdatePasswordPayload = {
     newPassword: string,
 }
 
-export const editProfile = async (
-    dispatch: Dispatch<AppState>,
-    state: AppState,
-    data: EditProfilePayload
-) => {
+export const editProfile: DispatchStateHandler<EditProfilePayload> = async (dispatch, state, data) => {
     try {
         dispatch({ isLoading: true });
 
@@ -42,11 +39,7 @@ export const editProfile = async (
     }
 }
 
-export const updatePassword = async (
-    dispatch: Dispatch<AppState>,
-    state: AppState,
-    data: UpdatePasswordPayload
-) => {
+export const updatePassword: DispatchStateHandler<UpdatePasswordPayload> = async (dispatch, state, data) => {
     try {
         dispatch({ isLoading: true });
 
@@ -68,11 +61,7 @@ export const updatePassword = async (
     }
 }
 
-export const changeAvatar = async (
-    dispatch: Dispatch<AppState>,
-    state: AppState,
-    data: FormData
-) => {
+export const changeAvatar: DispatchStateHandler<FormData> = async (dispatch, state, data) => {
     try {
         dispatch({ isLoading: true });
 
