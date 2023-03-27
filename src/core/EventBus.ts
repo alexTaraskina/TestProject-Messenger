@@ -32,6 +32,10 @@ export default class EventBus<E extends string = string, M extends { [K in E]: u
       listener(...args);
     });
   }
+
+  destroy() {
+    this.listeners = {};
+  }
 }
 
 // type DocumentEventBus = EventBus<

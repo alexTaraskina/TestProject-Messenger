@@ -1,0 +1,6 @@
+<div class="chats__list">
+    {{#each store.state.chats}}
+        {{{ ChatPreview id=this.id title=this.title lastMessage=this.lastMessage.content image=this.avatar time=this.lastMessage.time }}}
+    {{/each}}
+    <div id="scroll-target"></div>
+</div>

@@ -1,0 +1,11 @@
+<div class="chat-image">
+    {{#if image }}
+    <img src="{{{imagePath}}}" alt="image" />
+    {{else}}
+    <span class="chat-image__icon"></span>
+    {{/if}}
+    <form class="chat-image__form" id="chatImageForm">
+        {{{ Input type="file" id="chatImageInput" name="chatImageInput" onChange=onImageChange }}}
+        <span></span>
+    </form>
+</div>

@@ -1,20 +1,21 @@
-import { Block } from "../../../core";
+import { Block } from "core";
 import template from 'bundle-text:./template.hbs';
 
 import './button.css';
 
 interface ButtonProps {
     heading: string;
-    events? : {
-        click?: () => void
+    onClick?: () => void;
+    events: {
+        click?: () => void;
     }
 }
 
 export default class Button extends Block<ButtonProps> {
     static componentName: string = 'Button';
 
-    constructor(props: ButtonProps) {
-        super(props);
+    constructor({ onClick, ...props }: ButtonProps) {
+        super({ ...props, events: { click: onClick } });
     }
 
     render() {

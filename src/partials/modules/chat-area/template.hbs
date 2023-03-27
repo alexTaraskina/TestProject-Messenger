@@ -2,11 +2,20 @@
     {{#if selected }}
     <div class="chat-area__header">
         <div class="chat-area__recipient-info">
-            <div class="chat-area__recipient-avatar"></div>
-            <p class="chat-area__recipient-name">{{{recipientName}}}</p>
+            {{!-- <div class="chat-area__recipient-avatar"></div> --}}
+            <div style="display: flex; flex-direction: column;">
+                <p class="chat-area__recipient-name">{{{recipientName}}}</p>
+                {{!-- {{{ ChatUsers getUsers=chatUsers }}} --}}
+                ${this.props.chatUsers().map(u => `<p>j</p>`)}
+            </div>
         </div>
         <button class="chat-area__actions-button">
-            <span class="chat-area__actions-icon"></span>
+            <span class="chat-area__actions-icon" id="actionsButton"></span>
+            <div class="chat-area__actions-type-options jsOptions">
+                {{{ Option optionText="Добавить пользователя" optionType="addUser" onClick=onAddUserClick }}}
+                {{{ Option optionText="Удалить пользователя" optionType="removeUser" onClick=onRemoveUserClick }}}
+                {{{ Option optionText="Удалить чат" optionType="removeChat" onClick=onRemoveChatClick }}}
+            </div>
         </button>
     </div>
     <div class="chat-area__main">
@@ -18,11 +27,11 @@
         </div>
         <div class="chat-area__new-message-area">
             <button class="chat-area__attach-file-button">
-                <span class="chat-area__attach-file-icon"></span>
-                <div class="chat-area__file-type-options">
-                    {{{ FileTypeOption optionText="Фото или Видео" fileType="photo" }}}
-                    {{{ FileTypeOption optionText="Файл" fileType="video" }}}
-                    {{{ FileTypeOption optionText="Локация" fileType="location" }}}
+                <span class="chat-area__attach-file-icon" id="attachFileButton"></span>
+                <div class="chat-area__file-type-options jsOptions">
+                    {{{ Option optionText="Фото или Видео" optionType="photo" }}}
+                    {{{ Option optionText="Файл" optionType="video" }}}
+                    {{{ Option optionText="Локация" optionType="location" }}}
                 </div>
             </button>
             <input type="text" id="message" name="message" class="chat-area__new-message" placeholder="Сообщение"/>
