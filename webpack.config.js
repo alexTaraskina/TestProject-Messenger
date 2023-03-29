@@ -4,10 +4,12 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
     mode: 'development',
+    devtool: 'source-map',
     entry: './src/index.ts',
     output: {
         path: path.resolve(__dirname, 'dist'),
         filename: 'messenger.bundle.js',
+        clean: true,
     },
     module: {
         rules: [
@@ -55,6 +57,11 @@ module.exports = {
         node: true,
     },
     plugins: [
-        new HtmlWebpackPlugin(),
+        new HtmlWebpackPlugin({
+            template: path.resolve(__dirname, './src/index.html'),
+        }),
     ],
+    devServer: {
+        port: 3000,
+    },
 };
