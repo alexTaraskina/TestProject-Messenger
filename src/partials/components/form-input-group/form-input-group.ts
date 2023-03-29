@@ -1,6 +1,6 @@
-import { Block } from '../../../core';
 import './form-input-group.css';
 import { validateForm, ValidateRuleType } from 'helpers/validateForm';
+import { Block } from 'core';
 
 const template = require('./template.hbs');
 
@@ -25,15 +25,15 @@ export default class FormInputGroup extends Block<FormInputGroupProps> {
     constructor(props: FormInputGroupProps) {
         super({
             ...props,
-            value: props.value ? props.value : "",
+            value: props.value ? props.value : '',
             events: {
-                blur: event => {
+                blur: (event) => {
                     this.validate(event);
                 },
-                input: event => {
+                input: (event) => {
                     this.validate(event);
-                }
-            }
+                },
+            },
         });
     }
 

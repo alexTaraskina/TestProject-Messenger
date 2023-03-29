@@ -1,5 +1,5 @@
-import { Block, Store } from "core";
-import { withStore } from "utils";
+import { Block, Store } from 'core';
+import { withStore } from 'utils';
 import { changeAvatar } from 'services/profile';
 import { baseURL } from 'api/variables';
 

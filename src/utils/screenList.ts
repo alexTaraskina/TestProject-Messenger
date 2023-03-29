@@ -16,7 +16,7 @@ export enum Screens {
     ProfileEdit = 'profile-edit',
     PasswordEdit = 'password-edit',
     Chats = 'messenger',
-    Chat = "chat",
+    Chat = 'chat',
     Login = 'login',
     Register = 'signup',
 }
@@ -33,6 +33,4 @@ const map: Record<Screens, BlockClass<any>> = {
     [Screens.Register]: SignIn,
 };
 
-export const getScreenComponent = (screen: Screens): BlockClass<any> => {
-    return map[screen];
-};
+export const getScreenComponent = (screen: Screens): BlockClass<any> => map[screen];

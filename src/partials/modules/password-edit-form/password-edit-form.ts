@@ -3,7 +3,7 @@ import { withStore } from 'utils';
 import { validateForm } from 'helpers/validateForm';
 import { updatePassword } from 'services/profile';
 
-import './password-edit-form.css'
+import './password-edit-form.css';
 
 const template = require('./template.hbs');
 
@@ -32,15 +32,15 @@ class PasswordEditForm extends Block<PasswordEditFormProps> {
         interface UpdatePasswordData {
             oldPassword: string,
             newPassword: string,
-        };
+        }
 
         const oldPasswordEl = this.element?.querySelector('#oldPassword') as HTMLInputElement;
         const newPasswordEl = this.element?.querySelector('#newPassword') as HTMLInputElement;
 
         const updatePasswordData: UpdatePasswordData = {
-            oldPassword: oldPasswordEl?.value || "",
-            newPassword: newPasswordEl?.value || "",
-        }
+            oldPassword: oldPasswordEl?.value || '',
+            newPassword: newPasswordEl?.value || '',
+        };
 
         const oldPasswordError = validateForm({ type: 'password', value: oldPasswordEl.value });
         this.refs.oldPasswordInputGroup.refs.formError.setProps({ text: oldPasswordError });
@@ -52,7 +52,7 @@ class PasswordEditForm extends Block<PasswordEditFormProps> {
             this.props.store.dispatch(updatePassword, updatePasswordData);
         }
     }
-    
+
     render() {
         return template;
     }

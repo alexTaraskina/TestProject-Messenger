@@ -1,7 +1,7 @@
-import { Block, CoreRouter, Store } from '../../../core';
 import { validateForm } from 'helpers/validateForm';
 import { register } from 'services/auth';
 import { withStore, withRouter } from 'utils';
+import { Block, CoreRouter, Store } from '../../../core';
 
 const template = require('./template.hbs');
 
@@ -35,7 +35,7 @@ class RegisterForm extends Block<RegisterFormProps> {
             email: string,
             password: string,
             phone: string
-        };
+        }
 
         const emailEl = this.element?.querySelector('#email') as HTMLInputElement;
         const loginEl = this.element?.querySelector('#login') as HTMLInputElement;
@@ -51,7 +51,7 @@ class RegisterForm extends Block<RegisterFormProps> {
             email: emailEl?.value,
             password: passwordEl?.value,
             phone: phoneEl?.value,
-        }
+        };
 
         const loginError = validateForm({ type: 'login', value: loginEl.value });
         this.refs.loginInputGroup.refs.formError.setProps({ text: loginError });
@@ -75,7 +75,7 @@ class RegisterForm extends Block<RegisterFormProps> {
             this.props.store.dispatch(register, registerData);
         }
     }
-    
+
     render() {
         return template;
     }

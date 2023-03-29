@@ -17,12 +17,19 @@ type UpdatePasswordRequestData = {
 };
 
 export const profileAPI = {
-    edit: (data: EditProfileRequestData) => 
-        new HTTPTransport().put<ResponseData>(baseURL + '/user/profile', {data}),
+    edit: (data: EditProfileRequestData) => new HTTPTransport().put<ResponseData>(`${baseURL}/user/profile`, { data }),
 
-    password: (data: UpdatePasswordRequestData) => 
-        new HTTPTransport().put<ResponseData>(baseURL + '/user/password', {data}),
+    password: (
+        data: UpdatePasswordRequestData,
+    ) => new HTTPTransport().put<ResponseData>(
+        `${baseURL}/user/password`,
+        { data },
+    ),
 
-    changeAvatar: (data: FormData) =>
-        new HTTPTransport().put<UserDTO | APIError>(baseURL + '/user/profile/avatar', { data, noHeaders: true, noConvertion: true }),
-}
+    changeAvatar: (
+        data: FormData,
+    ) => new HTTPTransport().put<UserDTO | APIError>(
+        `${baseURL}/user/profile/avatar`,
+        { data, noHeaders: true, noConvertion: true },
+    ),
+};

@@ -1,7 +1,9 @@
 import { messengerAPI } from 'api/messenger';
 import { ChatDTO, FileDTO, UserDTO } from 'api/types';
 import type { Dispatch } from 'core';
-import { apiHasError, transformChat, transformUser, transformFile } from 'utils';
+import {
+    apiHasError, transformChat, transformUser, transformFile,
+} from 'utils';
 import { DispatchStateHandler } from './types';
 
 type CreateChatPayload = {
@@ -38,16 +40,14 @@ export const uploadChats: DispatchStateHandler<GetChatsRequestData> = async (dis
             dispatch({ isLoading: false });
             return;
         }
-        else {
-            let responseChats = response.map(item => transformChat(item as ChatDTO));
-            let allChats = state.chats ? state.chats.concat(responseChats) : responseChats;
-            dispatch({ isLoading: false, chats: allChats });
-        }
-    }
-    catch (e) {
+
+        const responseChats = response.map((item) => transformChat(item as ChatDTO));
+        const allChats = state.chats ? state.chats.concat(responseChats) : responseChats;
+        dispatch({ isLoading: false, chats: allChats });
+    } catch (e) {
         console.log(e);
     }
-}
+};
 
 export const createChat: DispatchStateHandler<CreateChatPayload> = async (dispatch, _state, data) => {
     try {
@@ -65,16 +65,14 @@ export const createChat: DispatchStateHandler<CreateChatPayload> = async (dispat
             dispatch({ isLoading: false });
             return;
         }
-        else {
-            dispatch({ isLoading: false, chats: responseChats.map(item => transformChat(item as ChatDTO)) });
-        }
+
+        dispatch({ isLoading: false, chats: responseChats.map((item) => transformChat(item as ChatDTO)) });
 
         // ToDo route to created chat page
-    }
-    catch (e) {
+    } catch (e) {
         console.log(e);
     }
-}
+};
 
 export const addUser: DispatchStateHandler<UserPayload> = async (dispatch, _state, data) => {
     try {
@@ -93,14 +91,12 @@ export const addUser: DispatchStateHandler<UserPayload> = async (dispatch, _stat
             dispatch({ isLoading: false });
             return;
         }
-        else {
-            dispatch({ isLoading: false, currentChatUsers: chatUsers.map(item => transformUser(item as UserDTO)) });
-        }
-    }
-    catch (e) {
+
+        dispatch({ isLoading: false, currentChatUsers: chatUsers.map((item) => transformUser(item as UserDTO)) });
+    } catch (e) {
         console.log(e);
     }
-}
+};
 
 export const removeUser: DispatchStateHandler<UserPayload> = async (dispatch, _state, data) => {
     try {
@@ -119,14 +115,12 @@ export const removeUser: DispatchStateHandler<UserPayload> = async (dispatch, _s
             dispatch({ isLoading: false });
             return;
         }
-        else {
-            dispatch({ isLoading: false, currentChatUsers: chatUsers.map(item => transformUser(item as UserDTO)) });
-        }
-    }
-    catch (e) {
+
+        dispatch({ isLoading: false, currentChatUsers: chatUsers.map((item) => transformUser(item as UserDTO)) });
+    } catch (e) {
         console.log(e);
     }
-}
+};
 
 export const removeChat: DispatchStateHandler<DeleteChatData> = async (dispatch, _state, data) => {
     try {
@@ -144,19 +138,17 @@ export const removeChat: DispatchStateHandler<DeleteChatData> = async (dispatch,
             dispatch({ isLoading: false });
             return;
         }
-        else {
-            dispatch({ isLoading: false, chats: responseChats.map(item => transformChat(item as ChatDTO)) });
-        }
-    }
-    catch (e) {
+
+        dispatch({ isLoading: false, chats: responseChats.map((item) => transformChat(item as ChatDTO)) });
+    } catch (e) {
         console.log(e);
     }
-}
+};
 
 export const getChatUsers = async (
     dispatch: Dispatch<AppState>,
     _state: AppState,
-    id: number
+    id: number,
 ) => {
     try {
         dispatch({ isLoading: true });
@@ -167,20 +159,19 @@ export const getChatUsers = async (
             dispatch({ isLoading: false });
             return;
         }
-        else {
-            dispatch({ isLoading: false, currentChatUsers: chatUsers.map(item => transformUser(item as UserDTO)) });
-        }
-    }
-    catch (e) {
+
+        dispatch({ isLoading: false, currentChatUsers: chatUsers.map((item) => transformUser(item as UserDTO)) });
+    } catch (e) {
         console.log(e);
     }
-}
+};
 
 let socket: WebSocket;
 export const initRealTimeMessagesConnection = async (
     dispatch: Dispatch<AppState>,
     _state: AppState,
-    data: { chatId: number, userId: number }) => {
+    data: { chatId: number, userId: number },
+) => {
     try {
         dispatch({ isLoading: true });
 
@@ -190,72 +181,65 @@ export const initRealTimeMessagesConnection = async (
             dispatch({ isLoading: false });
             return;
         }
-        else {
-            dispatch({
-                isLoading: false,
-                token: connection.token,
-            });
-            socket?.close();
-            socket = new WebSocket(`wss://ya-praktikum.tech/ws/chats/${data.userId}/${data.chatId}/${connection.token}`);
-            // prolong connection
-            setInterval(() => {
-                socket.send(JSON.stringify({ type: 'ping' }));
-            }, 30000);
 
-            socket.addEventListener('open', () => {
-                console.log('Соединение установлено');
+        dispatch({
+            isLoading: false,
+            token: connection.token,
+        });
+        socket?.close();
+        socket = new WebSocket(`wss://ya-praktikum.tech/ws/chats/${data.userId}/${data.chatId}/${connection.token}`);
+        // prolong connection
+        setInterval(() => {
+            socket.send(JSON.stringify({ type: 'ping' }));
+        }, 30000);
 
-                socket.send(JSON.stringify({
-                    content: '0',
-                    type: 'get old',
-                }));
-            });
+        socket.addEventListener('open', () => {
+            console.log('Соединение установлено');
 
-            socket.addEventListener('close', event => {
-                if (event.wasClean) {
-                    console.log('Соединение закрыто чисто');
-                } else {
-                    console.log('Обрыв соединения');
-                }
+            socket.send(JSON.stringify({
+                content: '0',
+                type: 'get old',
+            }));
+        });
 
-                console.log(`Код: ${event.code} | Причина: ${event.reason}`);
-            });
+        socket.addEventListener('close', (event) => {
+            if (event.wasClean) {
+                console.log('Соединение закрыто чисто');
+            } else {
+                console.log('Обрыв соединения');
+            }
 
-            socket.addEventListener('message', event => {
-                let data = JSON.parse(event.data);
-                // if we get old messages - there will be array
-                if (Array.isArray(data)) {
-                    dispatch({ messages: data });
-                }
-                //let oldMessages = window.store.getState()?.messages ? [...window.store.getState()?.messages] : [];
-                //debugger;
-                else if (data.type !== 'pong') {
-                    dispatch({ messages: [data, ...window.store.getState().messages] });
-                }
-            });
+            console.log(`Код: ${event.code} | Причина: ${event.reason}`);
+        });
 
-            socket.addEventListener('error', event => {
-                console.log('Ошибка', event instanceof Error ? event.message : 'WebSocket error');
-            });
-        }
-    }
-    catch (e) {
+        socket.addEventListener('message', (event) => {
+            const data = JSON.parse(event.data);
+            // if we get old messages - there will be array
+            if (Array.isArray(data)) {
+                dispatch({ messages: data });
+            } else if (data.type !== 'pong') {
+                dispatch({ messages: [data, ...window.store.getState().messages] });
+            }
+        });
+
+        socket.addEventListener('error', (event) => {
+            console.log('Ошибка', event instanceof Error ? event.message : 'WebSocket error');
+        });
+    } catch (e) {
         console.log(e);
     }
-}
+};
 
 export const sendMessage: DispatchStateHandler<MessageData> = async (_dispatch, _state, data) => {
     socket?.send(JSON.stringify({
         content: data.content,
-        type: data.type
+        type: data.type,
     }));
-}
+};
 
-export const closeSocket = async (
-    _dispatch: Dispatch<AppState>,
-    _state: AppState) => {
+export const closeSocket = async () => {
     socket?.close();
-}
+};
 
 export const updateChatImage: DispatchStateHandler<FormData> = async (dispatch, _state, data) => {
     try {
@@ -273,14 +257,12 @@ export const updateChatImage: DispatchStateHandler<FormData> = async (dispatch, 
             dispatch({ isLoading: false });
             return;
         }
-        else {
-            dispatch({ isLoading: false, chats: responseChats.map(item => transformChat(item as ChatDTO)) });
-        }
-    }
-    catch (e) {
+
+        dispatch({ isLoading: false, chats: responseChats.map((item) => transformChat(item as ChatDTO)) });
+    } catch (e) {
         console.log(e);
     }
-}
+};
 
 export const uploadChatAsset: DispatchStateHandler<FormData> = async (dispatch, _state, data) => {
     try {
@@ -292,12 +274,9 @@ export const uploadChatAsset: DispatchStateHandler<FormData> = async (dispatch, 
             dispatch({ isLoading: false });
             return;
         }
-        else {
-            dispatch({ isLoading: false, uploadedFile: transformFile(response as FileDTO) });
-        }
-    }
-    catch (e) {
+
+        dispatch({ isLoading: false, uploadedFile: transformFile(response as FileDTO) });
+    } catch (e) {
         console.log(e);
     }
-}
-
+};

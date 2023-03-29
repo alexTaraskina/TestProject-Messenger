@@ -18,6 +18,20 @@ type RegisterPayload = {
     phone: string
 }
 
+export const logout = async (dispatch: Dispatch<AppState>) => {
+    try {
+        dispatch({ isLoading: true });
+
+        await authAPI.logout();
+
+        dispatch({ isLoading: false, user: null });
+
+        window.router.go('/');
+    } catch (e) {
+        console.log(e);
+    }
+};
+
 export const login: DispatchStateHandler<LoginPayload> = async (dispatch, _state, data) => {
     try {
         dispatch({ isLoading: true });
@@ -41,23 +55,7 @@ export const login: DispatchStateHandler<LoginPayload> = async (dispatch, _state
         dispatch({ user: transformUser(responseUser as UserDTO) });
 
         window.router.go('/messenger');
-    }
-    catch (e) {
-        console.log(e);
-    }
-};
-
-export const logout = async (dispatch: Dispatch<AppState>) => {
-    try {
-        dispatch({ isLoading: true });
-
-        await authAPI.logout();
-
-        dispatch({ isLoading: false, user: null });
-
-        window.router.go('/');
-    }
-    catch (e) {
+    } catch (e) {
         console.log(e);
     }
 };
@@ -86,8 +84,7 @@ export const register: DispatchStateHandler<RegisterPayload> = async (dispatch, 
         dispatch({ user: transformUser(responseUser as UserDTO) });
 
         window.router.go('/messenger');
-    }
-    catch (e) {
+    } catch (e) {
         console.log(e);
     }
-}
+};

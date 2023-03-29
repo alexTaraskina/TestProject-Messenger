@@ -2,14 +2,65 @@
     "env": {
         "browser": true
     },
-    "extends": "airbnb",
+    "settings": {
+        "import/resolver": {
+            "typescript": {}
+        }
+    },
+    "extends": [
+        "airbnb",
+        "plugin:import/typescript"
+    ],
     "parser": "@typescript-eslint/parser",
+    "parserOptions": {
+        "project": "./tsconfig.json",
+        "tsconfigRootDir": "./"
+    },
     "plugins": [
-        "@typescript-eslint"
+        "@typescript-eslint",
+        "import"
     ],
     "rules": {
-        "max-len": [ 2, 100 ],
+        "max-len": [
+            2,
+            100
+        ],
         "@typescript-eslint/no-unused-vars": 2,
-        "indent": ["error", 4]
-    }
+        "indent": [
+            "error",
+            4
+        ],
+        "import/extensions": [
+            "error",
+            "ignorePackages",
+            {
+                "js": "never",
+                "jsx": "never",
+                "ts": "never",
+                "tsx": "never"
+            }
+        ]
+    },
+    "overrides": [
+        {
+            "files": [
+                "*.ts"
+            ],
+            "rules": {
+                "no-undef": "off",
+                "no-underscore-dangle": "off",
+                "max-len": ["error", { "code": 120 }],
+                "no-console": "off",
+                "no-shadow": "off",
+                "import/no-cycle": "off",
+                "no-restricted-syntax": "off",
+                "no-continue": "off",
+                "import/prefer-default-export": "off",
+                "no-use-before-define": "off",
+                "no-param-reassign": "off",
+                "class-methods-use-this": "off",
+                "no-nested-ternary": "off"
+            }
+        }
+    ]
 }

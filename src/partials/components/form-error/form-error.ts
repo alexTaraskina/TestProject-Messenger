@@ -1,4 +1,4 @@
-import { Block } from "core";
+import { Block } from 'core';
 import './form-error.css';
 
 const template = require('./template.hbs');

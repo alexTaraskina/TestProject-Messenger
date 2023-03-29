@@ -13,11 +13,18 @@ interface InputProps {
     id?: string
 }
 
-export default class Input extends Block { 
+export default class Input extends Block {
     static componentName: string = 'Input';
 
-    constructor({ onBlur, onFocus, onInput, onChange, ...props }: InputProps) {
-        super({ ...props, events: { input: onInput, blur: onBlur, focus: onFocus, change: onChange }});
+    constructor({
+        onBlur, onFocus, onInput, onChange, ...props
+    }: InputProps) {
+        super({
+            ...props,
+            events: {
+                input: onInput, blur: onBlur, focus: onFocus, change: onChange,
+            },
+        });
     }
 
     render() {

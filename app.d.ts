@@ -19,7 +19,7 @@ declare global {
         currentChat?: number | null;
         createChatError?: string | null;
         currentChatUsers?: User[] | null,
-        token?: string,  
+        token?: string,
         messages: Message[],
         webSocket?: WebSocket | null,
         error?: Error | null,
@@ -37,7 +37,7 @@ declare global {
         type: string,
         user_id: string,
         content: string,
-        file?: Nullable<ChatFile>,        
+        file?: Nullable<ChatFile>,
     };
 
     export type ChatFile = {
@@ -84,4 +84,4 @@ declare global {
     }
 }
 
-export { }
+export { };

@@ -1,4 +1,4 @@
-import { CoreRouter } from "./CoreRouter";
+import { CoreRouter } from './CoreRouter';
 
 /**
  * just example for future use, in that project PathRouter is used

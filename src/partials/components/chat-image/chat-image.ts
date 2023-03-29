@@ -1,11 +1,11 @@
-import { Block, Store } from "core";
-import { withStore } from "utils";
-import { updateChatImage } from "services/messenger";
-import { baseURL } from "api/variables";
-
-const template = require('./template.hbs');
+import { Block, Store } from 'core';
+import { withStore } from 'utils';
+import { updateChatImage } from 'services/messenger';
+import { baseURL } from 'api/variables';
 
 import './chat-image.css';
+
+const template = require('./template.hbs');
 
 interface ChatImageProps {
     file: string,

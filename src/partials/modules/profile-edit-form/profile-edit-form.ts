@@ -1,7 +1,7 @@
-import { Block, Store, CoreRouter } from '../../../core';
 import { withRouter, withStore } from 'utils';
 import { validateForm } from 'helpers/validateForm';
 import { editProfile } from 'services/profile';
+import { Block, Store, CoreRouter } from '../../../core';
 
 import './profile-edit-form.css';
 
@@ -22,7 +22,7 @@ class ProfileEditForm extends Block<ProfileEditFormProps> {
     constructor(props: ProfileEditFormProps) {
         super({
             ...props,
-            displayName: props.store.getState().user?.displayName ?? "",
+            displayName: props.store.getState().user?.displayName ?? '',
             events: {
                 submit: (event: MouseEvent) => this.onSubmit(event),
             },
@@ -39,7 +39,7 @@ class ProfileEditForm extends Block<ProfileEditFormProps> {
             login: string,
             email: string,
             phone: string
-        };
+        }
 
         const emailEl = this.element?.querySelector('#email') as HTMLInputElement;
         const loginEl = this.element?.querySelector('#login') as HTMLInputElement;
@@ -48,16 +48,16 @@ class ProfileEditForm extends Block<ProfileEditFormProps> {
         const displayNameEl = this.element?.querySelector('#display_name') as HTMLInputElement;
         const phoneEl = this.element?.querySelector('#phone') as HTMLInputElement;
 
-        let state = this.props.store.getState();
+        const state = this.props.store.getState();
 
         const editProfileData: EditProfileData = {
-            first_name: firstNameEl?.value || state.user?.firstName || "",
-            second_name: secondNameEl?.value || state.user?.secondName || "",
-            display_name: displayNameEl?.value || state.user?.displayName || "",
-            login: loginEl?.value || state.user?.login || "",
-            email: emailEl?.value || state.user?.email || "",
-            phone: phoneEl?.value || state.user?.phone || "",
-        }
+            first_name: firstNameEl?.value || state.user?.firstName || '',
+            second_name: secondNameEl?.value || state.user?.secondName || '',
+            display_name: displayNameEl?.value || state.user?.displayName || '',
+            login: loginEl?.value || state.user?.login || '',
+            email: emailEl?.value || state.user?.email || '',
+            phone: phoneEl?.value || state.user?.phone || '',
+        };
 
         console.log(editProfileData);
 
@@ -83,7 +83,7 @@ class ProfileEditForm extends Block<ProfileEditFormProps> {
             this.props.store.dispatch(editProfile, editProfileData);
         }
     }
-    
+
     render() {
         return template;
     }

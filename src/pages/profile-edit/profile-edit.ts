@@ -1,5 +1,5 @@
 import { Block } from '../../core';
-import "../profile/profile.css";
+import '../profile/profile.css';
 
 const template = require('./template.hbs');
 

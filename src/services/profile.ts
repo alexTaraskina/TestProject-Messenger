@@ -32,11 +32,10 @@ export const editProfile: DispatchStateHandler<EditProfilePayload> = async (disp
         dispatch({ isLoading: false, user: transformUser(response as UserDTO) });
 
         window.router.go('/settings');
-    }
-    catch (e) {
+    } catch (e) {
         console.log(e);
     }
-}
+};
 
 export const updatePassword: DispatchStateHandler<UpdatePasswordPayload> = async (dispatch, _state, data) => {
     try {
@@ -54,11 +53,10 @@ export const updatePassword: DispatchStateHandler<UpdatePasswordPayload> = async
             dispatch({ changePasswordMessage: '' });
             window.router.go('/settings');
         }, 2000);
-    }
-    catch (e) {
+    } catch (e) {
         console.log(e);
     }
-}
+};
 
 export const changeAvatar: DispatchStateHandler<FormData> = async (dispatch, _state, data) => {
     try {
@@ -73,8 +71,7 @@ export const changeAvatar: DispatchStateHandler<FormData> = async (dispatch, _st
 
         dispatch({ isLoading: false, user: transformUser(response as UserDTO) });
         window.router.go('/settings');
-    }
-    catch (e) {
+    } catch (e) {
         console.log(e);
     }
-}
+};

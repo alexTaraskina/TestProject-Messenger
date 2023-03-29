@@ -1,6 +1,6 @@
-import { Block, CoreRouter } from '../../../core';
 import './link.css';
 import { withRouter } from 'utils';
+import { Block, CoreRouter } from 'core';
 
 const template = require('./template.hbs');
 

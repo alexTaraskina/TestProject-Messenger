@@ -1,4 +1,4 @@
-import { Block } from "core";
+import { Block } from 'core';
 import './nav-button.css';
 
 const arrowIcon = require('../../../../icons/arrow_circle_left.svg');
@@ -19,8 +19,8 @@ export default class NavButton extends Block<NavButtonProps> {
             ...props,
             arrowPath: arrowIcon,
             events: {
-                click: () => window.history.back()
-            }
+                click: () => window.history.back(),
+            },
         });
     }
 

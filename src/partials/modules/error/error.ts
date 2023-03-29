@@ -1,5 +1,5 @@
-import { Block, CoreRouter } from '../../../core';
 import { withRouter } from 'utils';
+import { Block, CoreRouter } from '../../../core';
 
 import './error.css';
 
@@ -22,9 +22,9 @@ class Error extends Block<ErrorProps> {
 
     onBackToChatsClick(e: Event) {
         e.preventDefault();
-        this.props.router.go(`/messenger`);
+        this.props.router.go('/messenger');
     }
-    
+
     render() {
         return template;
     }

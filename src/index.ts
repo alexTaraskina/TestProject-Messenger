@@ -1,17 +1,7 @@
 import './styles/styles.css';
 
-import { registerComponent, CoreRouter, Store, PathRouter } from './core';
-import { initApp } from './services/initApp';
-import { defaultState } from './store';
-import { initRouter } from './router';
-
-import { Link } from './partials/components/link';
-import { Button } from './partials/components/button';
 import { Input } from 'partials/components/input';
 import { FormError } from 'partials/components/form-error';
-import { FormInputGroup } from './partials/components/form-input-group';
-import { Option } from './partials/components/option';
-import { KeyValueLine } from './partials/components/key-value-line';
 import { Avatar } from 'partials/components/avatar';
 import { NavButton } from 'partials/components/nav-button';
 import { Backdrop } from 'partials/components/backdrop';
@@ -34,6 +24,17 @@ import { PasswordEditForm } from 'partials/modules/password-edit-form';
 import { Modal } from 'partials/modules/modal';
 
 import { Login } from 'pages/login';
+import { KeyValueLine } from './partials/components/key-value-line';
+import { Option } from './partials/components/option';
+import { FormInputGroup } from './partials/components/form-input-group';
+import { Button } from './partials/components/button';
+import { Link } from './partials/components/link';
+import { initRouter } from './router';
+import { defaultState } from './store';
+import { initApp } from './services/initApp';
+import {
+    registerComponent, CoreRouter, Store, PathRouter,
+} from './core';
 
 registerComponent(Link);
 registerComponent(Button);
@@ -72,7 +73,7 @@ declare global {
     }
 }
 
-document.addEventListener('DOMContentLoaded', function () {
+document.addEventListener('DOMContentLoaded', () => {
     const store = new Store<AppState>(defaultState);
     const router = new PathRouter();
 

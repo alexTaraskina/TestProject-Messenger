@@ -15,9 +15,9 @@ export function hasError(response: any): response is APIError {
     }
 
     if (isJsonString(response)) {
-        let responseParsed = JSON.parse(response);
+        const responseParsed = JSON.parse(response);
         return responseParsed && responseParsed.reason;
     }
-    
+
     return false;
 }

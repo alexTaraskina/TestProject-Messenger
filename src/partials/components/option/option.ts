@@ -2,10 +2,10 @@ import { Block } from '../../../core';
 import './option.css';
 
 const photoIcon = require('../../../../icons/photo.svg');
-const videoIcon = require('../../../../icons/video.svg') ;
+const videoIcon = require('../../../../icons/video.svg');
 const addUserIcon = require('../../../../static/assets/icons/addUser.svg');
-const removeUser = require('../../../../static/assets/icons/removeUser.svg') ;
-const removeChat = require('../../../..//static/assets/icons/removeChat.svg');
+const removeUser = require('../../../../static/assets/icons/removeUser.svg');
+const removeChat = require('../../../../static/assets/icons/removeChat.svg');
 
 const template = require('./template.hbs');
 
@@ -22,21 +22,21 @@ export default class Option extends Block<OptionProps> {
     static componentName: string = 'Option';
 
     constructor({ onClick, ...props }: OptionProps) {
-        super({ 
-            ...props, 
-            iconPath: props.optionType === 'photo' 
-                ? photoIcon 
-                : props.optionType === 'video' 
+        super({
+            ...props,
+            iconPath: props.optionType === 'photo'
+                ? photoIcon
+                : props.optionType === 'video'
                     ? videoIcon
                     : props.optionType === 'addUser'
                         ? addUserIcon
-                        : props.optionType === 'removeUser' 
+                        : props.optionType === 'removeUser'
                             ? removeUser
                             : removeChat,
-            events: { click: onClick } 
+            events: { click: onClick },
         });
     }
-    
+
     render() {
         return template;
     }

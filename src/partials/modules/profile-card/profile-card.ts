@@ -1,6 +1,6 @@
-import { Block, Store, CoreRouter } from '../../../core';
 import { withRouter, withStore } from 'utils';
 import { logout } from 'services/auth';
+import { Block, Store, CoreRouter } from '../../../core';
 
 import './profile-card.css';
 
@@ -44,7 +44,7 @@ class ProfileCard extends Block<ProfileCardProps> {
         e.preventDefault();
         this.props.router.go('/password-edit');
     }
-    
+
     render() {
         return template;
     }

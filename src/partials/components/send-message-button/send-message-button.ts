@@ -1,4 +1,5 @@
-import { Block } from "core";
+import { Block } from 'core';
+
 const template = require('./template.hbs');
 
 interface SendMessageButtonProps {
