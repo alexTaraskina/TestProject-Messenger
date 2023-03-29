@@ -54,7 +54,6 @@ class Chats extends Block<ChatsProps> {
 
     checkPosition(e: Event) {
         // высота документа и высота экрана:
-        console.log(e.target);
         console.log((e.target as HTMLElement).offsetHeight);
         const height = document.body.offsetHeight;
         const screenHeight = window.innerHeight;
