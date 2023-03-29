@@ -37,6 +37,7 @@
     "parcel-reporter-copy-file-v2": "1.0.1",
     "postcss-color-rgba-fallback": "4.0.0",
     "postcss-import": "15.0.1",
+    "postcss-loader": "7.1.0",
     "postcss-nested": "6.0.0",
     "postcss-simple-vars": "7.0.1",
     "raw-loader": "4.0.2",
