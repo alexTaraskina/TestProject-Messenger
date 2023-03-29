@@ -5,7 +5,7 @@ import { isEqual } from 'utils/isEqual';
 
 export interface BlockClass<P extends object> extends Function {
   new(props: P): Block<P>;
-  componentName?: string;
+  componentName: string;
 }
 
 type Events = Values<typeof Block.EVENTS>;
@@ -33,7 +33,7 @@ export default class Block<P extends object = {}> {
    * @deprecated Не использовать - использовать this.props
    */
   protected state: any = {};
-  protected refs: { [key: string]: Block } = {};
+  public refs: { [key: string]: Block } = {};
 
   public constructor(props?: P) {
     const eventBus = new EventBus<Events>();
@@ -82,7 +82,7 @@ export default class Block<P extends object = {}> {
   /**
    * @deprecated Не использовать - использовать this.props
    */
-  protected getStateFromProps(props: P): void {
+  protected getStateFromProps(_props: P): void {
     this.state = {};
   }
 
@@ -96,7 +96,7 @@ export default class Block<P extends object = {}> {
     this.componentDidMount(props);
   }
 
-  componentDidMount(props: P) {}
+  componentDidMount(_props: P) {}
 
   _componentWillUnmount() {
     this.eventBus().destroy();
@@ -113,7 +113,7 @@ export default class Block<P extends object = {}> {
     this._render();
   }
 
-  componentDidUpdate(oldProps: P, newProps: P) {
+  componentDidUpdate(_oldProps: P, _newProps: P) {
     return true;
   }
 

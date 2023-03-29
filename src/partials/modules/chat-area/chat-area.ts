@@ -1,5 +1,4 @@
 import { Block, Store, } from 'core';
-// import template from 'bundle-text:./template.hbs';
 import { withStore } from 'utils';
 import { sendMessage } from 'services/messenger';
 import { baseURL } from 'api/variables';
@@ -124,10 +123,10 @@ class ChatArea extends Block<ChatAreaProps> {
 }
 
 export default withStore(ChatArea, (state: AppState) => ({
-    id: state.params.id,
+    id: state.params?.id,
     chatUsers: state.currentChatUsers ?? [],
     messages: state.messages,
-    chat: state.chats?.find(chat => chat.id === Number(state.params.id)),
+    chat: state.chats?.find(chat => chat.id === Number(state.params?.id)),
     userId: state.user?.id ?? 0,
     uploadedFile: state.uploadedFile
 }));

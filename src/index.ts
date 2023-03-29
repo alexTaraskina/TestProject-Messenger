@@ -19,21 +19,21 @@ import { SendMessageButton } from 'partials/components/send-message-button';
 import { ActionsButton } from 'partials/modules/action-button';
 import { ChatImage } from 'partials/components/chat-image';
 
-import { LoginForm } from './partials/modules/login-form';
-import { RegisterForm } from './partials/modules/register-form';
-import { Chats } from './partials/modules/chats';
-import { Message } from './partials/modules/message';
-import { ChatArea } from './partials/modules/chat-area';
-import { Error } from './partials/modules/error';
-import { Searchbox } from './partials/modules/searchbox';
-import { ChatPreview } from './partials/modules/chat-preview';
+import { LoginForm } from 'partials/modules/login-form';
+import { RegisterForm } from 'partials/modules/register-form';
+import { Chats } from 'partials/modules/chats';
+import { Message } from 'partials/modules/message';
+import { ChatArea } from 'partials/modules/chat-area';
+import { Error } from 'partials/modules/error';
+import { Searchbox } from 'partials/modules/searchbox';
+import { ChatPreview } from 'partials/modules/chat-preview';
 import { ChatsList } from 'partials/modules/chats-list';
-import { ProfileCard } from './partials/modules/profile-card';
+import { ProfileCard } from 'partials/modules/profile-card';
 import { ProfileEditForm } from 'partials/modules/profile-edit-form';
 import { PasswordEditForm } from 'partials/modules/password-edit-form';
-import { Modal } from './partials/modules/modal';
+import { Modal } from 'partials/modules/modal';
 
-import { Login } from './pages/login';
+import { Login } from 'pages/login';
 
 registerComponent(Link);
 registerComponent(Button);
@@ -78,16 +78,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
     window.router = router;
     window.store = store;
-
-    store.on('changed', (prevState, nextState) => {
-        if (process.env.DEBUG) {
-            console.log(
-                '%cstore updated',
-                'background: #222; color: #bada55',
-                nextState,
-            );
-        }
-    });
 
     initRouter(router, store);
 

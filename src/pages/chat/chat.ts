@@ -1,5 +1,4 @@
-import { Block, CoreRouter, Store } from 'core';
-import template from 'bundle-text:./template.hbs';
+import { Block, Store } from 'core';
 import { addUser, removeUser, removeChat, uploadChatAsset } from 'services/messenger';
 import { Screens } from 'utils';
 
@@ -24,7 +23,7 @@ export default class ChatPage extends Block<ChatProps> {
     {
         super({ 
             ...props, 
-            getChat: () => window.store.getState().chats?.find(chat => chat.id === Number(window.store.getState().params.id)),
+            getChat: () => window.store.getState().chats?.find(chat => chat.id === Number(window.store.getState().params?.id)),
             showAddUserModal: () => this.showAddUserModal(),
             showRemoveUserModal: () => this.showRemoveUserModal(),
             showFileUploadModal: () => this.showFileUploadModal(),
@@ -35,7 +34,7 @@ export default class ChatPage extends Block<ChatProps> {
         });
     }
 
-    componentDidUpdate(oldProps: ChatProps, newProps: ChatProps): boolean {
+    componentDidUpdate(_oldProps: ChatProps, _newProps: ChatProps): boolean {
         return window.store.getState().screen !== Screens.Chat;
     }
 
@@ -59,7 +58,7 @@ export default class ChatPage extends Block<ChatProps> {
 
         let el = e.target as HTMLElement;
         let userId = el && el.parentNode ? Number(el.parentNode.querySelector('input')?.value) : null;
-        let chatId = Number(window.store.getState().params.id); 
+        let chatId = Number(window.store.getState().params?.id); 
 
         if (userId && chatId) {
             const newChatUserData: NewChatUserData = {
@@ -79,7 +78,7 @@ export default class ChatPage extends Block<ChatProps> {
 
         let el = e.target as HTMLElement;
         let userId = el && el.parentNode ? Number(el.parentNode.querySelector('input')?.value) : null;
-        let chatId = Number(window.store.getState().params.id);
+        let chatId = Number(window.store.getState().params?.id);
 
         if (userId && chatId) {
             const userData: ChatUserData = {
@@ -92,7 +91,7 @@ export default class ChatPage extends Block<ChatProps> {
     }
 
     onRemoveChatClick() {
-        let chatId = Number(window.store.getState().params.id);
+        let chatId = Number(window.store.getState().params?.id);
 
         if (chatId) {
             window.store.dispatch(removeChat, { chatId });

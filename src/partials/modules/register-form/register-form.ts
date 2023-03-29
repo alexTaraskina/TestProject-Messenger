@@ -1,8 +1,9 @@
 import { Block, CoreRouter, Store } from '../../../core';
-import template from 'bundle-text:./template.hbs';
 import { validateForm } from 'helpers/validateForm';
 import { register } from 'services/auth';
 import { withStore, withRouter } from 'utils';
+
+const template = require('./template.hbs');
 
 interface RegisterFormProps {
     store: Store<AppState>,

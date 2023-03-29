@@ -1,4 +1,4 @@
-import template from 'bundle-text:./template.hbs';
+const template = require('./template.hbs');
 
 import { Block } from 'core';
 

@@ -1,5 +1,5 @@
 import { Block } from "core";
-import template from 'bundle-text:./template.hbs';
+const template = require('./template.hbs');
 
 import './backdrop.css';
 

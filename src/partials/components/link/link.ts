@@ -1,8 +1,8 @@
 import { Block, CoreRouter } from '../../../core';
-import template from 'bundle-text:./template.hbs';
-
 import './link.css';
 import { withRouter } from 'utils';
+
+const template = require('./template.hbs');
 
 interface LinkProps {
     router: CoreRouter,

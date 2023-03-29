@@ -1,9 +1,11 @@
 import { Block } from '../../core';
-import template from 'bundle-text:./template.hbs';
-
 import "../profile/profile.css";
 
+const template = require('./template.hbs');
+
 export default class ProfileEdit extends Block {
+    static componentName: string = 'ProfileEdit';
+
     render() {
         return template;
     }

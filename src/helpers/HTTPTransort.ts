@@ -77,6 +77,7 @@ export default class HTTPTransport {
       if (method === METHODS.GET || !options?.data) {
         xhr.send();
       } else {
+        // @ts-ignore
         xhr.send(options.noConvertion ? options.data : JSON.stringify(options.data));
       }
     });

@@ -49,7 +49,7 @@ export const uploadChats: DispatchStateHandler<GetChatsRequestData> = async (dis
     }
 }
 
-export const createChat: DispatchStateHandler<CreateChatPayload> = async (dispatch, state, data) => {
+export const createChat: DispatchStateHandler<CreateChatPayload> = async (dispatch, _state, data) => {
     try {
         dispatch({ isLoading: true });
 
@@ -76,7 +76,7 @@ export const createChat: DispatchStateHandler<CreateChatPayload> = async (dispat
     }
 }
 
-export const addUser: DispatchStateHandler<UserPayload> = async (dispatch, state, data) => {
+export const addUser: DispatchStateHandler<UserPayload> = async (dispatch, _state, data) => {
     try {
         dispatch({ isLoading: true });
 
@@ -102,7 +102,7 @@ export const addUser: DispatchStateHandler<UserPayload> = async (dispatch, state
     }
 }
 
-export const removeUser: DispatchStateHandler<UserPayload> = async (dispatch, state, data) => {
+export const removeUser: DispatchStateHandler<UserPayload> = async (dispatch, _state, data) => {
     try {
         dispatch({ isLoading: true });
 
@@ -128,7 +128,7 @@ export const removeUser: DispatchStateHandler<UserPayload> = async (dispatch, st
     }
 }
 
-export const removeChat: DispatchStateHandler<DeleteChatData> = async (dispatch, state, data) => {
+export const removeChat: DispatchStateHandler<DeleteChatData> = async (dispatch, _state, data) => {
     try {
         dispatch({ isLoading: true });
 
@@ -155,7 +155,7 @@ export const removeChat: DispatchStateHandler<DeleteChatData> = async (dispatch,
 
 export const getChatUsers = async (
     dispatch: Dispatch<AppState>,
-    state: AppState,
+    _state: AppState,
     id: number
 ) => {
     try {
@@ -179,7 +179,7 @@ export const getChatUsers = async (
 let socket: WebSocket;
 export const initRealTimeMessagesConnection = async (
     dispatch: Dispatch<AppState>,
-    state: AppState,
+    _state: AppState,
     data: { chatId: number, userId: number }) => {
     try {
         dispatch({ isLoading: true });
@@ -235,7 +235,7 @@ export const initRealTimeMessagesConnection = async (
             });
 
             socket.addEventListener('error', event => {
-                console.log('Ошибка', event.message);
+                console.log('Ошибка', event instanceof Error ? event.message : 'WebSocket error');
             });
         }
     }
@@ -244,7 +244,7 @@ export const initRealTimeMessagesConnection = async (
     }
 }
 
-export const sendMessage: DispatchStateHandler<MessageData> = async (dispatch, state, data) => {
+export const sendMessage: DispatchStateHandler<MessageData> = async (_dispatch, _state, data) => {
     socket?.send(JSON.stringify({
         content: data.content,
         type: data.type
@@ -252,12 +252,12 @@ export const sendMessage: DispatchStateHandler<MessageData> = async (dispatch, s
 }
 
 export const closeSocket = async (
-    dispatch: Dispatch<AppState>,
-    state: AppState) => {
+    _dispatch: Dispatch<AppState>,
+    _state: AppState) => {
     socket?.close();
 }
 
-export const updateChatImage: DispatchStateHandler<FormData> = async (dispatch, state, data) => {
+export const updateChatImage: DispatchStateHandler<FormData> = async (dispatch, _state, data) => {
     try {
         dispatch({ isLoading: true });
 
@@ -282,7 +282,7 @@ export const updateChatImage: DispatchStateHandler<FormData> = async (dispatch, 
     }
 }
 
-export const uploadChatAsset: DispatchStateHandler<FormData> = async (dispatch, state, data) => {
+export const uploadChatAsset: DispatchStateHandler<FormData> = async (dispatch, _state, data) => {
     try {
         dispatch({ isLoading: true });
 

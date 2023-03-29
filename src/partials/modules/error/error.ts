@@ -1,8 +1,9 @@
 import { Block, CoreRouter } from '../../../core';
-import template from 'bundle-text:./template.hbs';
 import { withRouter } from 'utils';
 
 import './error.css';
+
+const template = require('./template.hbs');
 
 interface ErrorProps {
     router: CoreRouter,

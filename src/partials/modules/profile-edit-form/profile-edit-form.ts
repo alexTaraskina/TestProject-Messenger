@@ -1,10 +1,11 @@
 import { Block, Store, CoreRouter } from '../../../core';
-import template from 'bundle-text:./template.hbs';
 import { withRouter, withStore } from 'utils';
 import { validateForm } from 'helpers/validateForm';
 import { editProfile } from 'services/profile';
 
 import './profile-edit-form.css';
+
+const template = require('./template.hbs');
 
 interface ProfileEditFormProps {
     store: Store<AppState>,

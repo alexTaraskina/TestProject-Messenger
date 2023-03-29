@@ -1,13 +1,13 @@
 import { Block } from '../../../core';
-import template from 'bundle-text:./template.hbs';
-
 import './option.css';
 
-import photoIcon from '../../../../icons/photo.svg';
-import videoIcon from '../../../../icons/video.svg';
-import addUserIcon from '../../../../static/assets/icons/addUser.svg';
-import removeUser from '../../../../static/assets/icons/removeUser.svg';
-import removeChat from '../../../..//static/assets/icons/removeChat.svg';
+const photoIcon = require('../../../../icons/photo.svg');
+const videoIcon = require('../../../../icons/video.svg') ;
+const addUserIcon = require('../../../../static/assets/icons/addUser.svg');
+const removeUser = require('../../../../static/assets/icons/removeUser.svg') ;
+const removeChat = require('../../../..//static/assets/icons/removeChat.svg');
+
+const template = require('./template.hbs');
 
 interface OptionProps {
     onClick?: () => void;

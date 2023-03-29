@@ -1,7 +1,7 @@
 import { Block } from '../../../core';
-import template from 'bundle-text:./template.hbs';
-
 import './key-value-line.css';
+
+const template = require('./template.hbs');
 
 export default class KeyValueLine extends Block {
     static componentName: string = 'KeyValueLine';

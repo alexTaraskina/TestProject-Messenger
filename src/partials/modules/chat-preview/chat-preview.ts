@@ -1,11 +1,11 @@
 import { Block, CoreRouter, Store } from 'core';
-import template from 'bundle-text:./template.hbs';
-
 import './chat-preview.css';
 import { withRouter, withStore } from 'utils';
 import { closeSocket, getChatUsers, initRealTimeMessagesConnection } from 'services/messenger';
 
 import { baseURL } from 'api/variables';
+
+const template = require('./template.hbs');
 
 interface ChatPreviewProps {
     id: number,

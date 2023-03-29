@@ -1,9 +1,11 @@
 import { Block } from '../../core';
-import template from 'bundle-text:./template.hbs';
+const template = require('./template.hbs');
 
 import "../profile/profile.css";
 
 export default class PasswordEdit extends Block {
+    static componentName: string = 'PasswordEdit';
+
     render() {
         return template;
     }

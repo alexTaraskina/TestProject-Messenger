@@ -1,7 +1,7 @@
 import { Block } from "core";
-import template from 'bundle-text:./template.hbs'
-
 import './form-error.css';
+
+const template = require('./template.hbs');
 
 interface FormErrorProps {
     text?: string

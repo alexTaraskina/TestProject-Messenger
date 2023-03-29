@@ -1,11 +1,14 @@
 {
   "compilerOptions": {
-    "target": "es2017",                            
-    "module": "commonjs", 
-    "rootDir": "./src", 
+    "target": "es2017",
+    "module": "commonjs",
+    "rootDir": "./src",
     "baseUrl": "./src",
-    "typeRoots": ["node_modules/@types", "typings/app.d.ts"],      
-    "esModuleInterop": true,                   
+    "typeRoots": [
+      "node_modules/@types",
+      "typings/app.d.ts"
+    ],
+    "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "strict": true,
     "skipLibCheck": true,
@@ -13,7 +16,19 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "sourceMap": true,
-    "strictNullChecks": true
+    "strictNullChecks": true,
+    "paths": {
+      "core": ["core"],
+      "pages": ["pages"],
+      "helpers": ["helpers"],
+      "partials": ["partials"],
+      "store": ["store"],
+      "utils": ["utils"],
+      "api": ["api"],
+      "services": ["services"]
+    }
   },
-  "includes": ["**/*.ts?"]
+  "includes": [
+    "**/*.ts?"
+  ],
 }

@@ -1,7 +1,8 @@
 import { Block, Store } from 'core';
-import template from 'bundle-text:./template.hbs';
 import { withStore } from 'utils';
 import { uploadChats } from 'services/messenger';
+
+const template = require('./template.hbs');
 
 interface ChatsListProps {
     store: Store<AppState>,
@@ -10,16 +11,17 @@ interface ChatsListProps {
     }
 }
 
-function throttle(callee: any, timeout: any) {
-    let timer = null
+function throttle(callee: Function, timeout: any) {
+    let timer: NodeJS.Timeout | undefined | null;
 
-    return function perform(...args) {
+    return function perform(...args: unknown[]) {
         if (timer) return
 
         timer = setTimeout(() => {
             callee(...args)
-
-            clearTimeout(timer)
+            if (timer !== null) {
+                clearTimeout(timer);
+            }
             timer = null
         }, timeout)
     }

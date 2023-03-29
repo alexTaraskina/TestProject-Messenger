@@ -1,9 +1,10 @@
 import { Block, Store, CoreRouter } from '../../../core';
-import template from 'bundle-text:./template.hbs';
 import { withRouter, withStore } from 'utils';
 import { logout } from 'services/auth';
 
 import './profile-card.css';
+
+const template = require('./template.hbs');
 
 interface ProfileCardProps {
     store: Store<AppState>,

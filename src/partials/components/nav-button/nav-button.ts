@@ -1,9 +1,8 @@
 import { Block } from "core";
-import template from 'bundle-text:./template.hbs';
-
-import arrowIcon from '../../../../icons/arrow_circle_left.svg';
-
 import './nav-button.css';
+
+const arrowIcon = require('../../../../icons/arrow_circle_left.svg');
+const template = require('./template.hbs');
 
 interface NavButtonProps {
     arrowPath: string,

@@ -1,7 +1,9 @@
 import { Block } from "../../core";
-import template from 'bundle-text:./template.hbs';
+const template = require('./template.hbs');
 
 export default class Modals extends Block {
+    static componentName: string = 'Modals';
+
     render() {
         return template;
     }

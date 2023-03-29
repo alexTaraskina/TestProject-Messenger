@@ -1,8 +1,9 @@
 import { Block, Store } from "core";
-import template from 'bundle-text:./template.hbs';
 import { withStore } from "utils";
 import { updateChatImage } from "services/messenger";
 import { baseURL } from "api/variables";
+
+const template = require('./template.hbs');
 
 import './chat-image.css';
 

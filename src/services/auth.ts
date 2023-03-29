@@ -18,7 +18,7 @@ type RegisterPayload = {
     phone: string
 }
 
-export const login: DispatchStateHandler<LoginPayload> = async (dispatch, state, data) => {
+export const login: DispatchStateHandler<LoginPayload> = async (dispatch, _state, data) => {
     try {
         dispatch({ isLoading: true });
 
@@ -62,7 +62,7 @@ export const logout = async (dispatch: Dispatch<AppState>) => {
     }
 };
 
-export const register: DispatchStateHandler<RegisterPayload> = async (dispatch, state, data) => {
+export const register: DispatchStateHandler<RegisterPayload> = async (dispatch, _state, data) => {
     try {
         dispatch({ isLoading: true });
 

@@ -1,9 +1,8 @@
 import { Block } from '../../../core';
-import template from 'bundle-text:./template.hbs';
-
 import './form-input-group.css';
 import { validateForm, ValidateRuleType } from 'helpers/validateForm';
-import { REPL_MODE_SLOPPY } from 'repl';
+
+const template = require('./template.hbs');
 
 type InputType = 'text' | 'password' | 'email' | 'tel';
 
