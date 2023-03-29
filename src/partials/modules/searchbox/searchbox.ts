@@ -2,7 +2,7 @@ import { Block } from '../../../core';
 
 import './searchbox.css';
 
-const template = require('./template.hbs');
+import template from './template.hbs';
 
 export default class Searchbox extends Block {
     static componentName: string = 'Searchbox';

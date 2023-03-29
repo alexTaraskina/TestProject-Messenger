@@ -1,7 +1,7 @@
 import { Block } from '../../../core';
 import './modal.css';
 
-const template = require('./template.hbs');
+import template from './template.hbs';
 
 interface ModalProps {
     onBackdropClick?: (e: Event) => void,

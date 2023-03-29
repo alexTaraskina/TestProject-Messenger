@@ -7,7 +7,7 @@ const addUserIcon = require('../../../../static/assets/icons/addUser.svg');
 const removeUser = require('../../../../static/assets/icons/removeUser.svg');
 const removeChat = require('../../../../static/assets/icons/removeChat.svg');
 
-const template = require('./template.hbs');
+import template from './template.hbs';
 
 interface OptionProps {
     onClick?: () => void;

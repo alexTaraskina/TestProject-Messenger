@@ -1,7 +1,7 @@
 import { Block } from 'core';
 import './input.css';
 
-const template = require('./template.hbs');
+import template from './template.hbs';
 
 interface InputProps {
     onBlur?: () => void,

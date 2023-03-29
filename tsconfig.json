@@ -6,7 +6,8 @@
     "baseUrl": "./src",
     "typeRoots": [
       "node_modules/@types",
-      "typings/app.d.ts"
+      "typings/app.d.ts",
+      "typings/hbs.d.ts"
     ],
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,

@@ -1,7 +1,7 @@
 import { Block } from '../../../core';
 import './message.css';
 
-const template = require('./template.hbs');
+import template from './template.hbs';
 
 export default class Message extends Block {
     static componentName: string = 'Message';

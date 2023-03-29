@@ -37,13 +37,12 @@ module.exports = {
                 use: 'file-loader',
             },
             {
+                test: /\.(png|jpe?g)$/i,
+                use: 'file-loader',
+            },
+            {
                 test: /\.hbs$/,
-                loader: 'handlebars-loader',
-                options: {
-                    precompileOptions: {
-                        knownHelpersOnly: false,
-                    },
-                },
+                loader: 'raw-loader',
             },
         ],
     },
@@ -52,9 +51,9 @@ module.exports = {
             new TsconfigPathsPlugin(),
         ],
         extensions: ['.ts', '.js', '.json', '.html'],
-    },
-    externalsPresets: {
-        node: true,
+        alias: {
+            handlebars: 'handlebars/dist/cjs/handlebars',
+        },
     },
     plugins: [
         new HtmlWebpackPlugin({

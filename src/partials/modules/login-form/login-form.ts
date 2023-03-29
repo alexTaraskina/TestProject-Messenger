@@ -3,7 +3,7 @@ import { validateForm } from 'helpers/validateForm';
 import { login } from 'services/auth';
 import { withStore, withRouter } from 'utils';
 
-const template = require('./template.hbs');
+import template from './template.hbs';
 
 interface LoginFormProps {
     store: Store<AppState>,

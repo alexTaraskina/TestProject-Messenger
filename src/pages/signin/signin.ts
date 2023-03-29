@@ -1,6 +1,6 @@
 import { Block } from '../../core';
 
-const template = require('./template.hbs');
+import template from './template.hbs';
 
 export default class SignIn extends Block {
     static componentName: string = 'SignIn';

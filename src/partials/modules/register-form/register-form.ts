@@ -3,7 +3,7 @@ import { register } from 'services/auth';
 import { withStore, withRouter } from 'utils';
 import { Block, CoreRouter, Store } from '../../../core';
 
-const template = require('./template.hbs');
+import template from './template.hbs';
 
 interface RegisterFormProps {
     store: Store<AppState>,

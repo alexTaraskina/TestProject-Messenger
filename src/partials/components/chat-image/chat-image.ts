@@ -5,7 +5,7 @@ import { baseURL } from 'api/variables';
 
 import './chat-image.css';
 
-const template = require('./template.hbs');
+import template from './template.hbs';
 
 interface ChatImageProps {
     file: string,

@@ -1,7 +1,7 @@
 import { Screens } from 'utils';
 import { Block } from '../../core';
 
-const template = require('./template.hbs');
+import template from './template.hbs';
 
 interface ChoseChatProps {
 

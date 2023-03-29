@@ -3,7 +3,7 @@ import { Block, CoreRouter } from '../../../core';
 
 import './error.css';
 
-const template = require('./template.hbs');
+import template from './template.hbs';
 
 interface ErrorProps {
     router: CoreRouter,

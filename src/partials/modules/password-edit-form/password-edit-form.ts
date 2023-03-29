@@ -5,7 +5,7 @@ import { updatePassword } from 'services/profile';
 
 import './password-edit-form.css';
 
-const template = require('./template.hbs');
+import template from './template.hbs';
 
 interface PasswordEditFormProps {
     store: Store<AppState>,

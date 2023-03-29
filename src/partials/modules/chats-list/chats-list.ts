@@ -2,7 +2,7 @@ import { Block, Store } from 'core';
 import { withStore } from 'utils';
 import { uploadChats } from 'services/messenger';
 
-const template = require('./template.hbs');
+import template from './template.hbs';
 
 interface ChatsListProps {
     store: Store<AppState>,

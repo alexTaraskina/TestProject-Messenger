@@ -5,7 +5,7 @@ import { Block, Store, CoreRouter } from '../../../core';
 
 import './profile-edit-form.css';
 
-const template = require('./template.hbs');
+import template from './template.hbs';
 
 interface ProfileEditFormProps {
     store: Store<AppState>,

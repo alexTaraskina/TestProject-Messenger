@@ -2,7 +2,7 @@ import { Block } from 'core';
 
 import './backdrop.css';
 
-const template = require('./template.hbs');
+import template from './template.hbs';
 
 interface BackdropProps {
     onClick?: (e: Event) => void,

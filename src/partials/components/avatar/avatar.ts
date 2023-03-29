@@ -5,7 +5,7 @@ import { baseURL } from 'api/variables';
 
 import './avatar.css';
 
-const template = require('./template.hbs');
+import template from './template.hbs';
 
 interface AvatarProps {
     file: string,

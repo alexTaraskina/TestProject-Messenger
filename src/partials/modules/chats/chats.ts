@@ -4,7 +4,7 @@ import { Block, CoreRouter, Store } from '../../../core';
 
 import './chats.css';
 
-const template = require('./template.hbs');
+import template from './template.hbs';
 
 interface ChatsProps {
     router: CoreRouter,

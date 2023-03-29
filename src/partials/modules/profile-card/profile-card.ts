@@ -4,7 +4,7 @@ import { Block, Store, CoreRouter } from '../../../core';
 
 import './profile-card.css';
 
-const template = require('./template.hbs');
+import template from './template.hbs';
 
 interface ProfileCardProps {
     store: Store<AppState>,

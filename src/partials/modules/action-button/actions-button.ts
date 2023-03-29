@@ -1,6 +1,6 @@
 import { Block } from 'core';
 
-const template = require('./template.hbs');
+import template from './template.hbs';
 
 interface ActionsButtonProps {
     onClick?: () => void;

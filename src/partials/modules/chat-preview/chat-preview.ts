@@ -5,7 +5,7 @@ import { closeSocket, getChatUsers, initRealTimeMessagesConnection } from 'servi
 
 import { baseURL } from 'api/variables';
 
-const template = require('./template.hbs');
+import template from './template.hbs';
 
 interface ChatPreviewProps {
     id: number,

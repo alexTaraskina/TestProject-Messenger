@@ -2,7 +2,7 @@ import './form-input-group.css';
 import { validateForm, ValidateRuleType } from 'helpers/validateForm';
 import { Block } from 'core';
 
-const template = require('./template.hbs');
+import template from './template.hbs';
 
 type InputType = 'text' | 'password' | 'email' | 'tel';
 
