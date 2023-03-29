@@ -1,7 +1,7 @@
 import { Block } from 'core';
 import './nav-button.css';
 
-const arrowIcon = require('../../../../icons/arrow_circle_left.svg');
+import arrowIcon from '../../../../icons/arrow_circle_left.svg';
 import template from './template.hbs';
 
 interface NavButtonProps {

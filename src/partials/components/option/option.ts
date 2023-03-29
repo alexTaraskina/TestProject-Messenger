@@ -1,11 +1,11 @@
 import { Block } from '../../../core';
 import './option.css';
 
-const photoIcon = require('../../../../icons/photo.svg');
-const videoIcon = require('../../../../icons/video.svg');
-const addUserIcon = require('../../../../static/assets/icons/addUser.svg');
-const removeUser = require('../../../../static/assets/icons/removeUser.svg');
-const removeChat = require('../../../../static/assets/icons/removeChat.svg');
+import photoIcon from '../../../../icons/photo.svg';
+import videoIcon from '../../../../icons/video.svg';
+import addUserIcon from '../../../../static/assets/icons/addUser.svg';
+import removeUser from '../../../../static/assets/icons/removeUser.svg';
+import removeChat from '../../../../static/assets/icons/removeChat.svg';
 
 import template from './template.hbs';
 
