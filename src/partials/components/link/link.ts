@@ -7,12 +7,12 @@ import template from './template.hbs';
 interface LinkProps {
     router: CoreRouter,
     onClick: () => void;
-    events: {
+    events?: {
         click: () => void;
     }
 }
 
-class Link extends Block<LinkProps> {
+export class Link extends Block<LinkProps> {
     static componentName: string = 'Link';
 
     constructor(props: LinkProps) {

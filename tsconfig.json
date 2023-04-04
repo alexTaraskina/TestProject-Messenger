@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "target": "es2017",
+    "target": "es2016",
     "module": "commonjs",
     "rootDir": "./src",
     "baseUrl": "./src",
@@ -33,4 +33,7 @@
   "includes": [
     "**/*.ts?"
   ],
+  "ts-node": {
+    "files": true
+  }
 }

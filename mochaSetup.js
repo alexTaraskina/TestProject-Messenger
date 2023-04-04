@@ -9,7 +9,6 @@ const { window } = new JSDOM('<main id="app"></main>', {
 
 global.window = window;
 global.document = window.document;
-global.setTimeout = window.setTimeout;
 
 require.extensions['.hbs'] = function (module, filename) {
     const stringTemplate = fs.readFileSync(filename, 'utf-8');
