@@ -20,7 +20,7 @@ export class Link extends Block<LinkProps> {
     }
 
     render() {
-        return template;
+        return template as unknown as string;
     }
 }
 

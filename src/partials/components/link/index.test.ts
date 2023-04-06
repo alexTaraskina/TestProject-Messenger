@@ -1,7 +1,8 @@
-//import { expect } from 'chai';
-import { CoreRouter } from '../../../core';
+// eslint-disable-next-line
 import * as sinon from 'sinon';
-import { Link } from "./link";
+import { expect } from 'chai';
+import { CoreRouter } from '../../../core';
+import { Link } from './link';
 
 describe('Link component', () => {
     const router = {} as CoreRouter;
@@ -12,14 +13,16 @@ describe('Link component', () => {
     });
 
     it('should render', () => {
+        // eslint-disable-next-line
         new Link({ router, onClick: callback });
     });
 
-    // it.only('should call callback function on click', () => {
-    //     const link = new Link({ onClick: callback });
+    it('should call callback function on click', () => {
+        // @ts-ignore
+        const link = new Link({ onClick: callback });
 
-    //     link.element?.click();
+        link.element?.click();
 
-    //     expect(callback.called).to.eq(true);
-    // });
+        expect(callback.called).to.eq(true);
+    });
 });
