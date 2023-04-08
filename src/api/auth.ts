@@ -7,7 +7,7 @@ type LoginRequestData = {
     password: string;
 };
 
-type RegisterRequestData = {
+        type RegisterRequestData = {
     first_name: string,
     second_name: string,
     login: string,
