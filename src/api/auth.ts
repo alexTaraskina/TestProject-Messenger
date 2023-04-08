@@ -17,7 +17,9 @@ type RegisterRequestData = {
 };
 
 export const authAPI = {
-    login: (data: LoginRequestData) => new HTTPTransport().post<ResponseData>(`${baseURL}/auth/signin`, { data }),me: () => new HTTPTransport().get<UserDTO | APIError>(`${baseURL}/auth/user`),
+    login: (data: LoginRequestData) => new HTTPTransport().post<ResponseData>(`${baseURL}/auth/signin`, { data }),
+
+    me: () => new HTTPTransport().get<UserDTO | APIError>(`${baseURL}/auth/user`),
 
     logout: () => new HTTPTransport().post(`${baseURL}/auth/logout`),
 

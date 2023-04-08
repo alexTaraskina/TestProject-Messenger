@@ -6,7 +6,8 @@
     "stylelint:fix": "stylelint '**/*{.css,.scss}' --fix",
     "test": "mocha -r ts-node/register -r tsconfig-paths/register --r ./mochaSetup.js './src/**/*.test.ts'",
     "eslint": "npx eslint .",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "lint-staged": "npx lint-staged"
   },
   "alias": {
     "core": "./src/core",
