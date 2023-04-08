@@ -24,9 +24,7 @@
     }
   },
   "lint-staged": {
-    "src/**/*.ts": [
-      "eslint"
-    ]
+    "*.ts": "eslint"
   },
   "copyStaticFiles": [
     {
