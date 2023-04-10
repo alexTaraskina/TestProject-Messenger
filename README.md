@@ -1,6 +1,8 @@
 # Мессенджер | ![Project Status](https://img.shields.io/badge/status-development-green) ![Netlify Build](https://img.shields.io/netlify/10e7e0c9-8fed-461c-8611-6a04f963867a)
 
-https://polite-selkie-cbf8bc.netlify.app/
+Netlify: https://polite-selkie-cbf8bc.netlify.app/
+
+Yandex Cloud: https://bbaip18jbcf24nc42cfk.containers.yandexcloud.net/
 
 ## PRs
 
