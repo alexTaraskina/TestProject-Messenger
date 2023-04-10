@@ -1,8 +1,9 @@
-import { Block, CoreRouter } from '../../../core';
-import template from 'bundle-text:./template.hbs';
 import { withRouter } from 'utils';
+import { Block, CoreRouter } from '../../../core';
 
 import './error.css';
+
+import template from './template.hbs';
 
 interface ErrorProps {
     router: CoreRouter,
@@ -21,9 +22,9 @@ class Error extends Block<ErrorProps> {
 
     onBackToChatsClick(e: Event) {
         e.preventDefault();
-        this.props.router.go(`/messenger`);
+        this.props.router.go('/messenger');
     }
-    
+
     render() {
         return template;
     }

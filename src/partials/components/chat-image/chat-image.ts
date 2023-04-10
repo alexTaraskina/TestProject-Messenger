@@ -1,10 +1,11 @@
-import { Block, Store } from "core";
-import template from 'bundle-text:./template.hbs';
-import { withStore } from "utils";
-import { updateChatImage } from "services/messenger";
-import { baseURL } from "api/variables";
+import { Block, Store } from 'core';
+import { withStore } from 'utils';
+import { updateChatImage } from 'services/messenger';
+import { baseURL } from 'api/variables';
 
 import './chat-image.css';
+
+import template from './template.hbs';
 
 interface ChatImageProps {
     file: string,

@@ -1,5 +1,6 @@
-import { Block } from "core";
-import template from 'bundle-text:./template.hbs';
+import { Block } from 'core';
+
+import template from './template.hbs';
 
 interface SendMessageButtonProps {
     onClick?: () => void;

@@ -1,9 +1,8 @@
-import { Block } from "core";
-import template from 'bundle-text:./template.hbs';
+import { Block } from 'core';
+import './nav-button.css';
 
 import arrowIcon from '../../../../icons/arrow_circle_left.svg';
-
-import './nav-button.css';
+import template from './template.hbs';
 
 interface NavButtonProps {
     arrowPath: string,
@@ -20,8 +19,8 @@ export default class NavButton extends Block<NavButtonProps> {
             ...props,
             arrowPath: arrowIcon,
             events: {
-                click: () => window.history.back()
-            }
+                click: () => window.history.back(),
+            },
         });
     }
 

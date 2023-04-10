@@ -1,5 +1,6 @@
 import { Block } from '../../core';
-import template from 'bundle-text:./template.hbs';
+
+import template from './template.hbs';
 
 interface ErrorProps {
     status: string,
@@ -8,12 +9,6 @@ interface ErrorProps {
 
 export default class ErrorPage extends Block<ErrorProps> {
     static componentName: string = 'ErrorPage';
-    
-
-    constructor(props: ErrorProps)
-    {
-        super(props);
-    }
 
     render() {
         return template;

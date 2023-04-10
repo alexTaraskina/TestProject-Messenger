@@ -18,9 +18,9 @@ export async function initApp(dispatch: Dispatch<AppState>) {
             return;
         }
 
-        dispatch({ 
-            user: transformUser(response as UserDTO), 
-            chats: responseChats.map(item => transformChat(item as ChatDTO)),
+        dispatch({
+            user: transformUser(response as UserDTO),
+            chats: responseChats.map((item) => transformChat(item as ChatDTO)),
             messages: [],
         });
     } catch (err) {

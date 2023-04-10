@@ -1,9 +1,10 @@
-import { Block, CoreRouter, Store } from '../../../core';
-import template from 'bundle-text:./template.hbs';
+import { createChat } from 'services/messenger';
 import { withRouter, withStore } from 'utils';
+import { Block, CoreRouter, Store } from '../../../core';
 
 import './chats.css';
-import { createChat } from 'services/messenger';
+
+import template from './template.hbs';
 
 interface ChatsProps {
     router: CoreRouter,
@@ -30,7 +31,7 @@ class Chats extends Block<ChatsProps> {
 
     onProfileLinkClick(e: Event) {
         e.preventDefault();
-        this.props.router.go("/settings");
+        this.props.router.go('/settings');
     }
 
     onCreateChatClick() {
@@ -42,24 +43,23 @@ class Chats extends Block<ChatsProps> {
 
         interface NewChatData {
             title: string,
-        };
+        }
 
         const newChatData: NewChatData = {
             title: chatTitleEl?.value,
-        }
+        };
 
         this.props.store.dispatch(createChat, newChatData);
     }
 
     checkPosition(e: Event) {
         // высота документа и высота экрана:
-        console.log(e.target);
         console.log((e.target as HTMLElement).offsetHeight);
-        const height = document.body.offsetHeight
-        const screenHeight = window.innerHeight
-        const scrolled = window.scrollY
-        const threshold = height - screenHeight / 4
-        const position = scrolled + screenHeight
+        const height = document.body.offsetHeight;
+        const screenHeight = window.innerHeight;
+        const scrolled = window.scrollY;
+        const threshold = height - screenHeight / 4;
+        const position = scrolled + screenHeight;
 
         if (position >= threshold) {
             console.log(height);

@@ -1,8 +1,9 @@
-import template from 'bundle-text:./template.hbs';
 import { Block, Store, CoreRouter } from 'core';
 import { validateForm } from 'helpers/validateForm';
 import { login } from 'services/auth';
 import { withStore, withRouter } from 'utils';
+
+import template from './template.hbs';
 
 interface LoginFormProps {
     store: Store<AppState>,
@@ -35,7 +36,7 @@ class LoginForm extends Block<LoginFormProps> {
         interface LoginData {
             login: string,
             password: string
-        };
+        }
 
         const loginEl = this.element?.querySelector('#login') as HTMLInputElement;
         const passwordEl = this.element?.querySelector('#password') as HTMLInputElement;
@@ -43,7 +44,7 @@ class LoginForm extends Block<LoginFormProps> {
         const loginData: LoginData = {
             login: loginEl?.value,
             password: passwordEl?.value,
-        }
+        };
 
         const loginError = validateForm({ type: 'login', value: loginEl.value });
         this.refs.loginInputGroup.refs.formError.setProps({ text: loginError });

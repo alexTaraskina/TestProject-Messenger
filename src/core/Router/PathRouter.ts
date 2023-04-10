@@ -1,4 +1,4 @@
-import { CoreRouter } from "./CoreRouter";
+import { CoreRouter } from './CoreRouter';
 
 const comparePath = (routeHash: string, pathName: string) => {
     const rHash = routeHash.split('/');
@@ -14,7 +14,7 @@ const comparePath = (routeHash: string, pathName: string) => {
 
         return piece === pName[index];
     });
-}
+};
 
 const getVariablesFromRoutePath = (routeHash: string, pathName: string): Params => {
     const params: Params = {};
@@ -30,7 +30,7 @@ const getVariablesFromRoutePath = (routeHash: string, pathName: string): Params 
         params[variableName] = variableValue;
     });
     return params;
-}
+};
 
 export class PathRouter implements CoreRouter {
     private routes: Record<string, Function> = {};
@@ -41,7 +41,7 @@ export class PathRouter implements CoreRouter {
         if (!this.isStarted) {
             this.isStarted = true;
 
-            window.onpopstate = (event: PopStateEvent) => {
+            window.onpopstate = () => {
                 this.onRouteChange.call(this);
             };
 

@@ -6,24 +6,24 @@ declare global {
 
     export type Params = Record<string, string>;
 
-    export type AppState = {
+    declare type AppState = {
         appIsInited: boolean;
-        params: Params,
+        params?: Params,
         screen: Screens | null;
         isLoading: boolean;
         loginFormError: string | null;
-        changePasswordError: string | null;
-        changePasswordMessage: string | null;
+        changePasswordError?: string | null;
+        changePasswordMessage?: string | null;
         user: User | null;
-        chats: Chat[] | null;
-        currentChat: number | null;
-        createChatError: string | null;
-        currentChatUsers: User[] | null,
-        token: string,  
+        chats?: Chat[] | null;
+        currentChat?: number | null;
+        createChatError?: string | null;
+        currentChatUsers?: User[] | null,
+        token?: string,
         messages: Message[],
-        webSocket: WebSocket | null,
-        error: Error | null,
-        uploadedFile: ChatFile | null,
+        webSocket?: WebSocket | null,
+        error?: Error | null,
+        uploadedFile?: ChatFile | null,
     };
 
     export type Error = {
@@ -37,7 +37,7 @@ declare global {
         type: string,
         user_id: string,
         content: string,
-        file?: Nullable<ChatFile>,        
+        file?: Nullable<ChatFile>,
     };
 
     export type ChatFile = {
@@ -84,4 +84,4 @@ declare global {
     }
 }
 
-export { }
+export { };

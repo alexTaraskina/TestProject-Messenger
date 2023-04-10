@@ -1,18 +1,18 @@
-import { Block, CoreRouter } from '../../../core';
-import template from 'bundle-text:./template.hbs';
-
 import './link.css';
 import { withRouter } from 'utils';
+import { Block, CoreRouter } from 'core';
+
+import template from './template.hbs';
 
 interface LinkProps {
     router: CoreRouter,
     onClick: () => void;
-    events: {
+    events?: {
         click: () => void;
     }
 }
 
-class Link extends Block<LinkProps> {
+export class Link extends Block<LinkProps> {
     static componentName: string = 'Link';
 
     constructor(props: LinkProps) {
@@ -20,7 +20,7 @@ class Link extends Block<LinkProps> {
     }
 
     render() {
-        return template;
+        return template as unknown as string;
     }
 }
 

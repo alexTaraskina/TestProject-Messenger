@@ -1,6 +1,7 @@
-import { Block, CoreRouter, Store } from 'core';
-import template from 'bundle-text:./template.hbs';
-import { addUser, removeUser, removeChat, uploadChatAsset } from 'services/messenger';
+import { Block, Store } from 'core';
+import {
+    addUser, removeUser, removeChat, uploadChatAsset,
+} from 'services/messenger';
 import { Screens } from 'utils';
 
 interface ChatProps {
@@ -18,54 +19,54 @@ interface ChatProps {
 
 export default class ChatPage extends Block<ChatProps> {
     static componentName: string = 'Chat';
-    
 
-    constructor(props: ChatProps)
-    {
-        super({ 
-            ...props, 
-            getChat: () => window.store.getState().chats?.find(chat => chat.id === Number(window.store.getState().params.id)),
+    constructor(props: ChatProps) {
+        super({
+            ...props,
+            getChat: () => window.store.getState().chats?.find(
+                (chat) => chat.id === Number(window.store.getState().params?.id),
+            ),
             showAddUserModal: () => this.showAddUserModal(),
             showRemoveUserModal: () => this.showRemoveUserModal(),
             showFileUploadModal: () => this.showFileUploadModal(),
             onAddUserClick: (e: Event) => this.onAddUserClick(e),
-            onRemoveUserClick: (e: Event) => this.onRemoveUserClick(e), 
+            onRemoveUserClick: (e: Event) => this.onRemoveUserClick(e),
             onRemoveChatClick: () => this.onRemoveChatClick(),
             uploadFile: (e: Event) => this.uploadFile(e),
         });
     }
 
-    componentDidUpdate(oldProps: ChatProps, newProps: ChatProps): boolean {
+    componentDidUpdate(): boolean {
         return window.store.getState().screen !== Screens.Chat;
     }
 
     showAddUserModal() {
-        this.refs.addUserModal.setProps({ state: "active" });
+        this.refs.addUserModal.setProps({ state: 'active' });
     }
 
     showRemoveUserModal() {
-        this.refs.removeUserModal.setProps({ state: "active" });
+        this.refs.removeUserModal.setProps({ state: 'active' });
     }
 
     showFileUploadModal() {
-        this.refs.uploadFileModal.setProps({ state: "active" });
+        this.refs.uploadFileModal.setProps({ state: 'active' });
     }
 
     onAddUserClick(e: Event) {
         interface NewChatUserData {
             users: number[],
             chatId: number,
-        };
+        }
 
-        let el = e.target as HTMLElement;
-        let userId = el && el.parentNode ? Number(el.parentNode.querySelector('input')?.value) : null;
-        let chatId = Number(window.store.getState().params.id); 
+        const el = e.target as HTMLElement;
+        const userId = el && el.parentNode ? Number(el.parentNode.querySelector('input')?.value) : null;
+        const chatId = Number(window.store.getState().params?.id);
 
         if (userId && chatId) {
             const newChatUserData: NewChatUserData = {
-                users: [ userId ], 
-                chatId: chatId, 
-            }
+                users: [userId],
+                chatId,
+            };
 
             window.store.dispatch(addUser, newChatUserData);
         }
@@ -75,24 +76,24 @@ export default class ChatPage extends Block<ChatProps> {
         interface ChatUserData {
             users: number[],
             chatId: number,
-        };
+        }
 
-        let el = e.target as HTMLElement;
-        let userId = el && el.parentNode ? Number(el.parentNode.querySelector('input')?.value) : null;
-        let chatId = Number(window.store.getState().params.id);
+        const el = e.target as HTMLElement;
+        const userId = el && el.parentNode ? Number(el.parentNode.querySelector('input')?.value) : null;
+        const chatId = Number(window.store.getState().params?.id);
 
         if (userId && chatId) {
             const userData: ChatUserData = {
-                users: [ userId ], 
-                chatId: chatId, 
-            }
+                users: [userId],
+                chatId,
+            };
 
             window.store.dispatch(removeUser, userData);
         }
     }
 
     onRemoveChatClick() {
-        let chatId = Number(window.store.getState().params.id);
+        const chatId = Number(window.store.getState().params?.id);
 
         if (chatId) {
             window.store.dispatch(removeChat, { chatId });
@@ -102,7 +103,7 @@ export default class ChatPage extends Block<ChatProps> {
     }
 
     uploadFile(e: Event) {
-        let el = e.target as HTMLElement;
+        const el = e.target as HTMLElement;
         const imageInputEl = el && el.parentNode ? el.parentNode.querySelector('input') : null;
         if (imageInputEl && imageInputEl.files) {
             const formData = new FormData();
@@ -110,7 +111,7 @@ export default class ChatPage extends Block<ChatProps> {
             window.store.dispatch(uploadChatAsset, formData);
         }
 
-        this.refs.uploadFileModal.setProps({ state: "" });
+        this.refs.uploadFileModal.setProps({ state: '' });
 
         // e.preventDefault();
         // const el = e.target as HTMLElement;

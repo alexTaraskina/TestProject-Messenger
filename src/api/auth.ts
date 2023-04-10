@@ -17,13 +17,11 @@ type RegisterRequestData = {
 };
 
 export const authAPI = {
-    login: (data: LoginRequestData) =>
-        new HTTPTransport().post<ResponseData>(baseURL + '/auth/signin', {data}),
+    login: (data: LoginRequestData) => new HTTPTransport().post<ResponseData>(`${baseURL}/auth/signin`, { data }),
 
-    me: () => new HTTPTransport().get<UserDTO | APIError>(baseURL + '/auth/user'),
+    me: () => new HTTPTransport().get<UserDTO | APIError>(`${baseURL}/auth/user`),
 
-    logout: () => new HTTPTransport().post(baseURL + '/auth/logout'),
+    logout: () => new HTTPTransport().post(`${baseURL}/auth/logout`),
 
-    register: (data: RegisterRequestData) => 
-        new HTTPTransport().post<ResponseData>(baseURL + '/auth/signup', {data}),
+    register: (data: RegisterRequestData) => new HTTPTransport().post<ResponseData>(`${baseURL}/auth/signup`, { data }),
 };

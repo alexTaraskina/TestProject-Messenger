@@ -1,13 +1,15 @@
-import { Block } from '../../core';
-import template from 'bundle-text:./template.hbs';
-
 import './profile.css';
 import { Screens } from 'utils';
+import { Block } from 'core';
+
+import template from './template.hbs';
 
 interface ProfileProps {}
 
 export default class Profile extends Block<ProfileProps> {
-    componentDidUpdate(oldProps: ProfileProps, newProps: ProfileProps): boolean {
+    static componentName: string = 'Profile';
+
+    componentDidUpdate(): boolean {
         return window.store.getState().screen !== Screens.Profile;
     }
 

@@ -1,9 +1,10 @@
-import { Block, Store, CoreRouter } from '../../../core';
-import template from 'bundle-text:./template.hbs';
 import { withRouter, withStore } from 'utils';
 import { logout } from 'services/auth';
+import { Block, Store, CoreRouter } from '../../../core';
 
 import './profile-card.css';
+
+import template from './template.hbs';
 
 interface ProfileCardProps {
     store: Store<AppState>,
@@ -43,7 +44,7 @@ class ProfileCard extends Block<ProfileCardProps> {
         e.preventDefault();
         this.props.router.go('/password-edit');
     }
-    
+
     render() {
         return template;
     }

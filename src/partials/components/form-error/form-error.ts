@@ -1,7 +1,7 @@
-import { Block } from "core";
-import template from 'bundle-text:./template.hbs'
-
+import { Block } from 'core';
 import './form-error.css';
+
+import template from './template.hbs';
 
 interface FormErrorProps {
     text?: string

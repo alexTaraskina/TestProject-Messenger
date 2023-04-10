@@ -1,21 +1,21 @@
 const METHODS = {
-  GET: 'GET',
-  POST: 'POST',
-  PUT: 'PUT',
-  DELETE: 'DELETE'
+    GET: 'GET',
+    POST: 'POST',
+    PUT: 'PUT',
+    DELETE: 'DELETE',
 };
 
 function queryStringify(data: unknown) {
-  if (!data) {
-    return '';
-  }
+    if (!data) {
+        return '';
+    }
 
-  let result = Object.keys(data).length > 0 ? '?' : '';
-  for (const [key, value] of Object.entries(data)) {
-    result += key + '=' + value + '&';
-  }
+    let result = Object.keys(data).length > 0 ? '?' : '';
+    for (const [key, value] of Object.entries(data)) {
+        result += `${key}=${value}&`;
+    }
 
-  return result.slice(0, -1);
+    return result.slice(0, -1);
 }
 
 type Options = {
@@ -29,65 +29,59 @@ type Options = {
 type HTTPMethod = <TResponse = unknown>(url: string, options?: Options) => Promise<TResponse>
 
 export default class HTTPTransport {
-  get: HTTPMethod = (url, options) => {
-    return this.request(url + queryStringify(options?.data), METHODS.GET, options);
-  };
+    get: HTTPMethod = (url, options) => this.request(url + queryStringify(options?.data), METHODS.GET, options);
 
-  put: HTTPMethod = (url, options) => {
-    return this.request(url, METHODS.PUT, options);
-  };
+    put: HTTPMethod = (url, options) => this.request(url, METHODS.PUT, options);
 
-  post: HTTPMethod = (url, options) => {
-    return this.request(url, METHODS.POST, options);
-  };
+    post: HTTPMethod = (url, options) => this.request(url, METHODS.POST, options);
 
-  delete: HTTPMethod = (url, options) => {
-    return this.request(url, METHODS.DELETE, options);
-  };
+    delete: HTTPMethod = (url, options) => this.request(url, METHODS.DELETE, options);
 
-  request = <TResponse = unknown>(url: string, method: string, options?: Options): Promise<TResponse> => {
-    return new Promise((resolve, reject) => {
-      const xhr = new XMLHttpRequest();
-      xhr.open(method, url, true);
-      xhr.timeout = options?.timeout ?? 5000;
+    request = <TResponse = unknown>(
+        url: string,
+        method: string,
+        options?: Options):
+      Promise<TResponse> => new Promise((resolve, reject) => {
+        const xhr = new XMLHttpRequest();
+        xhr.open(method, url, true);
+        xhr.timeout = options?.timeout ?? 5000;
 
-      if (!options?.noHeaders) {
-        if (options?.headers) {
-          for (const [key, value] of options.headers.entries()) {
-            xhr.setRequestHeader(key, value);
-          }
+        if (!options?.noHeaders) {
+            if (options?.headers) {
+                for (const [key, value] of options.headers.entries()) {
+                    xhr.setRequestHeader(key, value);
+                }
+            } else {
+                xhr.setRequestHeader('Content-Type', 'application/json');
+                xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+                xhr.setRequestHeader('Access-Control-Allow-Origin', '*');
+            }
         }
-        else {
-          xhr.setRequestHeader('Content-Type', 'application/json');
-          xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
-          xhr.setRequestHeader('Access-Control-Allow-Origin', '*');
+
+        xhr.withCredentials = true;
+
+        xhr.onload = () => {
+            resolve(isJsonString(xhr.response) ? JSON.parse(xhr.response) : xhr.response);
+        };
+
+        xhr.onabort = reject;
+        xhr.onerror = reject;
+        xhr.ontimeout = reject;
+
+        if (method === METHODS.GET || !options?.data) {
+            xhr.send();
+        } else {
+            // @ts-ignore
+            xhr.send(options.noConvertion ? options.data : JSON.stringify(options.data));
         }
-      }
-
-      xhr.withCredentials = true;
-
-      xhr.onload = function () {
-        resolve(isJsonString(xhr.response) ? JSON.parse(xhr.response) : xhr.response);
-      };
-
-      xhr.onabort = reject;
-      xhr.onerror = reject;
-      xhr.ontimeout = reject;
-
-      if (method === METHODS.GET || !options?.data) {
-        xhr.send();
-      } else {
-        xhr.send(options.noConvertion ? options.data : JSON.stringify(options.data));
-      }
     });
-  };
 }
 
 function isJsonString(str: string) {
-  try {
-    JSON.parse(str);
-  } catch (e) {
-    return false;
-  }
-  return true;
+    try {
+        JSON.parse(str);
+    } catch (e) {
+        return false;
+    }
+    return true;
 }

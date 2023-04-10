@@ -1,20 +1,21 @@
-import { Block } from "core";
-import template from 'bundle-text:./template.hbs';
+import { Block } from 'core';
 
 import './backdrop.css';
+
+import template from './template.hbs';
 
 interface BackdropProps {
     onClick?: (e: Event) => void,
     events: {
         click?: (e: Event) => void,
     }
-};
+}
 
 export default class Backdrop extends Block<BackdropProps> {
     static componentName: string = 'Backdrop';
 
     constructor(props: BackdropProps) {
-        super({ ...props, events: { click: props.onClick }});
+        super({ ...props, events: { click: props.onClick } });
     }
 
     render() {

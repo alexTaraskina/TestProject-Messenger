@@ -5,51 +5,49 @@ type ValidateRule = {
     type: ValidateRuleType,
 }
 
-const validatorsMap = new Map<ValidateRuleType, (value: string) => string>([
-    ['login', validateLogin],
-    ['password', validatePassword],
-    ['email', validateEmail],
-    ['phone', validatePhone],
-    ['name', validateName]
-]);
+function generalStringValidation(value: string, minLettersCount: number): string {
+    if (value.length === 0) {
+        return 'Value can not be empty';
+    }
+    if (value.length < minLettersCount) {
+        return `Value should contains more than ${minLettersCount - 1} letters`;
+    }
 
-export function validateForm({ type, value }: ValidateRule): string {
-    const validator = validatorsMap.get(type);
-    return validator ? validator(value) : '';
+    return '';
 }
 
 function validateLogin(value: string): string {
-    let error = generalStringValidation(value, 3);
+    const error = generalStringValidation(value, 3);
 
     if (error) {
         return error;
     }
 
     if (value.length > 20) {
-        return "Login can contain only 20 symbols";
+        return 'Login can contain only 20 symbols';
     }
 
     const loginRegexp = /^[0-9a-zA-Z-_]+$/;
     const onlyNumbersRegexp = /^[0-9]+$/;
     if (onlyNumbersRegexp.test(value)) {
-        return "Login shouldn't contain only from numbers"
+        return "Login shouldn't contain only from numbers";
     }
-    else if (!loginRegexp.test(value)) {
-        return "Login should contain only latin symbols, \"-\", \"_\"";
+    if (!loginRegexp.test(value)) {
+        return 'Login should contain only latin symbols, "-", "_"';
     }
 
     return '';
 }
 
-function validatePassword(value:  string): string {
-    let error = generalStringValidation(value, 8);
+function validatePassword(value: string): string {
+    const error = generalStringValidation(value, 8);
 
     if (error) {
         return error;
     }
 
     if (value.length > 40) {
-        return "Password length should be lower then 40";
+        return 'Password length should be lower then 40';
     }
 
     // {8,}                        от 8 символов
@@ -61,18 +59,19 @@ function validatePassword(value:  string): string {
     const oneDijitRegexp = /\d/;
     const lowerCaseRegexp = /[a-zа-яё]/;
     const upperCaseRegexp = /[A-ZА-ЯёЁ]/;
+    // eslint-disable-next-line
     const symbolRegexp = /[-#!$@%^&*_+~=:;?\/]/;
 
-    if(!oneDijitRegexp.test(value)) {
+    if (!oneDijitRegexp.test(value)) {
         return 'Password should contain at least 1 number';
-    } 
-    else if (!lowerCaseRegexp.test(value)) {
+    }
+    if (!lowerCaseRegexp.test(value)) {
         return 'Password should contain at least 1 letter in lower case';
-    } 
-    else if (!upperCaseRegexp.test(value)) {
+    }
+    if (!upperCaseRegexp.test(value)) {
         return 'Password should contain at least 1 letter in upper case';
     }
-    else if (!symbolRegexp.test(value)) {
+    if (!symbolRegexp.test(value)) {
         return 'Pasword should contain at least 1 symbol';
     }
 
@@ -89,8 +88,8 @@ function validateEmail(value: string): string {
     if (!emailRegexp.test(value)) {
         return 'e-mail is incorrect';
     }
-    else if (!latinRegexp.test(value)) {
-        return 'Email should contain only latin symbols, \"-\", \"_\"'
+    if (!latinRegexp.test(value)) {
+        return 'Email should contain only latin symbols, "-", "_"';
     }
 
     return '';
@@ -113,27 +112,30 @@ function validateName(value: string): string {
     if (value.length === 0) {
         return 'Value can not be empty';
     }
-    
+
     const nameRegexp = /^[а-яА-ЯёЁa-zA-Z-]+$/;
-    const upperCaseRegexp =  /^[А-ЯЁA-Z]{1}[а-яА-ЯёЁa-zA-Z-]*$/;
+    const upperCaseRegexp = /^[А-ЯЁA-Z]{1}[а-яА-ЯёЁa-zA-Z-]*$/;
 
     if (!nameRegexp.test(value)) {
-        return "Value should contain only letters and \"-\" symbol";
+        return 'Value should contain only letters and "-" symbol';
     }
-    else if (!upperCaseRegexp.test(value)) {
-        return "Value should start from a letter in upper case";
+    if (!upperCaseRegexp.test(value)) {
+        return 'Value should start from a letter in upper case';
     }
 
     return '';
 }
 
-function generalStringValidation(value: string, minLettersCount: number): string {
-    if (value.length === 0) {
-        return 'Value can not be empty';
-    }
-    else if (value.length < minLettersCount) {
-        return `Value should contains more than ${minLettersCount - 1} letters`;
-    }
+// eslint-disable-next-line
+const validatorsMap = new Map<ValidateRuleType, (value: string) => string>([
+    ['login', validateLogin],
+    ['password', validatePassword],
+    ['email', validateEmail],
+    ['phone', validatePhone],
+    ['name', validateName],
+]);
 
-    return '';
+export function validateForm({ type, value }: ValidateRule): string {
+    const validator = validatorsMap.get(type);
+    return validator ? validator(value) : '';
 }

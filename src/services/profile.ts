@@ -1,6 +1,5 @@
 import { profileAPI } from 'api/profile';
 import { UserDTO } from 'api/types';
-import type { Dispatch } from 'core';
 import { transformUser, apiHasError } from 'utils';
 import { DispatchStateHandler } from './types';
 
@@ -18,7 +17,7 @@ type UpdatePasswordPayload = {
     newPassword: string,
 }
 
-export const editProfile: DispatchStateHandler<EditProfilePayload> = async (dispatch, state, data) => {
+export const editProfile: DispatchStateHandler<EditProfilePayload> = async (dispatch, _state, data) => {
     try {
         dispatch({ isLoading: true });
 
@@ -33,13 +32,12 @@ export const editProfile: DispatchStateHandler<EditProfilePayload> = async (disp
         dispatch({ isLoading: false, user: transformUser(response as UserDTO) });
 
         window.router.go('/settings');
-    }
-    catch (e) {
+    } catch (e) {
         console.log(e);
     }
-}
+};
 
-export const updatePassword: DispatchStateHandler<UpdatePasswordPayload> = async (dispatch, state, data) => {
+export const updatePassword: DispatchStateHandler<UpdatePasswordPayload> = async (dispatch, _state, data) => {
     try {
         dispatch({ isLoading: true });
 
@@ -55,13 +53,12 @@ export const updatePassword: DispatchStateHandler<UpdatePasswordPayload> = async
             dispatch({ changePasswordMessage: '' });
             window.router.go('/settings');
         }, 2000);
-    }
-    catch (e) {
+    } catch (e) {
         console.log(e);
     }
-}
+};
 
-export const changeAvatar: DispatchStateHandler<FormData> = async (dispatch, state, data) => {
+export const changeAvatar: DispatchStateHandler<FormData> = async (dispatch, _state, data) => {
     try {
         dispatch({ isLoading: true });
 
@@ -74,8 +71,7 @@ export const changeAvatar: DispatchStateHandler<FormData> = async (dispatch, sta
 
         dispatch({ isLoading: false, user: transformUser(response as UserDTO) });
         window.router.go('/settings');
-    }
-    catch (e) {
+    } catch (e) {
         console.log(e);
     }
-}
+};

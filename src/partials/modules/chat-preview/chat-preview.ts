@@ -1,11 +1,11 @@
 import { Block, CoreRouter, Store } from 'core';
-import template from 'bundle-text:./template.hbs';
-
 import './chat-preview.css';
 import { withRouter, withStore } from 'utils';
 import { closeSocket, getChatUsers, initRealTimeMessagesConnection } from 'services/messenger';
 
 import { baseURL } from 'api/variables';
+
+import template from './template.hbs';
 
 interface ChatPreviewProps {
     id: number,
@@ -23,12 +23,12 @@ class ChatPreview extends Block<ChatPreviewProps> {
     static componentName: string = 'ChatPreview';
 
     constructor(props: ChatPreviewProps) {
-        super({ 
-            ...props, 
-            imagePath: `${baseURL}/resources/${props.image}`, 
+        super({
+            ...props,
+            imagePath: `${baseURL}/resources/${props.image}`,
             events: {
-                click: (e: Event) => this.onChatTitleClick(e)
-            }
+                click: (e: Event) => this.onChatTitleClick(e),
+            },
         });
     }
 
@@ -37,7 +37,10 @@ class ChatPreview extends Block<ChatPreviewProps> {
 
         this.props.store.dispatch(closeSocket);
         this.props.store.dispatch(getChatUsers, this.props.id);
-        this.props.store.dispatch(initRealTimeMessagesConnection, { chatId: this.props.id, userId: window.store.getState().user?.id });
+        this.props.store.dispatch(
+            initRealTimeMessagesConnection,
+            { chatId: this.props.id, userId: window.store.getState().user?.id },
+        );
         this.props.router.go(`/messenger/${this.props.id}`);
     }
 

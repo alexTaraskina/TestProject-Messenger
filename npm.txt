@@ -1,0 +1,32 @@
+
+> test
+> mocha --require ts-node/register --require ./mochaSetup.js './src/**/*.test.ts'
+
+
+TSError: ⨯ Unable to compile TypeScript:
+src/partials/components/link/link.ts(5,22): error TS2307: Cannot find module './template.hbs' or its corresponding type declarations.
+
+    at createTSError (/home/alex/Desktop/Alex/Messenger/node_modules/ts-node/src/index.ts:859:12)
+    at reportTSError (/home/alex/Desktop/Alex/Messenger/node_modules/ts-node/src/index.ts:863:19)
+    at getOutput (/home/alex/Desktop/Alex/Messenger/node_modules/ts-node/src/index.ts:1077:36)
+    at Object.compile (/home/alex/Desktop/Alex/Messenger/node_modules/ts-node/src/index.ts:1433:41)
+    at Module.m._compile (/home/alex/Desktop/Alex/Messenger/node_modules/ts-node/src/index.ts:1617:30)
+    at Module._extensions..js (node:internal/modules/cjs/loader:1308:10)
+    at Object.require.extensions.<computed> [as .ts] (/home/alex/Desktop/Alex/Messenger/node_modules/ts-node/src/index.ts:1621:12)
+    at Module.load (node:internal/modules/cjs/loader:1117:32)
+    at Function.Module._load (node:internal/modules/cjs/loader:958:12)
+    at Module.require (node:internal/modules/cjs/loader:1141:19)
+    at require (node:internal/modules/cjs/helpers:110:18)
+    at Object.<anonymous> (/home/alex/Desktop/Alex/Messenger/src/partials/components/link/index.test.ts:4:1)
+    at Module._compile (node:internal/modules/cjs/loader:1254:14)
+    at Module.m._compile (/home/alex/Desktop/Alex/Messenger/node_modules/ts-node/src/index.ts:1618:23)
+    at Module._extensions..js (node:internal/modules/cjs/loader:1308:10)
+    at Object.require.extensions.<computed> [as .ts] (/home/alex/Desktop/Alex/Messenger/node_modules/ts-node/src/index.ts:1621:12)
+    at Module.load (node:internal/modules/cjs/loader:1117:32)
+    at Function.Module._load (node:internal/modules/cjs/loader:958:12)
+    at Module.require (node:internal/modules/cjs/loader:1141:19)
+    at require (node:internal/modules/cjs/helpers:110:18)
+    at Object.exports.requireOrImport (/home/alex/Desktop/Alex/Messenger/node_modules/mocha/lib/nodejs/esm-utils.js:53:16)
+    at async Object.exports.loadFilesAsync (/home/alex/Desktop/Alex/Messenger/node_modules/mocha/lib/nodejs/esm-utils.js:100:20)
+    at async singleRun (/home/alex/Desktop/Alex/Messenger/node_modules/mocha/lib/cli/run-helpers.js:125:3)
+    at async Object.exports.handler (/home/alex/Desktop/Alex/Messenger/node_modules/mocha/lib/cli/run.js:370:5)
