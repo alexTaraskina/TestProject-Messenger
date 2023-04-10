@@ -2,6 +2,7 @@
   "scripts": {
     "dev": "webpack serve",
     "build": "webpack",
+    "start": "npm run build && node server.js",
     "stylelint": "stylelint '**/*{.css,.scss}'",
     "stylelint:fix": "stylelint '**/*{.css,.scss}' --fix",
     "test": "mocha -r ts-node/register -r tsconfig-paths/register --r ./mochaSetup.js './src/**/*.test.ts'",
